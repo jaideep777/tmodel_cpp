@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['initializer',['Initializer',['../classio_1_1Initializer.html',1,'io']]]
+  ['ergodicenvironment_491',['ErgodicEnvironment',['../classpfate_1_1ErgodicEnvironment.html',1,'pfate']]]
 ];

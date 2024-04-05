@@ -1,3 +1,4 @@
 <map id="plant::Plant::partition_biomass" name="plant::Plant::partition_biomass">
-<area shape="rect" id="node2" href="$classplant_1_1PlantGeometry.html#a41f8eb0dcc4e8c585ed6b8222719dd5d" title="plant::PlantGeometry\l::dreproduction_dmass" alt="" coords="196,5,351,47"/>
+<area shape="rect" id="node1" title="Partition total biomass dm_dt_tot into various carbon pools." alt="" coords="5,5,164,47"/>
+<area shape="rect" id="node2" href="$classplant_1_1PlantArchitecture.html#a459c5123d878d20d25f86e64996d2c64" title="Derivatives required for biomass partitioning" alt="" coords="212,5,387,47"/>
 </map>

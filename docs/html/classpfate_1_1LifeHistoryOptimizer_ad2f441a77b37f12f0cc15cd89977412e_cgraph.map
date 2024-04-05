@@ -1,0 +1,5 @@
+<map id="pfate::LifeHistoryOptimizer::update_climate" name="pfate::LifeHistoryOptimizer::update_climate">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,204,47"/>
+<area shape="rect" id="node2" href="$classpfate_1_1env_1_1ClimateStream.html#a259d5b50ebd9d8e801ee6cd079f6fb75" title=" " alt="" coords="252,5,447,47"/>
+<area shape="rect" id="node3" href="$classpfate_1_1env_1_1Climate.html#a9584e9aa19e54c0df7492e9d1efe9b33" title="Update acclim forcing as exp&#45;weighted average of current and new value." alt="" coords="495,5,647,47"/>
+</map>

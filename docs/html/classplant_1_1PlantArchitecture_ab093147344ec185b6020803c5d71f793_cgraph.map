@@ -1,0 +1,5 @@
+<map id="plant::PlantArchitecture::sapwood_mass_real" name="plant::PlantArchitecture::sapwood_mass_real">
+<area shape="rect" id="node1" title="Get biomass in various carbon pools." alt="" coords="5,5,180,47"/>
+<area shape="rect" id="node2" href="$classplant_1_1PlantArchitecture.html#a0f95752c3574b4dfadb93e92582e5fa5" title="Get biomass in various carbon pools." alt="" coords="228,5,403,47"/>
+<area shape="rect" id="node3" href="$classplant_1_1PlantArchitecture.html#a1fea368ef9182afc3aedfb76bcc4b3ee" title="Get biomass in various carbon pools." alt="" coords="451,5,625,47"/>
+</map>

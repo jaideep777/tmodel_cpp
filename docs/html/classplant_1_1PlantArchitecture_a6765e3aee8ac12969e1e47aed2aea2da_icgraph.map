@@ -1,0 +1,14 @@
+<map id="plant::PlantArchitecture::set_lai" name="plant::PlantArchitecture::set_lai">
+<area shape="rect" id="node1" title="Set the crown LAI and properties that change with LAI." alt="" coords="1136,119,1311,160"/>
+<area shape="rect" id="node2" href="$classplant_1_1PlantArchitecture.html#afb649f77f93a938b777aef361638b08b" title=" " alt="" coords="913,5,1088,47"/>
+<area shape="rect" id="node3" href="$classpfate_1_1LifeHistoryOptimizer.html#a498360fd80194590570542dcecd524c7" title=" " alt="" coords="420,5,619,47"/>
+<area shape="rect" id="node6" href="$classplant_1_1Plant.html#a48612779a5850cca9cc6f6caff1ccb8b" title="LAI model." alt="" coords="917,126,1085,153"/>
+<area shape="rect" id="node11" href="$classpfate_1_1LifeHistoryOptimizer.html#a72fdc4d5a3ac119efcb676a1f4436156" title=" " alt="" coords="667,188,865,229"/>
+<area shape="rect" id="node12" href="$classplant_1_1PlantArchitecture.html#af08f391be0b7aa39683b0cc605683c2c" title="Set size and lai, the two state variables that define plant geometry." alt="" coords="913,228,1088,269"/>
+<area shape="rect" id="node4" href="$lho_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="245,71,300,98"/>
+<area shape="rect" id="node5" href="$r__interface_8cpp.html#a7897b94cdc1a829775ac5241571cd456" title=" " alt="" coords="5,137,125,163"/>
+<area shape="rect" id="node7" href="$group__libpspm__interface.html#ga6c9356733f84aca1d7bc6980bc97f157" title=" " alt="" coords="689,123,843,164"/>
+<area shape="rect" id="node8" href="$classpfate_1_1LifeHistoryOptimizer.html#ad68ae2c0d92d28dbe0cc5d5ef03a695b" title=" " alt="" coords="420,188,619,229"/>
+<area shape="rect" id="node10" href="$group__libpspm__interface.html#gac98af9ecd8e8391fd5afbcd276603e51" title=" " alt="" coords="445,123,593,164"/>
+<area shape="rect" id="node9" href="$classpfate_1_1LifeHistoryOptimizer.html#a34aebe9641428e3d0bcb1d59ec936e8f" title=" " alt="" coords="173,188,372,229"/>
+</map>

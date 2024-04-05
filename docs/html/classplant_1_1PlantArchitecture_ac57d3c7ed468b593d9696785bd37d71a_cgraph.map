@@ -1,0 +1,6 @@
+<map id="plant::PlantArchitecture::diameter_at_height" name="plant::PlantArchitecture::diameter_at_height">
+<area shape="rect" id="node1" title="Vertical profiles of crown and stem" alt="" coords="5,23,180,65"/>
+<area shape="rect" id="node2" href="$group__ppa__module.html#ga4c6834623dae9423d2981a0b28b0f155" title="Realized crown projection area at height z." alt="" coords="228,23,403,65"/>
+<area shape="rect" id="node3" href="$classplant_1_1PlantArchitecture.html#a81452fb0a56656f176f653d3bf9650d9" title="Vertical profiles of crown and stem" alt="" coords="457,5,647,32"/>
+<area shape="rect" id="node4" href="$classplant_1_1PlantArchitecture.html#a4d571b1b0165d995f3d2ca0fe21a4b28" title="The height at which crown radius is maximum." alt="" coords="451,56,653,83"/>
+</map>

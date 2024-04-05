@@ -1,0 +1,10 @@
+<map id="pfate::env::Climate::set_forcing_acclim" name="pfate::env::Climate::set_forcing_acclim">
+<area shape="rect" id="node1" title="Update acclim forcing as exp&#45;weighted average of current and new value." alt="" coords="1156,97,1308,139"/>
+<area shape="rect" id="node2" href="$classpfate_1_1env_1_1ClimateStream.html#a259d5b50ebd9d8e801ee6cd079f6fb75" title=" " alt="" coords="913,97,1108,139"/>
+<area shape="rect" id="node3" href="$classpfate_1_1LifeHistoryOptimizer.html#ad2f441a77b37f12f0cc15cd89977412e" title=" " alt="" coords="667,64,865,105"/>
+<area shape="rect" id="node8" href="$classpfate_1_1Patch.html#a4ef446560886e3bc56e08e196ee17827" title=" " alt="" coords="689,129,843,171"/>
+<area shape="rect" id="node4" href="$classpfate_1_1LifeHistoryOptimizer.html#ad68ae2c0d92d28dbe0cc5d5ef03a695b" title=" " alt="" coords="420,64,619,105"/>
+<area shape="rect" id="node5" href="$classpfate_1_1LifeHistoryOptimizer.html#a34aebe9641428e3d0bcb1d59ec936e8f" title=" " alt="" coords="173,5,372,47"/>
+<area shape="rect" id="node6" href="$r__interface_8cpp.html#a7897b94cdc1a829775ac5241571cd456" title=" " alt="" coords="5,42,125,69"/>
+<area shape="rect" id="node7" href="$lho_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="245,122,300,149"/>
+</map>

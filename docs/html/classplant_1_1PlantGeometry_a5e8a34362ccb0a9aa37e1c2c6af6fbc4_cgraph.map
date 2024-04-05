@@ -1,5 +1,0 @@
-<map id="plant::PlantGeometry::total_mass" name="plant::PlantGeometry::total_mass">
-<area shape="rect" id="node2" href="$classplant_1_1PlantGeometry.html#adb7202ef29b176b65c43c5b5d950484d" title="plant::PlantGeometry\l::stem_mass" alt="" coords="199,5,344,47"/>
-<area shape="rect" id="node3" href="$classplant_1_1PlantGeometry.html#a9bb344d187b1854c5a1364f6cd585d72" title="plant::PlantGeometry\l::leaf_mass" alt="" coords="199,71,344,112"/>
-<area shape="rect" id="node4" href="$classplant_1_1PlantGeometry.html#a721712ac253434c4709a4300f3e6396a" title="plant::PlantGeometry\l::root_mass" alt="" coords="199,136,344,177"/>
-</map>

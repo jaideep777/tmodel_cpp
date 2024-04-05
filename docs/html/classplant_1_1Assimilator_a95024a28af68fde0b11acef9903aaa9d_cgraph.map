@@ -1,6 +1,0 @@
-<map id="plant::Assimilator::calc_plant_assimilation_rate" name="plant::Assimilator::calc_plant_assimilation_rate">
-<area shape="rect" id="node2" href="$classplant_1_1PlantGeometry.html#a73eed0a3db55748b6d2615945ec1f08b" title="plant::PlantGeometry\l::crown_area_above" alt="" coords="253,23,399,65"/>
-<area shape="rect" id="node5" href="$classplant_1_1Assimilator.html#a25e0068c52700ba3d4b0d8e44398aa02" title="plant::Assimilator\l::leaf_assimilation_rate" alt="" coords="248,89,404,130"/>
-<area shape="rect" id="node3" href="$classplant_1_1PlantGeometry.html#aed573b6d75e2a0adc4ebdeacec3c34e7" title="plant::PlantGeometry::q" alt="" coords="457,5,617,32"/>
-<area shape="rect" id="node4" href="$classplant_1_1PlantGeometry.html#a538c106c834b386d8dfce3702f42a93d" title="plant::PlantGeometry::zm" alt="" coords="452,56,623,83"/>
-</map>

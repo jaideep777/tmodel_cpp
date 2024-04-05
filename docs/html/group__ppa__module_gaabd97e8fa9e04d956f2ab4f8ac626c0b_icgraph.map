@@ -1,0 +1,4 @@
+<map id="pfate::env::LightEnvironment::projected_crown_area_above_z" name="pfate::env::LightEnvironment::projected_crown_area_above_z">
+<area shape="rect" id="node1" title="Calculate the total crown area above height z, contributed by all individuals of the resident species..." alt="" coords="264,5,499,47"/>
+<area shape="rect" id="node2" href="$group__ppa__module.html#ga82821a3a6e04cf1a798b0dbfe39ec685" title="Solver interface for updating the environment from the given state." alt="" coords="5,5,216,47"/>
+</map>

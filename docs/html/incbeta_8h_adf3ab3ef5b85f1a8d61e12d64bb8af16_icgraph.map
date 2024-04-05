@@ -1,5 +1,4 @@
 <map id="incbeta" name="incbeta">
-<area shape="rect" id="node2" href="$classplant_1_1PlantGeometry.html#a7cfa7c88359eaeca1e9f9d7f0d137414" title="plant::PlantGeometry\l::init" alt="" coords="117,5,263,47"/>
-<area shape="rect" id="node3" href="$classplant_1_1Plant.html#aef656755f62f6ba9ea17a9b304eca104" title="plant::Plant::coordinate\lTraits" alt="" coords="311,5,467,47"/>
-<area shape="rect" id="node4" href="$classplant_1_1Plant.html#ad0ad8df9b05a798faaee3f1b3aec2230" title="plant::Plant::initParams\lFromFile" alt="" coords="515,5,673,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="228,13,299,39"/>
+<area shape="rect" id="node2" href="$classplant_1_1PlantArchitecture.html#a39e7c6f06408067902f93e661d7c853c" title="Initialize geometry from traits, precompute any necessary variables." alt="" coords="5,5,180,47"/>
 </map>

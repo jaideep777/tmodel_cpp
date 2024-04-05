@@ -1,10 +1,9 @@
-pandoc: 2.17.1.1
-pkgdown: 2.0.2
+pandoc: 2.19.2
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
-  crown_geometry: crown_geometry.html
-  theory_allometry: theory_allometry.html
-last_built: 2022-02-27T14:06Z
+  lho_demo: lho_demo.html
+last_built: 2024-04-05T20:51Z
 urls:
   reference: https://jaideep777.github.io/Plant-FATE/reference
   article: https://jaideep777.github.io/Plant-FATE/articles

@@ -1,5 +1,0 @@
-<map id="plant::Plant::size_growth_rate" name="plant::Plant::size_growth_rate">
-<area shape="rect" id="node2" href="$classplant_1_1Plant.html#ab39fa79cb8884c684af5db0c98a1785e" title="plant::Plant::calc\l_demographic_rates" alt="" coords="173,35,312,76"/>
-<area shape="rect" id="node3" href="$classplant_1_1Plant.html#a274f7da212d5f05d4b281e49e11fc44e" title="plant::Plant::grow\l_for_dt" alt="" coords="386,5,510,47"/>
-<area shape="rect" id="node4" href="$classPSPM__Plant.html#a71f7312443767dffc44d8d0d80b295f0" title="PSPM_Plant::preCompute" alt="" coords="360,71,536,98"/>
-</map>

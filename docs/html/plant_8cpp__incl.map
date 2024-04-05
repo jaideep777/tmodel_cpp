@@ -1,11 +1,26 @@
 <map id="src/plant.cpp" name="src/plant.cpp">
-<area shape="rect" id="node2" href="$plant_8h.html" title="plant.h" alt="" coords="410,80,471,107"/>
-<area shape="rect" id="node3" href="$plant__params_8h.html" title="plant_params.h" alt="" coords="193,304,304,331"/>
-<area shape="rect" id="node13" href="$plant__geometry_8h.html" title="plant_geometry.h" alt="" coords="187,229,310,256"/>
-<area shape="rect" id="node14" href="$assimilation_8h.html" title="assimilation.h" alt="" coords="332,155,435,181"/>
-<area shape="rect" id="node17" href="$rk4_8h.html" title="utils/rk4.h" alt="" coords="459,155,537,181"/>
-<area shape="rect" id="node18" href="$moving__average_8h.html" title="utils/moving_average.h" alt="" coords="541,304,697,331"/>
-<area shape="rect" id="node21" href="$plant_8tpp.html" title="../src/plant.tpp" alt="" coords="702,155,809,181"/>
-<area shape="rect" id="node4" href="$initializer_8h.html" title="utils/initializer.h" alt="" coords="193,379,305,405"/>
-<area shape="rect" id="node16" href="$assimilation_8tpp.html" title="../src/assimilation.tpp" alt="" coords="481,229,627,256"/>
+<area shape="rect" id="node1" title=" " alt="" coords="439,5,544,32"/>
+<area shape="rect" id="node2" href="$plant_8h.html" title=" " alt="" coords="458,80,525,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,453,79,480"/>
+<area shape="rect" id="node4" href="$traits__params_8h.html" title=" " alt="" coords="407,304,531,331"/>
+<area shape="rect" id="node5" href="$initializer__v2_8h.html" title=" " alt="" coords="257,379,408,405"/>
+<area shape="rect" id="node16" href="$plant__architecture_8h.html" title=" " alt="" coords="350,229,502,256"/>
+<area shape="rect" id="node17" href="$assimilation_8h.html" title=" " alt="" coords="482,155,597,181"/>
+<area shape="rect" id="node20" href="$rk4_8h.html" title=" " alt="" coords="933,155,1020,181"/>
+<area shape="rect" id="node21" href="$moving__average_8h.html" title=" " alt="" coords="793,304,968,331"/>
+<area shape="rect" id="node24" href="$plant_8tpp.html" title=" " alt="" coords="682,304,762,331"/>
+<area shape="rect" id="node8" title=" " alt="" coords="543,453,602,480"/>
+<area shape="rect" id="node13" title=" " alt="" coords="484,379,565,405"/>
+<area shape="rect" id="node14" title=" " alt="" coords="684,379,747,405"/>
+<area shape="rect" id="node15" title=" " alt="" coords="590,379,659,405"/>
+<area shape="rect" id="node6" title=" " alt="" coords="722,453,802,480"/>
+<area shape="rect" id="node7" title=" " alt="" coords="362,453,421,480"/>
+<area shape="rect" id="node9" title=" " alt="" coords="875,453,937,480"/>
+<area shape="rect" id="node10" title=" " alt="" coords="445,453,519,480"/>
+<area shape="rect" id="node11" title=" " alt="" coords="103,453,189,480"/>
+<area shape="rect" id="node12" title=" " alt="" coords="213,453,337,480"/>
+<area shape="rect" id="node18" title=" " alt="" coords="577,229,656,256"/>
+<area shape="rect" id="node19" href="$assimilation_8tpp.html" title=" " alt="" coords="680,229,807,256"/>
+<area shape="rect" id="node22" title=" " alt="" coords="771,379,814,405"/>
+<area shape="rect" id="node23" title=" " alt="" coords="838,379,923,405"/>
 </map>

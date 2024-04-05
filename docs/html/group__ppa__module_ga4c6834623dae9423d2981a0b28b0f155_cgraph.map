@@ -1,0 +1,5 @@
+<map id="plant::PlantArchitecture::crown_area_above" name="plant::PlantArchitecture::crown_area_above">
+<area shape="rect" id="node1" title="Realized crown projection area at height z." alt="" coords="5,23,180,65"/>
+<area shape="rect" id="node2" href="$classplant_1_1PlantArchitecture.html#a81452fb0a56656f176f653d3bf9650d9" title="Vertical profiles of crown and stem" alt="" coords="234,5,425,32"/>
+<area shape="rect" id="node3" href="$classplant_1_1PlantArchitecture.html#a4d571b1b0165d995f3d2ca0fe21a4b28" title="The height at which crown radius is maximum." alt="" coords="228,56,431,83"/>
+</map>

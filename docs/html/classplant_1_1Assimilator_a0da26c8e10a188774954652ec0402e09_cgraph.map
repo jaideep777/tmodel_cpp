@@ -1,0 +1,4 @@
+<map id="plant::Assimilator::leaf_turnover_rate" name="plant::Assimilator::leaf_turnover_rate">
+<area shape="rect" id="node1" title="Calculate leaf and fine&#45;root turnover rates." alt="" coords="5,5,156,47"/>
+<area shape="rect" id="node2" href="$classplant_1_1PlantArchitecture.html#a36ebf17a1799f27ce12bd27f637f88a9" title="Get biomass in various carbon pools." alt="" coords="204,5,379,47"/>
+</map>

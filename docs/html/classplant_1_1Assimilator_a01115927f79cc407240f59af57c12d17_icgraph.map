@@ -1,0 +1,16 @@
+<map id="plant::Assimilator::leaf_assimilation_rate" name="plant::Assimilator::leaf_assimilation_rate">
+<area shape="rect" id="node1" title="Calculate leaf&#45;level assimilation rate using the Phydro model ///." alt="" coords="1551,125,1725,167"/>
+<area shape="rect" id="node2" href="$classplant_1_1Assimilator.html#ac0e69ab9225a2d1be337b10446cfa126" title="Calculate whole&#45;plant gross assimilation, transpiration, gs, etc." alt="" coords="1287,125,1503,167"/>
+<area shape="rect" id="node3" href="$classplant_1_1Assimilator.html#ade28356f5c19a8033b3781308f21202a" title="Calculate whole&#45;plant net assimilation." alt="" coords="1101,125,1239,167"/>
+<area shape="rect" id="node4" href="$group__libpspm__interface.html#ga6c9356733f84aca1d7bc6980bc97f157" title=" " alt="" coords="675,75,829,116"/>
+<area shape="rect" id="node10" href="$classplant_1_1Plant.html#a48612779a5850cca9cc6f6caff1ccb8b" title="LAI model." alt="" coords="885,82,1053,109"/>
+<area shape="rect" id="node11" href="$classplant_1_1Plant.html#a03c45eaaabce7ff0287598818dc4847f" title="Probability of survival during germination (i.e. until recruitment stage)" alt="" coords="667,188,837,229"/>
+<area shape="rect" id="node5" href="$classpfate_1_1LifeHistoryOptimizer.html#ad68ae2c0d92d28dbe0cc5d5ef03a695b" title=" " alt="" coords="420,5,619,47"/>
+<area shape="rect" id="node8" href="$lho_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="245,137,300,163"/>
+<area shape="rect" id="node9" href="$group__libpspm__interface.html#gac98af9ecd8e8391fd5afbcd276603e51" title=" " alt="" coords="445,71,593,112"/>
+<area shape="rect" id="node6" href="$classpfate_1_1LifeHistoryOptimizer.html#a34aebe9641428e3d0bcb1d59ec936e8f" title=" " alt="" coords="173,5,372,47"/>
+<area shape="rect" id="node7" href="$r__interface_8cpp.html#a7897b94cdc1a829775ac5241571cd456" title=" " alt="" coords="5,71,125,98"/>
+<area shape="rect" id="node12" href="$group__libpspm__interface.html#ga98991525cfbe254180dda76a24df6246" title=" " alt="" coords="427,253,612,295"/>
+<area shape="rect" id="node14" href="$classpfate_1_1LifeHistoryOptimizer.html#a498360fd80194590570542dcecd524c7" title=" " alt="" coords="420,188,619,229"/>
+<area shape="rect" id="node13" href="$classpfate_1_1PSPM__Plant.html#a2422f6eebeee0e4d590e155b1563fd3f" title=" " alt="" coords="199,253,347,295"/>
+</map>

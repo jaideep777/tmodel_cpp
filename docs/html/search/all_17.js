@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['z_5fstar',['z_star',['../classenv_1_1LightEnvironment.html#a3b26d61fc96e3eaaf43b97a61ba8943c',1,'env::LightEnvironment']]],
-  ['zeta',['zeta',['../classplant_1_1PlantTraits.html#a032a813ee0e191926581917670fc0f4f',1,'plant::PlantTraits']]],
-  ['zm',['zm',['../classplant_1_1PlantGeometry.html#a538c106c834b386d8dfce3702f42a93d',1,'plant::PlantGeometry']]],
-  ['zm_5fh',['zm_H',['../classplant_1_1PlantGeometry.html#ae62c5e70b2cf4c63987914bc54e03040',1,'plant::PlantGeometry']]]
+  ['y_474',['y',['../classplant_1_1PlantParameters.html#ae328f046e5aca272a07e4db37763b900',1,'plant::PlantParameters']]],
+  ['y0_475',['y0',['../classpfate_1_1PlantFateConfig.html#ac75e323e6e233456b09bb02d1012b04e',1,'pfate::PlantFateConfig']]],
+  ['ye_476',['ye',['../classpfate_1_1PlantFateConfig.html#a5852215889d3dad7d991bf0fc38ec2cf',1,'pfate::PlantFateConfig']]],
+  ['years_5fper_5ftunit_5favg_477',['years_per_tunit_avg',['../classplant_1_1PlantParameters.html#a9c1a9ed6dd5771f0c357f47280cb02dd',1,'plant::PlantParameters']]],
+  ['yf_478',['yf',['../classpfate_1_1PlantFateConfig.html#a3f90f885ff0084b1a809159266326bd8',1,'pfate::PlantFateConfig']]]
 ];

@@ -1,8 +1,25 @@
 var searchData=
 [
-  ['b_5fleaf',['b_leaf',['../classplant_1_1PlantTraits.html#a8f041d81be133e5608c82df32c748b60',1,'plant::PlantTraits']]],
-  ['b_5fxylem',['b_xylem',['../classplant_1_1PlantTraits.html#a766eafdb97220b5d07f3742f3b347fec',1,'plant::PlantTraits']]],
-  ['beta',['beta',['../incbeta_8h.html#a9eb0ac72975c73100e4f9ca13bbd4366',1,'incbeta.h']]],
-  ['birthrate',['birthRate',['../classPSPM__Plant.html#a4350a2506ff5a6660f73e3d01c79ee33',1,'PSPM_Plant']]],
-  ['bp',['bp',['../classplant_1_1Plant.html#a7b77f94ae4b656aa2b6bd5341cbe0dea',1,'plant::Plant']]]
+  ['a_2',['a',['../classplant_1_1PlantArchitecture.html#ae7cdfd7a1b2fce0790a324ca1954414c',1,'plant::PlantArchitecture::a()'],['../classplant_1_1PlantTraits.html#a84e188592fdae67511b95dd26572c85f',1,'plant::PlantTraits::a()']]],
+  ['a_5ff1_3',['a_f1',['../classplant_1_1PlantParameters.html#a7d3b7d373fdf32be5006d8d20fdd22b2',1,'plant::PlantParameters']]],
+  ['a_5ff2_4',['a_f2',['../classplant_1_1PlantParameters.html#acc9b6c91e310f6195aaf1773e506aaaf',1,'plant::PlantParameters']]],
+  ['a_5fmet_5fstream_5',['a_met_stream',['../classpfate_1_1env_1_1ClimateStream.html#a822837f93f0ca102be47b88c3a8b067c',1,'pfate::env::ClimateStream']]],
+  ['a_5fmetfile_6',['a_metFile',['../classpfate_1_1env_1_1ClimateStream.html#afeb41c6b8bdc66fe10bdb2ea02aa0ab4',1,'pfate::env::ClimateStream']]],
+  ['acc_5ftraits_7',['acc_traits',['../classpfate_1_1CommunityProperties.html#ae61c765f067c1723a1cd76a665960bd7',1,'pfate::CommunityProperties']]],
+  ['adaptive_5fspecies_2eh_8',['adaptive_species.h',['../adaptive__species_8h.html',1,'']]],
+  ['adaptive_5fspecies_2etpp_9',['adaptive_species.tpp',['../adaptive__species_8tpp.html',1,'']]],
+  ['adaptivespecies_10',['AdaptiveSpecies',['../classpfate_1_1AdaptiveSpecies.html#aacf2c1415059a3097e70adbd874605cf',1,'pfate::AdaptiveSpecies::AdaptiveSpecies()'],['../classpfate_1_1AdaptiveSpecies.html',1,'pfate::AdaptiveSpecies&lt; Model &gt;']]],
+  ['addrandomspecies_11',['addRandomSpecies',['../classpfate_1_1Patch.html#a67db3c7628f58088f2d0e7bec6ccb6b9',1,'pfate::Patch']]],
+  ['addspeciesandprobes_12',['addSpeciesAndProbes',['../classpfate_1_1Patch.html#ac014924ea9c6590fa2031788057cf271',1,'pfate::Patch']]],
+  ['afterstep_13',['afterStep',['../classpfate_1_1PSPM__Plant.html#a2e23700d6151ef0a0697501cdb460109',1,'pfate::PSPM_Plant']]],
+  ['alpha_14',['alpha',['../classplant_1_1PlantParameters.html#a8059574b35185bca5c4c4127b0c492fa',1,'plant::PlantParameters']]],
+  ['apply_5fall_15',['apply_all',['../classpfate_1_1env_1_1Clim.html#a3c3626b58c809495bea93bd7716ebe42',1,'pfate::env::Clim::apply_all(const Clim &amp;rhs, Functor f)'],['../classpfate_1_1env_1_1Clim.html#ab2d41d39b34f57d380091e7e346c0c3a',1,'pfate::env::Clim::apply_all(double rhs, Functor f)']]],
+  ['area_5fsum_16',['area_sum',['../classMovingAverager.html#a9dc4cd97746c6a11ea45890d17797dff',1,'MovingAverager']]],
+  ['areas_17',['areas',['../classMovingAverager.html#ac4230ed595d75e6a03755b7316b8e08a',1,'MovingAverager']]],
+  ['as_18',['as',['../classpfate_1_1env_1_1ClimateStream.html#a64459bb86cfa8e11756ac2b1e0f41889',1,'pfate::env::ClimateStream']]],
+  ['assimilation_2ecpp_19',['assimilation.cpp',['../assimilation_8cpp.html',1,'']]],
+  ['assimilation_2eh_20',['assimilation.h',['../assimilation_8h.html',1,'']]],
+  ['assimilation_2etpp_21',['assimilation.tpp',['../assimilation_8tpp.html',1,'']]],
+  ['assimilator_22',['assimilator',['../classplant_1_1Plant.html#abe56e8334c2ac892f843783e7d368c97',1,'plant::Plant']]],
+  ['assimilator_23',['Assimilator',['../classplant_1_1Assimilator.html',1,'plant']]]
 ];

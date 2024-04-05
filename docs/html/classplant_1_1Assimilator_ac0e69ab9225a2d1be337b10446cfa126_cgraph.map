@@ -1,0 +1,7 @@
+<map id="plant::Assimilator::calc_plant_assimilation_rate" name="plant::Assimilator::calc_plant_assimilation_rate">
+<area shape="rect" id="node1" title="Calculate whole&#45;plant gross assimilation, transpiration, gs, etc." alt="" coords="5,57,221,98"/>
+<area shape="rect" id="node2" href="$group__ppa__module.html#ga4c6834623dae9423d2981a0b28b0f155" title="Realized crown projection area at height z." alt="" coords="269,23,444,65"/>
+<area shape="rect" id="node5" href="$classplant_1_1Assimilator.html#a01115927f79cc407240f59af57c12d17" title="Calculate leaf&#45;level assimilation rate using the Phydro model ///." alt="" coords="269,89,444,130"/>
+<area shape="rect" id="node3" href="$classplant_1_1PlantArchitecture.html#a81452fb0a56656f176f653d3bf9650d9" title="Vertical profiles of crown and stem" alt="" coords="498,5,689,32"/>
+<area shape="rect" id="node4" href="$classplant_1_1PlantArchitecture.html#a4d571b1b0165d995f3d2ca0fe21a4b28" title="The height at which crown radius is maximum." alt="" coords="492,56,695,83"/>
+</map>

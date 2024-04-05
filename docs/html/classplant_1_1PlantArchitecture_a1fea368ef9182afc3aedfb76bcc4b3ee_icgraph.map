@@ -1,0 +1,25 @@
+<map id="plant::PlantArchitecture::stem_mass" name="plant::PlantArchitecture::stem_mass">
+<area shape="rect" id="node1" title="Get biomass in various carbon pools." alt="" coords="1795,188,1969,230"/>
+<area shape="rect" id="node2" href="$classplant_1_1PlantArchitecture.html#aaf65bbe9f64372d21b76509f0463f944" title="Get biomass in various carbon pools." alt="" coords="1572,100,1747,142"/>
+<area shape="rect" id="node3" href="$classpfate_1_1LifeHistoryOptimizer.html#a05951c4085bd4f5a06fbbb66b8c3092d" title=" " alt="" coords="1321,107,1520,148"/>
+<area shape="rect" id="node7" href="$classpfate_1_1CommunityProperties.html#a81a6aaa8387766442c2e9da98b2566f5" title=" " alt="" coords="1317,42,1524,83"/>
+<area shape="rect" id="node8" href="$classplant_1_1PlantArchitecture.html#ac0198b7834cf8d1576e2890d3e983ba0" title="Get biomass in various carbon pools." alt="" coords="1572,283,1747,324"/>
+<area shape="rect" id="node9" href="$classplant_1_1PlantArchitecture.html#a0f95752c3574b4dfadb93e92582e5fa5" title="Get biomass in various carbon pools." alt="" coords="1572,218,1747,259"/>
+<area shape="rect" id="node23" href="$classplant_1_1PlantArchitecture.html#a93ab8f81042a6f39a158aea24ed17ed2" title="Get biomass in various carbon pools." alt="" coords="1572,348,1747,390"/>
+<area shape="rect" id="node4" href="$classpfate_1_1LifeHistoryOptimizer.html#a54629ecd5847e8354ce3d3293d964a69" title=" " alt="" coords="885,107,1084,148"/>
+<area shape="rect" id="node6" href="$r__interface_8cpp.html#a7897b94cdc1a829775ac5241571cd456" title=" " alt="" coords="5,85,125,112"/>
+<area shape="rect" id="node5" href="$lho_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="245,165,300,192"/>
+<area shape="rect" id="node10" href="$classplant_1_1PlantArchitecture.html#afb649f77f93a938b777aef361638b08b" title=" " alt="" coords="1333,259,1508,300"/>
+<area shape="rect" id="node11" href="$classplant_1_1PlantArchitecture.html#ab093147344ec185b6020803c5d71f793" title="Get biomass in various carbon pools." alt="" coords="1333,324,1508,366"/>
+<area shape="rect" id="node12" href="$classplant_1_1Assimilator.html#ad1f356c7c009ad495c9e9a3994c92fd3" title="Calculate leaf and fine&#45;root respiration rates." alt="" coords="1321,194,1520,235"/>
+<area shape="rect" id="node13" href="$classplant_1_1Assimilator.html#ade28356f5c19a8033b3781308f21202a" title="Calculate whole&#45;plant net assimilation." alt="" coords="1132,204,1269,246"/>
+<area shape="rect" id="node14" href="$group__libpspm__interface.html#ga6c9356733f84aca1d7bc6980bc97f157" title=" " alt="" coords="675,166,829,207"/>
+<area shape="rect" id="node18" href="$classplant_1_1Plant.html#a48612779a5850cca9cc6f6caff1ccb8b" title="LAI model." alt="" coords="901,173,1069,200"/>
+<area shape="rect" id="node19" href="$classplant_1_1Plant.html#a03c45eaaabce7ff0287598818dc4847f" title="Probability of survival during germination (i.e. until recruitment stage)" alt="" coords="667,282,837,323"/>
+<area shape="rect" id="node15" href="$classpfate_1_1LifeHistoryOptimizer.html#ad68ae2c0d92d28dbe0cc5d5ef03a695b" title=" " alt="" coords="420,48,619,90"/>
+<area shape="rect" id="node17" href="$group__libpspm__interface.html#gac98af9ecd8e8391fd5afbcd276603e51" title=" " alt="" coords="445,216,593,258"/>
+<area shape="rect" id="node16" href="$classpfate_1_1LifeHistoryOptimizer.html#a34aebe9641428e3d0bcb1d59ec936e8f" title=" " alt="" coords="173,48,372,90"/>
+<area shape="rect" id="node20" href="$group__libpspm__interface.html#ga98991525cfbe254180dda76a24df6246" title=" " alt="" coords="427,347,612,388"/>
+<area shape="rect" id="node22" href="$classpfate_1_1LifeHistoryOptimizer.html#a498360fd80194590570542dcecd524c7" title=" " alt="" coords="420,282,619,323"/>
+<area shape="rect" id="node21" href="$classpfate_1_1PSPM__Plant.html#a2422f6eebeee0e4d590e155b1563fd3f" title=" " alt="" coords="199,347,347,388"/>
+</map>

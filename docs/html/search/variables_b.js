@@ -1,12 +1,19 @@
 var searchData=
 [
-  ['m',['m',['../classplant_1_1PlantGeometry.html#a6fcb3324c6e38c7e19a4deab4501592e',1,'plant::PlantGeometry::m()'],['../classplant_1_1PlantParameters.html#a2d9d143b2ba0ab7fa1ddaa69a347f2e7',1,'plant::PlantParameters::m()']]],
-  ['max_5falloc_5flai',['max_alloc_lai',['../classplant_1_1PlantParameters.html#a0d0da052db340daf29f6dad3b5398952',1,'plant::PlantParameters']]],
-  ['md',['mD',['../classplant_1_1PlantParameters.html#a957a58584977ee6055a8a17f28656fed',1,'plant::PlantParameters']]],
-  ['md_5fe',['mD_e',['../classplant_1_1PlantParameters.html#a23f649b42f9120b36c32219845cf9502',1,'plant::PlantParameters']]],
-  ['metfile',['metFile',['../classenv_1_1Climate.html#a475cb84a6143cba48352d479c59f0a26',1,'env::Climate']]],
-  ['mi',['mI',['../classplant_1_1PlantParameters.html#ac0e974eaced7f11fbf393356c13069c3',1,'plant::PlantParameters']]],
-  ['mortality',['mortality',['../classplant_1_1Plant.html#a2783bf5000e4ae423d70cbe8b78bf68a',1,'plant::Plant']]],
-  ['ms',['mS',['../classplant_1_1PlantParameters.html#aa300db45a7112b36aa1e82a74313c5b5',1,'plant::PlantParameters']]],
-  ['ms0',['mS0',['../classplant_1_1PlantParameters.html#a99cb9cea94e03df207a1909e4b7eca01',1,'plant::PlantParameters']]]
+  ['m_844',['m',['../classplant_1_1PlantTraits.html#a09aee2a3c6c1b80339675226b6ccc5bb',1,'plant::PlantTraits::m()'],['../classplant_1_1PlantArchitecture.html#a550894b33985193983d0cbff1db0d09f',1,'plant::PlantArchitecture::m()']]],
+  ['m_5falpha_845',['m_alpha',['../classplant_1_1PlantParameters.html#ac10649ecb39006c727660b7e870e8e05',1,'plant::PlantParameters']]],
+  ['m_5fbeta_846',['m_beta',['../classplant_1_1PlantParameters.html#add7fd16bd04720428d5c324544b2f11a',1,'plant::PlantParameters']]],
+  ['m_5fgamma_847',['m_gamma',['../classplant_1_1PlantParameters.html#a16b3e5387880ae5c18829889e35bc5c0',1,'plant::PlantParameters']]],
+  ['m_5fhydraulic_848',['m_hydraulic',['../classplant_1_1PlantParameters.html#af7c81ba404981a9740ce099ae2ef603b',1,'plant::PlantParameters']]],
+  ['max_5falloc_5flai_849',['max_alloc_lai',['../classplant_1_1PlantParameters.html#a0d0da052db340daf29f6dad3b5398952',1,'plant::PlantParameters']]],
+  ['mc_5favg_850',['mc_avg',['../structplant_1_1PlantAssimilationResult.html#a49385af24a3fa5db4844ea33955e1673',1,'plant::PlantAssimilationResult']]],
+  ['members_851',['members',['../classplant_1_1PlantTraits.html#a38a37b1e698d1a48783c3ec494c322bc',1,'plant::PlantTraits']]],
+  ['misc_852',['misc',['../classpfate_1_1CommunityProperties.html#ad84dc341b1ed38439bd5cf29be0c6418',1,'pfate::CommunityProperties']]],
+  ['mort_853',['mort',['../classpfate_1_1CommunityProperties.html#a0b922d6a2061e07e16415f5eeeed2cd1',1,'pfate::CommunityProperties::mort()'],['../classplant_1_1Plant.html#afa67edfee89b8d39177a58cb25a99631',1,'plant::Plant::mort()']]],
+  ['mortality_854',['mortality',['../classplant_1_1Plant.html#a2783bf5000e4ae423d70cbe8b78bf68a',1,'plant::Plant']]],
+  ['mortality_5fvec_855',['mortality_vec',['../classpfate_1_1CommunityProperties.html#a8d1bf53e7b556577236742ea994df5cd',1,'pfate::CommunityProperties']]],
+  ['mu_5f0_856',['mu_0',['../classplant_1_1Plant.html#a22090f2098cdc7215802f527b9463274',1,'plant::Plant']]],
+  ['mu_5fd_857',['mu_d',['../classplant_1_1Plant.html#a3be2d239697dd196114e278689b59aa0',1,'plant::Plant']]],
+  ['mu_5fgrowth_858',['mu_growth',['../classplant_1_1Plant.html#a5a4aabd0219e4b838e748a5113c234b2',1,'plant::Plant']]],
+  ['mu_5fhyd_859',['mu_hyd',['../classplant_1_1Plant.html#adc16113d6dbf321c2ea4f5fc85de6b8f',1,'plant::Plant']]]
 ];

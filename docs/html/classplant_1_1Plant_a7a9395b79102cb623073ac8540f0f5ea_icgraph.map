@@ -1,5 +1,8 @@
 <map id="plant::Plant::p_survival_dispersal" name="plant::Plant::p_survival_dispersal">
-<area shape="rect" id="node2" href="$classplant_1_1Plant.html#ab39fa79cb8884c684af5db0c98a1785e" title="plant::Plant::calc\l_demographic_rates" alt="" coords="208,35,347,76"/>
-<area shape="rect" id="node3" href="$classplant_1_1Plant.html#a274f7da212d5f05d4b281e49e11fc44e" title="plant::Plant::grow\l_for_dt" alt="" coords="421,5,545,47"/>
-<area shape="rect" id="node4" href="$classPSPM__Plant.html#a71f7312443767dffc44d8d0d80b295f0" title="PSPM_Plant::preCompute" alt="" coords="395,71,571,98"/>
+<area shape="rect" id="node1" title="Probability of survival during dispersal." alt="" coords="448,39,619,80"/>
+<area shape="rect" id="node2" href="$group__libpspm__interface.html#ga98991525cfbe254180dda76a24df6246" title=" " alt="" coords="208,5,393,47"/>
+<area shape="rect" id="node4" href="$classpfate_1_1LifeHistoryOptimizer.html#a498360fd80194590570542dcecd524c7" title=" " alt="" coords="201,71,400,112"/>
+<area shape="rect" id="node3" href="$classpfate_1_1PSPM__Plant.html#a2422f6eebeee0e4d590e155b1563fd3f" title=" " alt="" coords="5,5,153,47"/>
+<area shape="rect" id="node5" href="$lho_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4" title=" " alt="" coords="52,74,107,101"/>
+<area shape="rect" id="node6" href="$r__interface_8cpp.html#a7897b94cdc1a829775ac5241571cd456" title=" " alt="" coords="19,125,139,151"/>
 </map>

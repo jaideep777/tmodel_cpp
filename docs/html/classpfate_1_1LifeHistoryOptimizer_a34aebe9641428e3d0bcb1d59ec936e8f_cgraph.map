@@ -1,0 +1,38 @@
+<map id="pfate::LifeHistoryOptimizer::calcFitness" name="pfate::LifeHistoryOptimizer::calcFitness">
+<area shape="rect" id="node1" title=" " alt="" coords="5,620,204,661"/>
+<area shape="rect" id="node2" href="$classpfate_1_1LifeHistoryOptimizer.html#ad68ae2c0d92d28dbe0cc5d5ef03a695b" title=" " alt="" coords="252,620,451,661"/>
+<area shape="rect" id="node3" href="$group__libpspm__interface.html#ga6c9356733f84aca1d7bc6980bc97f157" title=" " alt="" coords="521,335,675,376"/>
+<area shape="rect" id="node4" href="$group__libpspm__interface.html#ga35a2b0d4d10c6dd2125bae36fb2f20a9" title=" " alt="" coords="745,190,944,217"/>
+<area shape="rect" id="node29" href="$classplant_1_1PlantArchitecture.html#a4ee1ef386497f18eb1f7d2ef2db3cff3" title=" " alt="" coords="992,599,1167,640"/>
+<area shape="rect" id="node30" href="$classpfate_1_1LifeHistoryOptimizer.html#a641e49a2bc1086fe64d1e0fe2fa47311" title=" " alt="" coords="499,679,697,720"/>
+<area shape="rect" id="node31" href="$rk4_8h.html#a3d0ee2e6387dc2895fd9a41509912863" title=" " alt="" coords="574,745,622,771"/>
+<area shape="rect" id="node32" href="$classpfate_1_1LifeHistoryOptimizer.html#a72fdc4d5a3ac119efcb676a1f4436156" title=" " alt="" coords="499,561,697,603"/>
+<area shape="rect" id="node34" href="$classpfate_1_1LifeHistoryOptimizer.html#ad2f441a77b37f12f0cc15cd89977412e" title=" " alt="" coords="499,796,697,837"/>
+<area shape="rect" id="node5" href="$classplant_1_1Plant.html#a48612779a5850cca9cc6f6caff1ccb8b" title="LAI model." alt="" coords="761,291,929,318"/>
+<area shape="rect" id="node7" href="$classplant_1_1Assimilator.html#ade28356f5c19a8033b3781308f21202a" title="Calculate whole&#45;plant net assimilation." alt="" coords="1011,233,1148,275"/>
+<area shape="rect" id="node24" href="$group__libpspm__interface.html#ga8b3531e4d6f3471834a94a828b54f8cd" title=" " alt="" coords="746,342,943,369"/>
+<area shape="rect" id="node25" href="$classplant_1_1Plant.html#af19cb4918c06a6660da62386a2d2ea36" title="Partition total biomass dm_dt_tot into various carbon pools." alt="" coords="765,393,924,435"/>
+<area shape="rect" id="node27" href="$group__libpspm__interface.html#gae3454b0d55be59a37e19915d47431da6" title=" " alt="" coords="779,511,910,552"/>
+<area shape="rect" id="node6" href="$classplant_1_1PlantArchitecture.html#a7e5250a6704a5e8d80e4200259c1acf9" title="Rate of change of leaf mass due to change in LAI." alt="" coords="992,299,1167,340"/>
+<area shape="rect" id="node23" href="$classplant_1_1PlantArchitecture.html#a6765e3aee8ac12969e1e47aed2aea2da" title="Set the crown LAI and properties that change with LAI." alt="" coords="992,449,1167,491"/>
+<area shape="rect" id="node8" href="$classplant_1_1Assimilator.html#ac0e69ab9225a2d1be337b10446cfa126" title="Calculate whole&#45;plant gross assimilation, transpiration, gs, etc." alt="" coords="1215,37,1431,79"/>
+<area shape="rect" id="node13" href="$classplant_1_1Assimilator.html#ad33549c793850f11330fd48829367c55" title="Calculate leaf and fine&#45;root respiration rates." alt="" coords="1240,103,1405,144"/>
+<area shape="rect" id="node14" href="$classplant_1_1Assimilator.html#a0da26c8e10a188774954652ec0402e09" title="Calculate leaf and fine&#45;root turnover rates." alt="" coords="1247,168,1398,209"/>
+<area shape="rect" id="node16" href="$classplant_1_1Assimilator.html#a07a83723c0f4cc6e98968dfb241c6ce7" title="Leaf economics &#45; calculate optimal leaf lifespan." alt="" coords="1239,233,1406,275"/>
+<area shape="rect" id="node17" href="$classplant_1_1Assimilator.html#aeedad55e35be6fa1d908731a123e2c4f" title="Calculate leaf and fine&#45;root respiration rates." alt="" coords="1239,364,1406,405"/>
+<area shape="rect" id="node19" href="$classplant_1_1Assimilator.html#a31ccc72fe7255233a1640d1f708eebc7" title="Calculate leaf and fine&#45;root turnover rates." alt="" coords="1247,299,1398,340"/>
+<area shape="rect" id="node20" href="$classplant_1_1Assimilator.html#ad1f356c7c009ad495c9e9a3994c92fd3" title="Calculate leaf and fine&#45;root respiration rates." alt="" coords="1223,429,1422,471"/>
+<area shape="rect" id="node9" href="$group__ppa__module.html#ga4c6834623dae9423d2981a0b28b0f155" title="Realized crown projection area at height z." alt="" coords="1479,71,1653,112"/>
+<area shape="rect" id="node12" href="$classplant_1_1Assimilator.html#a01115927f79cc407240f59af57c12d17" title="Calculate leaf&#45;level assimilation rate using the Phydro model ///." alt="" coords="1479,5,1653,47"/>
+<area shape="rect" id="node10" href="$classplant_1_1PlantArchitecture.html#a81452fb0a56656f176f653d3bf9650d9" title="Vertical profiles of crown and stem" alt="" coords="1707,103,1898,130"/>
+<area shape="rect" id="node11" href="$classplant_1_1PlantArchitecture.html#a4d571b1b0165d995f3d2ca0fe21a4b28" title="The height at which crown radius is maximum." alt="" coords="1701,53,1904,79"/>
+<area shape="rect" id="node15" href="$classplant_1_1PlantArchitecture.html#a36ebf17a1799f27ce12bd27f637f88a9" title="Get biomass in various carbon pools." alt="" coords="1479,168,1653,209"/>
+<area shape="rect" id="node18" href="$classplant_1_1PlantArchitecture.html#af767ab32b2c9aff347144ce7dff349be" title="Get biomass in various carbon pools." alt="" coords="1479,332,1653,373"/>
+<area shape="rect" id="node21" href="$classplant_1_1PlantArchitecture.html#a0f95752c3574b4dfadb93e92582e5fa5" title="Get biomass in various carbon pools." alt="" coords="1479,429,1653,471"/>
+<area shape="rect" id="node22" href="$classplant_1_1PlantArchitecture.html#a1fea368ef9182afc3aedfb76bcc4b3ee" title="Get biomass in various carbon pools." alt="" coords="1715,429,1890,471"/>
+<area shape="rect" id="node26" href="$classplant_1_1PlantArchitecture.html#a459c5123d878d20d25f86e64996d2c64" title="Derivatives required for biomass partitioning" alt="" coords="992,384,1167,425"/>
+<area shape="rect" id="node28" href="$classplant_1_1PlantArchitecture.html#acdc3841d5f648fabc0202e04e2bfb8a3" title="Derivatives required for biomass partitioning" alt="" coords="992,515,1167,556"/>
+<area shape="rect" id="node33" href="$classplant_1_1Plant.html#a1157bce8a29e6a26f2e5d4cc30909aea" title="Set size (diameter and all associated variables) from x." alt="" coords="766,577,923,603"/>
+<area shape="rect" id="node35" href="$classpfate_1_1env_1_1ClimateStream.html#a259d5b50ebd9d8e801ee6cd079f6fb75" title=" " alt="" coords="747,796,942,837"/>
+<area shape="rect" id="node36" href="$classpfate_1_1env_1_1Climate.html#a9584e9aa19e54c0df7492e9d1efe9b33" title="Update acclim forcing as exp&#45;weighted average of current and new value." alt="" coords="1003,796,1155,837"/>
+</map>

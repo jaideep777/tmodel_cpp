@@ -1,3 +1,4 @@
 <map id="plant::Plant" name="plant::Plant">
-<area shape="rect" id="node2" href="$classPSPM__Plant.html" title="PSPM_Plant" alt="" coords="5,80,103,107"/>
+<area shape="rect" id="node1" title="The class for an individual plant." alt="" coords="27,5,123,32"/>
+<area shape="rect" id="node2" href="$classpfate_1_1PSPM__Plant.html" title="This class entends the Plant class to interface with the PSPM Solver." alt="" coords="5,80,145,107"/>
 </map>

@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classio_1_1Initializer.html" title="io::Initializer" alt="" coords="5,5,97,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,13,77,39"/>
+<area shape="rect" id="node2" href="$classpfate_1_1AdaptiveSpecies.html" title="This classes extends the Species class provided by the solver to implement the evolutionary algorithm..." alt="" coords="125,5,297,47"/>
 </map>

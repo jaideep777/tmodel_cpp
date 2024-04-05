@@ -1,0 +1,4 @@
+<map id="plant::Assimilator::root_respiration_rate" name="plant::Assimilator::root_respiration_rate">
+<area shape="rect" id="node1" title="Calculate leaf and fine&#45;root respiration rates." alt="" coords="5,5,172,47"/>
+<area shape="rect" id="node2" href="$classplant_1_1PlantArchitecture.html#af767ab32b2c9aff347144ce7dff349be" title="Get biomass in various carbon pools." alt="" coords="220,5,395,47"/>
+</map>

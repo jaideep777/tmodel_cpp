@@ -1,21 +1,5 @@
 var searchData=
 [
-  ['rates',['rates',['../classplant_1_1Plant.html#a51d3274c49b9d563ed7f6dc6db561fb0',1,'plant::Plant']]],
-  ['rd',['rd',['../classplant_1_1PlantParameters.html#a053485f56dee458d0d922296e36553b4',1,'plant::PlantParameters']]],
-  ['readfile',['readFile',['../classio_1_1Initializer.html#ac5da46da32e3a9f0679a14fdf820012e',1,'io::Initializer']]],
-  ['readnextline_5fmet',['readNextLine_met',['../classenv_1_1Climate.html#abd2001801685b13f9622eeb90af69518',1,'env::Climate']]],
-  ['res',['res',['../classplant_1_1Plant.html#a7c71becfc2e90d9ff8f32a46bfbce1d3',1,'plant::Plant']]],
-  ['response_5fintensity',['response_intensity',['../classplant_1_1PlantParameters.html#a32fe599e792ad5e52ac3aa82e302ee11',1,'plant::PlantParameters']]],
-  ['rgr',['rgr',['../classplant_1_1Plant.html#a2d9f0760016fc305ed4b717c9fbb140a',1,'plant::Plant']]],
-  ['rk4',['RK4',['../rk4_8h.html#a3d0ee2e6387dc2895fd9a41509912863',1,'rk4.h']]],
-  ['rk4_2eh',['rk4.h',['../rk4_8h.html',1,'']]],
-  ['rleaf',['rleaf',['../structplant_1_1PlantAssimilationResult.html#a567528e540ff5272d00bfa86a864415a',1,'plant::PlantAssimilationResult']]],
-  ['root_5fmass',['root_mass',['../classplant_1_1PlantGeometry.html#a721712ac253434c4709a4300f3e6396a',1,'plant::PlantGeometry']]],
-  ['root_5frespiration_5frate',['root_respiration_rate',['../classplant_1_1Assimilator.html#ab48c39e03fe75f132440554504c5a1f9',1,'plant::Assimilator']]],
-  ['root_5fturnover_5frate',['root_turnover_rate',['../classplant_1_1Assimilator.html#acdbc33099ba37ba301616e1b3ad6d1c4',1,'plant::Assimilator']]],
-  ['rooting_5fdepth',['rooting_depth',['../classplant_1_1PlantGeometry.html#a2ff7663f9fee0fb4eca571626cd4b910',1,'plant::PlantGeometry']]],
-  ['rr',['rr',['../classplant_1_1PlantParameters.html#a5e810b4b969e965bdb8446b8533154cb',1,'plant::PlantParameters']]],
-  ['rroot',['rroot',['../structplant_1_1PlantAssimilationResult.html#a1c1b05b9ff2ea06e1e1ee87f2872088a',1,'plant::PlantAssimilationResult']]],
-  ['rs',['rs',['../classplant_1_1PlantParameters.html#a8b79d06b4d20b0c3dab4af0655f71137',1,'plant::PlantParameters']]],
-  ['rstem',['rstem',['../structplant_1_1PlantAssimilationResult.html#ab208856f7861fed539bef45448d3d2eb',1,'plant::PlantAssimilationResult']]]
+  ['q_341',['q',['../classplant_1_1PlantArchitecture.html#a81452fb0a56656f176f653d3bf9650d9',1,'plant::PlantArchitecture']]],
+  ['qm_342',['qm',['../classplant_1_1PlantArchitecture.html#adf46df05eb4a3d27ec1d47de4e801691',1,'plant::PlantArchitecture']]]
 ];

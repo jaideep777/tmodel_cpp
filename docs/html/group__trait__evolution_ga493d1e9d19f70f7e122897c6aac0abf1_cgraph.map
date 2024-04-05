@@ -1,0 +1,7 @@
+<map id="pfate::Patch::calc_seedrain_r0" name="pfate::Patch::calc_seedrain_r0">
+<area shape="rect" id="node1" title="Calculate growth rates of all species and update seed input." alt="" coords="5,64,140,105"/>
+<area shape="rect" id="node2" href="$classMovingAverager.html#a10228b285298b40e5fd3056dc943302e" title=" " alt="" coords="193,5,350,47"/>
+<area shape="rect" id="node3" href="$classMovingAverager.html#ad597933657a823696ab02aad3442c38a" title=" " alt="" coords="188,71,355,98"/>
+<area shape="rect" id="node5" href="$classMovingAverager.html#a01b3f4dcb3098d698c92f1131adf0101" title=" " alt="" coords="188,122,355,149"/>
+<area shape="rect" id="node4" href="$classMovingAverager.html#af58bda5dfddd7f6721b87323c49cb318" title=" " alt="" coords="403,71,560,98"/>
+</map>

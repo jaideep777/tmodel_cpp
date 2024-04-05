@@ -1,0 +1,5 @@
+<map id="plant::PlantArchitecture::set_state" name="plant::PlantArchitecture::set_state">
+<area shape="rect" id="node1" title="Set size and lai, the two state variables that define plant geometry." alt="" coords="5,39,180,80"/>
+<area shape="rect" id="node2" href="$classplant_1_1PlantArchitecture.html#a6765e3aee8ac12969e1e47aed2aea2da" title="Set the crown LAI and properties that change with LAI." alt="" coords="228,5,403,47"/>
+<area shape="rect" id="node3" href="$classplant_1_1PlantArchitecture.html#a2971e2eae68c0ffe788e570ff9fd32d4" title="Set plant size (diameter) and other variables that scale with size" alt="" coords="228,71,403,112"/>
+</map>

@@ -1,3 +1,4 @@
 <map id="plant::Assimilator" name="plant::Assimilator">
-<area shape="rect" id="node2" href="$structplant_1_1PlantAssimilationResult.html" title="plant::PlantAssimilation\lResult" alt="" coords="5,5,164,47"/>
+<area shape="rect" id="node1" title="Object for computing gross and net production, respiration, and turnover." alt="" coords="25,109,163,136"/>
+<area shape="rect" id="node2" href="$structplant_1_1PlantAssimilationResult.html" title="Set of all variables calculated by the assimilator." alt="" coords="5,5,183,47"/>
 </map>

@@ -1,9 +1,25 @@
 var searchData=
 [
-  ['elv',['elv',['../classenv_1_1Clim.html#a456ea45529fac8741a1898bec91bee01',1,'env::Clim']]],
-  ['env',['env',['../namespaceenv.html',1,'']]],
-  ['envused',['EnvUsed',['../pspm__interface_8cpp.html#a392226e44a23e922c715c899c51218c2',1,'pspm_interface.cpp']]],
-  ['establishmentprobability',['establishmentProbability',['../classPSPM__Plant.html#a4ceca1be5d1089c49dcecdc5ce216727',1,'PSPM_Plant']]],
-  ['eta_5fc',['eta_c',['../classplant_1_1PlantGeometry.html#a440bb941cb1138903cef45bab7ed2875',1,'plant::PlantGeometry']]],
-  ['euler',['Euler',['../rk4_8h.html#ad0b3b596b51512cc31266e60113e1298',1,'rk4.h']]]
+  ['days_5fper_5ftunit_90',['days_per_tunit',['../classplant_1_1PlantParameters.html#a374bf633309cb9dd69563638cf05bca0',1,'plant::PlantParameters']]],
+  ['debug_91',['debug',['../classMovingAverager.html#a1b2a2cb6e069c941ae7bda6436b7517e',1,'MovingAverager']]],
+  ['diameter_92',['diameter',['../classplant_1_1PlantArchitecture.html#a9824d3f61097471dceb0f3231b4954ef',1,'plant::PlantArchitecture']]],
+  ['diameter_5fat_5fheight_93',['diameter_at_height',['../classplant_1_1PlantArchitecture.html#ac57d3c7ed468b593d9696785bd37d71a',1,'plant::PlantArchitecture']]],
+  ['disturbpatch_94',['disturbPatch',['../classpfate_1_1Patch.html#ac4a51c6e3453e2bd4c3df67ce844862f',1,'pfate::Patch']]],
+  ['dl_95',['dl',['../classplant_1_1PlantParameters.html#a767a2f4f78de0cb70babe4805ba1c670',1,'plant::PlantParameters']]],
+  ['dlai_5fdt_96',['dlai_dt',['../classplant_1_1Plant.html#a490db77afe5d732a072b772ed93313b0',1,'plant::Plant']]],
+  ['dmass_5fdt_5fgrowth_97',['dmass_dt_growth',['../classplant_1_1Plant.html#a42bb3c135fd4eb5357097ab108a87a1a',1,'plant::Plant']]],
+  ['dmass_5fdt_5flai_98',['dmass_dt_lai',['../classplant_1_1Plant.html#a7c56526252177196d20c3895858d25e7',1,'plant::Plant::dmass_dt_lai()'],['../classplant_1_1PlantArchitecture.html#a7e5250a6704a5e8d80e4200259c1acf9',1,'plant::PlantArchitecture::dmass_dt_lai()']]],
+  ['dmass_5fdt_5flit_99',['dmass_dt_lit',['../classplant_1_1Plant.html#a1e5e6613e9fc5722ee8f1cd61d950208',1,'plant::Plant']]],
+  ['dmass_5fdt_5frep_100',['dmass_dt_rep',['../classplant_1_1Plant.html#a38acc4f9849c4dec6c061c4b87fec0bd',1,'plant::Plant']]],
+  ['dmass_5fdt_5ftot_101',['dmass_dt_tot',['../classplant_1_1Plant.html#ac7026b1137cac40efcd5433ec0ef5619',1,'plant::Plant']]],
+  ['dmat_102',['dmat',['../classplant_1_1PlantArchitecture.html#a99d534c8b2b398be62b7106c9fd8fa23',1,'plant::PlantArchitecture']]],
+  ['dmort_5fdt_103',['dmort_dt',['../classplant_1_1Plant.html#a3331971fccdf54a0c04e3ea3a53eafef',1,'plant::Plant']]],
+  ['dpsi_104',['dpsi',['../classpfate_1_1CommunityProperties.html#aeccdc9c711bc58af4145072f30cc9365',1,'pfate::CommunityProperties']]],
+  ['dpsi_5favg_105',['dpsi_avg',['../structplant_1_1PlantAssimilationResult.html#a361cd582cf873667036e0a915ef66a9e',1,'plant::PlantAssimilationResult']]],
+  ['dreproduction_5fdmass_106',['dreproduction_dmass',['../classplant_1_1PlantArchitecture.html#a459c5123d878d20d25f86e64996d2c64',1,'plant::PlantArchitecture']]],
+  ['dseeds_5fdt_107',['dseeds_dt',['../classplant_1_1Plant.html#a7040c82c0ce209b895fe38a9e24de042',1,'plant::Plant']]],
+  ['dsize_5fdmass_108',['dsize_dmass',['../classplant_1_1PlantArchitecture.html#acdc3841d5f648fabc0202e04e2bfb8a3',1,'plant::PlantArchitecture']]],
+  ['dsize_5fdt_109',['dsize_dt',['../classplant_1_1Plant.html#a2c7310a0e93f6ab0905165f9e25176d4',1,'plant::Plant']]],
+  ['dt_110',['dt',['../classpfate_1_1LifeHistoryOptimizer.html#a2910ad1985d409f0df707a2e58d95381',1,'pfate::LifeHistoryOptimizer']]],
+  ['dts_111',['dts',['../classMovingAverager.html#a45427adaa64c6966b9f07229b975b141',1,'MovingAverager']]]
 ];

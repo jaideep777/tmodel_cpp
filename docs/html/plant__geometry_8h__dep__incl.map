@@ -1,9 +1,0 @@
-<map id="include/plant_geometry.h" name="include/plant_geometry.h">
-<area shape="rect" id="node2" href="$plant__geometry_8cpp.html" title="src/plant_geometry.cpp" alt="" coords="5,80,164,107"/>
-<area shape="rect" id="node3" href="$assimilation_8h.html" title="include/assimilation.h" alt="" coords="189,80,335,107"/>
-<area shape="rect" id="node5" href="$plant_8h.html" title="include/plant.h" alt="" coords="319,155,426,181"/>
-<area shape="rect" id="node4" href="$assimilation_8cpp.html" title="src/assimilation.cpp" alt="" coords="157,155,295,181"/>
-<area shape="rect" id="node6" href="$plant_8cpp.html" title="src/plant.cpp" alt="" coords="245,229,343,256"/>
-<area shape="rect" id="node7" href="$pspm__interface_8h.html" title="include/pspm_interface.h" alt="" coords="367,229,533,256"/>
-<area shape="rect" id="node8" href="$pspm__interface_8cpp.html" title="src/pspm_interface.cpp" alt="" coords="371,304,529,331"/>
-</map>

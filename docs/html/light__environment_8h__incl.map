@@ -1,2 +1,7 @@
-<map id="include/light_environment.h" name="include/light_environment.h">
+<map id="inst/include/light_environment.h" name="inst/include/light_environment.h">
+<area shape="rect" id="node1" title=" " alt="" coords="143,5,273,47"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,95,85,121"/>
+<area shape="rect" id="node3" title=" " alt="" coords="110,95,173,121"/>
+<area shape="rect" id="node4" title=" " alt="" coords="197,95,352,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="376,95,451,121"/>
 </map>

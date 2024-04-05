@@ -1,17 +1,17 @@
 var classio_1_1Initializer =
 [
-    [ "Initializer", "classio_1_1Initializer.html#a4d4335fa765c5428401402dbe9d2d360", null ],
-    [ "Initializer", "classio_1_1Initializer.html#aadf05806feff02172c8ca1a60f146045", null ],
-    [ "get", "classio_1_1Initializer.html#acbf2f8660a2a5119cde63392350a53b8", null ],
-    [ "getArray", "classio_1_1Initializer.html#a0e331a83a7b311ffd3a887a1f149ed89", null ],
-    [ "getScalar", "classio_1_1Initializer.html#a6fb13617609ca86d0990c3436324468e", null ],
-    [ "getString", "classio_1_1Initializer.html#a2f1aa42bb344b161a8827072c8279fe0", null ],
-    [ "print", "classio_1_1Initializer.html#a59f4ce023126d1052ad54f2f660022d7", null ],
-    [ "readFile", "classio_1_1Initializer.html#ac5da46da32e3a9f0679a14fdf820012e", null ],
-    [ "setInitFile", "classio_1_1Initializer.html#abec425036ba7e9cfb9b2b0cf2b07d574", null ],
-    [ "arrays", "classio_1_1Initializer.html#ad69fafad4f04009f5a6f1ca2ece8dcb1", null ],
+    [ "section", "classio_1_1Initializer.html#a033d39bde39fc7f14c184b10bf313132", null ],
+    [ "get", "classio_1_1Initializer.html#a41b492ac4af541e44df0494f6fa1815d", null ],
+    [ "get", "classio_1_1Initializer.html#a098a8511a950a4449925c8315af36bdb", null ],
+    [ "get_section", "classio_1_1Initializer.html#a310526fc5b0c2c257bee66d6f48fa4ae", null ],
+    [ "get_value", "classio_1_1Initializer.html#a06fe79d6d19f76180836e03e3ad6b7fb", null ],
+    [ "get_vector", "classio_1_1Initializer.html#a281dd275e0ff5cadfe4e37ee5bf65f5b", null ],
+    [ "get_vector", "classio_1_1Initializer.html#a92f49c1ad4e16a85f3f0f12201cb9707", null ],
+    [ "get_verbatim", "classio_1_1Initializer.html#a34bd6eff5b19859795c67009354dced8", null ],
+    [ "get_verbatim", "classio_1_1Initializer.html#abbf31e66329bd03f5d968988c5aa1213", null ],
+    [ "parse", "classio_1_1Initializer.html#a7c3261fb7e141a0d06d9b0c41de9af66", null ],
+    [ "parse", "classio_1_1Initializer.html#a6f9891f277b6e7737bce524a8387638c", null ],
+    [ "print", "classio_1_1Initializer.html#a6aa0d123a1a5db77168b3cda12988d5f", null ],
     [ "fin", "classio_1_1Initializer.html#a8e36a703479eb463e633447cb7307420", null ],
-    [ "init_fname", "classio_1_1Initializer.html#adff1d83bc4da1fb02acb17db507aa6b7", null ],
-    [ "scalars", "classio_1_1Initializer.html#a30dea512a513af9fb0a5c340f7625ccb", null ],
-    [ "strings", "classio_1_1Initializer.html#a400211dfca1d82166da459e9da58a8c0", null ]
+    [ "sections", "classio_1_1Initializer.html#a2e0ea01d64f170e98232175353afd39f", null ]
 ];

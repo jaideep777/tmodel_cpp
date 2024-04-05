@@ -1,9 +1,11 @@
 <map id="plant::Plant" name="plant::Plant">
-<area shape="rect" id="node2" href="$structplant_1_1PlantAssimilationResult.html" title="plant::PlantAssimilation\lResult" alt="" coords="181,5,340,47"/>
-<area shape="rect" id="node5" href="$classplant_1_1Assimilator.html" title="plant::Assimilator" alt="" coords="493,57,616,83"/>
-<area shape="rect" id="node3" href="$classplant_1_1PlantGeometry.html" title="plant::PlantGeometry" alt="" coords="482,107,627,134"/>
-<area shape="rect" id="node4" href="$classplant_1_1PlantParameters.html" title="plant::PlantParameters" alt="" coords="477,158,632,185"/>
-<area shape="rect" id="node6" href="$classplant_1_1PlantTraits.html" title="plant::PlantTraits" alt="" coords="494,209,615,235"/>
-<area shape="rect" id="node7" title="STL class. " alt="" coords="221,209,301,235"/>
-<area shape="rect" id="node8" title="STL class. " alt="" coords="5,201,132,243"/>
+<area shape="rect" id="node1" title="The class for an individual plant." alt="" coords="972,97,1068,124"/>
+<area shape="rect" id="node2" href="$structplant_1_1PlantAssimilationResult.html" title="Set of all variables calculated by the assimilator." alt="" coords="363,9,540,50"/>
+<area shape="rect" id="node5" href="$classplant_1_1Assimilator.html" title="Object for computing gross and net production, respiration, and turnover." alt="" coords="691,47,828,73"/>
+<area shape="rect" id="node3" href="$classplant_1_1PlantParameters.html" title=" " alt="" coords="674,97,845,124"/>
+<area shape="rect" id="node4" href="$classplant_1_1PlantArchitecture.html" title="Everything about the plant&#39;s architecture, i.e. relationships among various physical dimensions." alt="" coords="672,148,847,175"/>
+<area shape="rect" id="node6" href="$classplant_1_1PlantTraits.html" title=" " alt="" coords="693,199,825,225"/>
+<area shape="rect" id="node7" title=" " alt="" coords="193,208,280,235"/>
+<area shape="rect" id="node9" title=" " alt="" coords="374,232,529,288"/>
+<area shape="rect" id="node8" title=" " alt="" coords="5,201,144,242"/>
 </map>

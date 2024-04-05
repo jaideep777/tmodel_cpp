@@ -1,0 +1,5 @@
+<map id="pfate::env::LightEnvironment::computeEnv" name="pfate::env::LightEnvironment::computeEnv">
+<area shape="rect" id="node1" title="Solver interface for updating the environment from the given state." alt="" coords="5,39,216,80"/>
+<area shape="rect" id="node2" href="$group__ppa__module.html#gadb3ead4a0395e7913688d8917982a178" title=" " alt="" coords="276,5,487,47"/>
+<area shape="rect" id="node3" href="$group__ppa__module.html#gaabd97e8fa9e04d956f2ab4f8ac626c0b" title="Calculate the total crown area above height z, contributed by all individuals of the resident species..." alt="" coords="264,71,499,112"/>
+</map>

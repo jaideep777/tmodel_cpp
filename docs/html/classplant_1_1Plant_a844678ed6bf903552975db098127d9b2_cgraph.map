@@ -1,6 +1,0 @@
-<map id="plant::Plant::get_biomass" name="plant::Plant::get_biomass">
-<area shape="rect" id="node2" href="$classplant_1_1PlantGeometry.html#a5e8a34362ccb0a9aa37e1c2c6af6fbc4" title="plant::PlantGeometry\l::total_mass" alt="" coords="224,71,369,112"/>
-<area shape="rect" id="node3" href="$classplant_1_1PlantGeometry.html#adb7202ef29b176b65c43c5b5d950484d" title="plant::PlantGeometry\l::stem_mass" alt="" coords="417,5,563,47"/>
-<area shape="rect" id="node4" href="$classplant_1_1PlantGeometry.html#a9bb344d187b1854c5a1364f6cd585d72" title="plant::PlantGeometry\l::leaf_mass" alt="" coords="417,71,563,112"/>
-<area shape="rect" id="node5" href="$classplant_1_1PlantGeometry.html#a721712ac253434c4709a4300f3e6396a" title="plant::PlantGeometry\l::root_mass" alt="" coords="417,136,563,177"/>
-</map>

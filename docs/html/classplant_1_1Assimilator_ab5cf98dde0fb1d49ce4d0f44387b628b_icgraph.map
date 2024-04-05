@@ -1,9 +1,0 @@
-<map id="plant::Assimilator::net_production" name="plant::Assimilator::net_production">
-<area shape="rect" id="node2" href="$classplant_1_1Plant.html#a48612779a5850cca9cc6f6caff1ccb8b" title="plant::Plant::lai_model" alt="" coords="178,31,329,58"/>
-<area shape="rect" id="node3" href="$classplant_1_1Plant.html#ab39fa79cb8884c684af5db0c98a1785e" title="plant::Plant::calc\l_demographic_rates" alt="" coords="403,35,541,76"/>
-<area shape="rect" id="node6" href="$classplant_1_1Plant.html#a03c45eaaabce7ff0287598818dc4847f" title="plant::Plant::p_survival\l_germination" alt="" coords="176,133,331,175"/>
-<area shape="rect" id="node4" href="$classplant_1_1Plant.html#a274f7da212d5f05d4b281e49e11fc44e" title="plant::Plant::grow\l_for_dt" alt="" coords="639,5,763,47"/>
-<area shape="rect" id="node5" href="$classPSPM__Plant.html#a71f7312443767dffc44d8d0d80b295f0" title="PSPM_Plant::preCompute" alt="" coords="613,71,789,98"/>
-<area shape="rect" id="node7" href="$classPSPM__Plant.html#a4ceca1be5d1089c49dcecdc5ce216727" title="PSPM_Plant::establishment\lProbability" alt="" coords="379,121,565,163"/>
-<area shape="rect" id="node8" href="$classPSPM__Plant.html#ad3109143960e0a0ceded078733bc4d4c" title="PSPM_Plant::init_state" alt="" coords="393,187,551,214"/>
-</map>
