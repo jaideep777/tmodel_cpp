@@ -1,8 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classpfate_1_1env_1_1Climate.html" title=" " alt="" coords="223,5,369,32"/>
-<area shape="rect" id="node2" href="$classpfate_1_1ErgodicEnvironment.html" title=" " alt="" coords="449,5,644,32"/>
-<area shape="rect" id="node3" href="$classpfate_1_1PSPM__Environment.html" title="This class provides a common interface to different components of the environment." alt="" coords="451,56,642,83"/>
-<area shape="rect" id="node4" title=" " alt="" coords="5,81,143,108"/>
-<area shape="rect" id="node5" href="$classPyEnvironmentBase.html" title=" " alt="" coords="219,107,373,133"/>
-<area shape="rect" id="node6" href="$classpfate_1_1env_1_1LightEnvironment.html" title=" " alt="" coords="191,56,401,83"/>
-</map>
