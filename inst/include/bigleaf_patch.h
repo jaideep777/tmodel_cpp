@@ -1,5 +1,5 @@
-#ifndef PLANT_FATE_PFATE_LIFEHISTORY_OPTIMIZER_H_
-#define PLANT_FATE_PFATE_LIFEHISTORY_OPTIMIZER_H_
+#ifndef PLANT_FATE_PFATE_BIGLEAF_PATCH_H_
+#define PLANT_FATE_PFATE_BIGLEAF_PATCH_H_
 
 #include <vector>
 #include <ostream>
@@ -9,7 +9,7 @@
 
 #include "climate.h"
 #include "climate_stream.h"
-// #include "soil_environment.h"
+#include "soil_environment.h"
 
 #include <time_stepper.h>
 
@@ -22,7 +22,7 @@ class BigLeafPatch{
 	env::ClimateStream climate_stream;
 
 	env::Climate forcing;
-	// env::SoilEnvironment soil_env;
+	env::SoilEnvironment soil_env;
 	double fapar = 1;
 
 	plant::PlantParameters par0;

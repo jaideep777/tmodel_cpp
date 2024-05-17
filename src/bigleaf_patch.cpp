@@ -93,6 +93,8 @@ vector<std::string> BigLeafPatch::get_header(){
 		, "jmax"
 		, "gs"
 		, "transpiration"
+		, "latent_energy"
+		, "le_wet_soil"
 	};
 }
 
@@ -120,13 +122,15 @@ vector<double> BigLeafPatch::get_state(double t){
 		, forcing.clim_inst.elv
 		, forcing.clim_inst.swp
 		, forcing.clim_inst.precip
-		, 0
+		, soil_env.swc
 		, phydro_out.a
 		, phydro_out.dpsi
 		, phydro_out.vcmax
 		, phydro_out.jmax
 		, phydro_out.gs
 		, phydro_out.e
+		, phydro_out.le
+		, phydro_out.le_s_wet
 	};
 }
 
@@ -163,9 +167,14 @@ void BigLeafPatch::simulate(double t0, double tf){
 		phydro_out.a     *= (86400 * 1e-6 * 12);  // umol co2/m2/s ----> umol co2/m2/day --> mol co2/m2/day --->  gC /m2/day
 		phydro_out.e     *= (86400 * 0.018015 * 1e-3 * 1000);   // mol h2o/m2/s ---> mol h2o/m2/day ---> kg h2o/m2/day ---> m3 /m2/day ---> mm/day   
 		phydro_out.le    *= 86400;  // W m-2 = J m-2 s-1 ---> J m-2 day-1
+		phydro_out.le_s_wet  *= 86400;  // W m-2 = J m-2 s-1 ---> J m-2 day-1
 
 		// water balance
-		
+		double m = par0.days_per_tunit; // multiplier to convert from day-1 to t_unit-1
+		soil_env.water_balance(timestep, forcing.clim_inst.precip*m, phydro_out.e*m);
+
+		forcing.clim_inst.swp = soil_env.get_swp();
+		forcing.clim_acclim.swp = soil_env.get_swp();
 
 		printState(t, fout);
 	}
