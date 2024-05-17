@@ -29,6 +29,7 @@ void Clim::print(){
 	std::cout << "   swp = " << swp << '\n';
 	std::cout << "   vwind = " << vwind << '\n';
 	std::cout << "   pa = " << pa << '\n';
+	std::cout << "   precip = " << precip << '\n';
 }
 
 // operators - these are used by exp averager
@@ -106,10 +107,11 @@ void Climate::print(double t){
 	cout << "   pa      = " << clim_inst.pa << " / " << clim_acclim.pa << '\n';
 	cout << "   rn      = " << clim_inst.rn << " / " << clim_acclim.rn << '\n';
 	cout << "   vwind   = " << clim_inst.vwind << " / " << clim_acclim.vwind << '\n';
+	cout << "   precip  = " << clim_inst.precip << " / " << clim_acclim.precip << '\n';
 }
 
 void Climate::print_line(double t){
-	cout << "Current climate (t=" << t << "): ";
+	cout << "Current climate (inst)   (t=" << t << "): ";
 	cout << clim_inst.tc << " ";
 	cout << clim_inst.ppfd << " ";
 	cout << clim_inst.rn << " ";
@@ -117,7 +119,19 @@ void Climate::print_line(double t){
 	cout << clim_inst.co2 << " ";
 	cout << clim_inst.elv << " ";
 	cout << clim_inst.swp << " ";
+	cout << clim_inst.precip << " ";
 	cout << '\n';
+	cout << "Current climate (acclim) (t=" << t << "): ";
+	cout << clim_acclim.tc << " ";
+	cout << clim_acclim.ppfd << " ";
+	cout << clim_acclim.rn << " ";
+	cout << clim_acclim.vpd << " ";
+	cout << clim_acclim.co2 << " ";
+	cout << clim_acclim.elv << " ";
+	cout << clim_acclim.swp << " ";
+	cout << clim_acclim.precip << " ";
+	cout << '\n';
+
 }
 
 } // namespace env

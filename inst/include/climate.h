@@ -23,6 +23,7 @@ class Clim{
 	double swp = -0.04;       ///< Soil water potential [MPa]
 	double vwind = 3;         ///< Wind speed [m s-1]
 	double pa;                ///< Surface pressure [Pa]
+	double precip = 0;        ///< Precipitation [mm day-1]
 
 	Clim();
 
@@ -47,6 +48,7 @@ class Clim{
 		f(swp, rhs.swp);
 		f(vwind, rhs.vwind);
 		f(pa, rhs.pa);
+		f(precip, rhs.precip);
 	}
 
 	template <class Functor>
@@ -60,6 +62,7 @@ class Clim{
 		f(swp, rhs);
 		f(vwind, rhs);
 		f(pa, rhs);
+		f(precip, rhs);
 	}
 
 };

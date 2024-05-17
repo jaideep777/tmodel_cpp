@@ -27,6 +27,7 @@ class ClimateStream{
 	bool update_i_met = false;
 	bool update_a_met = false;
 	bool update_co2 = false;
+	bool use_precip_data = false;
 
 	private:
 	template<class T>

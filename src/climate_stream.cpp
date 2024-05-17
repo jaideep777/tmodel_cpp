@@ -40,6 +40,7 @@ void ClimateStream::updateClimate(double julian_time, Climate& C){
 		C.clim_inst.ppfd = as<double>(i_met_stream.current_row[5]);      // ppfd
 		C.clim_inst.swp  = as<double>(i_met_stream.current_row[7]) * (-1); // convert -MPa to MPa
 		C.clim_inst.rn   = C.clim_inst.ppfd/2; // set to half of ppfd for now, eventually use solar model to calculate
+		if (use_precip_data) C.clim_inst.precip = as<double>(i_met_stream.current_row[8]); // precipitation (optional)
 	}
 	if (update_a_met){
 		a_met_stream.advance_to_time(julian_time);
@@ -50,6 +51,7 @@ void ClimateStream::updateClimate(double julian_time, Climate& C){
 		cnew.ppfd = as<double>(a_met_stream.current_row[6]);      // max ppfd
 		cnew.swp  = as<double>(a_met_stream.current_row[7]) * (-1); // convert -MPa to MPa
 		cnew.rn   = cnew.ppfd/2; // set to half of ppfd for now, eventually use solar model to calculate
+		cnew.precip = 0; // precipitation is never used in acclim data
 		C.set_forcing_acclim(julian_time, cnew);
 	}
 	else {

@@ -21,18 +21,19 @@ int is_equal(const vector<double>& v1, const vector<double>& v2, double tol=1e-6
 
 int main(int argc, char ** argv){
 
-	string pfile = "tests/params/p_test_v2.ini";
+	string pfile = "tests/params/p_test_v2_gfguy.ini";
 	if (argc > 1) pfile = argv[1];
 
 	int err = 0;
 
 	pfate::BigLeafPatch sim(pfile);
-	sim.init();
+	sim.climate_stream.use_precip_data = true;
+	sim.init_co2(414);
 	sim.set_fapar(0.92);
-	sim.simulate(2000, 2020);
+	sim.init();
+	sim.simulate(1972, 1972.999);
 
 	return err;
 
 }
-
 

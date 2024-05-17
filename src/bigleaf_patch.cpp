@@ -77,6 +77,7 @@ vector<std::string> BigLeafPatch::get_header(){
 		, "co2_acclim"
 		, "elv_acclim"
 		, "swp_acclim"
+		, "precip_acclim"
 		, "tc_inst"
 		, "ppfd_inst"
 		, "rn_inst"
@@ -84,6 +85,8 @@ vector<std::string> BigLeafPatch::get_header(){
 		, "co2_inst"
 		, "elv_inst"
 		, "swp_inst"
+		, "precip_inst"
+		, "swc"
 		, "assim_gross"
 		, "dpsi"
 		, "vcmax"
@@ -108,6 +111,7 @@ vector<double> BigLeafPatch::get_state(double t){
 		, forcing.clim_acclim.co2
 		, forcing.clim_acclim.elv
 		, forcing.clim_acclim.swp
+		, forcing.clim_acclim.precip
 		, forcing.clim_inst.tc
 		, forcing.clim_inst.ppfd
 		, forcing.clim_inst.rn
@@ -115,6 +119,8 @@ vector<double> BigLeafPatch::get_state(double t){
 		, forcing.clim_inst.co2
 		, forcing.clim_inst.elv
 		, forcing.clim_inst.swp
+		, forcing.clim_inst.precip
+		, 0
 		, phydro_out.a
 		, phydro_out.dpsi
 		, phydro_out.vcmax
@@ -148,6 +154,7 @@ void BigLeafPatch::simulate(double t0, double tf){
 		// read forcing inputs
 		// std::cout << "update Env (explicit)... t = " << S.current_time << ":\n";
 		update_climate(ts.to_julian(t) + 1e-6); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
+		forcing.print_line(t);
 
 		// photosynthesis
 		phydro_out = bigleaf_assimilator.leaf_assimilation_rate(1, fapar, forcing, par0, traits0);
