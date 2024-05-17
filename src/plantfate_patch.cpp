@@ -690,12 +690,14 @@ void Patch::simulateClimate(){
 	fout << "t, " <<
 		"tc_acclim, " << 
 		"ppfd_acclim, " << 
+		"rn_acclim, " << 
 		"vpd_acclim, " << 
 		"co2_acclim, " << 
 		"elv_acclim, " << 
 		"swp_acclim, " << 
 		"tc_inst, " <<
 		"ppfd_inst, " <<
+		"rn_inst, " <<
 		"vpd_inst, " <<
 		"co2_inst, " <<
 		"elv_inst, " <<
@@ -714,12 +716,14 @@ void Patch::simulateClimate(){
 		fout << S.current_time << ", ";
 		fout << E.clim_acclim.tc << ", "
 		     << E.clim_acclim.ppfd << ", "
+		     << E.clim_acclim.rn << ", "
 		     << E.clim_acclim.vpd << ", "
 		     << E.clim_acclim.co2 << ", "
 		     << E.clim_acclim.elv << ", "
 		     << E.clim_acclim.swp << ", ";
 		fout << E.clim_inst.tc << ", "
 		     << E.clim_inst.ppfd << ", "
+		     << E.clim_inst.rn << ", "
 		     << E.clim_inst.vpd << ", "
 		     << E.clim_inst.co2 << ", "
 		     << E.clim_inst.elv << ", "

@@ -112,6 +112,7 @@ void Climate::print_line(double t){
 	cout << "Current climate (t=" << t << "): ";
 	cout << clim_inst.tc << " ";
 	cout << clim_inst.ppfd << " ";
+	cout << clim_inst.rn << " ";
 	cout << clim_inst.vpd << " ";
 	cout << clim_inst.co2 << " ";
 	cout << clim_inst.elv << " ";

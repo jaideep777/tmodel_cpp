@@ -47,6 +47,8 @@ class PlantTraits{
 	void init(io::Initializer& I);
 	void initFromFile(std::string fname);
 
+	void coordinate();
+
 	// function to get/set traits by name. Needed for specifying evolvable traits from config file
 	double& operator[](const std::string& s);
 

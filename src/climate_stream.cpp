@@ -39,6 +39,7 @@ void ClimateStream::updateClimate(double julian_time, Climate& C){
 		C.clim_inst.vpd  = as<double>(i_met_stream.current_row[4]) * 100; // convert hPa to Pa
 		C.clim_inst.ppfd = as<double>(i_met_stream.current_row[5]);      // ppfd
 		C.clim_inst.swp  = as<double>(i_met_stream.current_row[7]) * (-1); // convert -MPa to MPa
+		C.clim_inst.rn   = C.clim_inst.ppfd/2; // set to half of ppfd for now, eventually use solar model to calculate
 	}
 	if (update_a_met){
 		a_met_stream.advance_to_time(julian_time);
@@ -48,6 +49,7 @@ void ClimateStream::updateClimate(double julian_time, Climate& C){
 		cnew.vpd  = as<double>(a_met_stream.current_row[4]) * 100; // convert hPa to Pa
 		cnew.ppfd = as<double>(a_met_stream.current_row[6]);      // max ppfd
 		cnew.swp  = as<double>(a_met_stream.current_row[7]) * (-1); // convert -MPa to MPa
+		cnew.rn   = cnew.ppfd/2; // set to half of ppfd for now, eventually use solar model to calculate
 		C.set_forcing_acclim(julian_time, cnew);
 	}
 	else {
@@ -55,6 +57,7 @@ void ClimateStream::updateClimate(double julian_time, Climate& C){
 		Clim cnew = C.clim_acclim;
 		cnew = C.clim_inst;
 		cnew.ppfd = C.clim_inst.ppfd * 4;
+		cnew.rn   = cnew.ppfd/2; // set to half of ppfd for now, eventually use solar model to calculate
 		C.set_forcing_acclim(julian_time, cnew);
 	}
 
