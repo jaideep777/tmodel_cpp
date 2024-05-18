@@ -21,10 +21,17 @@ int is_equal(const vector<double>& v1, const vector<double>& v2, double tol=1e-6
 
 int main(int argc, char ** argv){
 
-	string pfile = "tests/params/p_test_v2_gfguy.ini";
-	if (argc > 1) pfile = argv[1];
+	if (argc < 4){
+		cout << "Plant-FATE Lite error: pf_lite needs three arguments. Syntax: ./pf_lite <params_file.ini> <start_year> <end_year>\n";
+		return 1;
+	}
 
-	int err = 0;
+	string pfile = argv[1];
+	double y0 = stod(argv[2]), yf = stod(argv[3]);
+
+	if (y0 > yf){
+		cout << "Plant-FATE Lite error: start year should be <= end year\n";
+	}
 
 	pfate::BigLeafPatch sim(pfile);
 	sim.climate_stream.use_precip_data = true;
@@ -33,7 +40,6 @@ int main(int argc, char ** argv){
 	sim.init(2000, 2010.999);
 	sim.simulate();
 
-	return err;
-
+	return 0;
 }
 

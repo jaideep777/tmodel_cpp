@@ -59,12 +59,12 @@ void BigLeafPatch::set_fapar(double _fapar){
 	fapar = _fapar;
 }
 
-void BigLeafPatch::init(){
-
+void BigLeafPatch::init(double _t0, double _tf){
+	t0 = _t0; 
+	tf = _tf;
 	forcing.set_elevation(0);
 	forcing.set_acclim_timescale(7);
 	climate_stream.init();
-
 }
 
 vector<std::string> BigLeafPatch::get_header(){
@@ -150,7 +150,7 @@ void BigLeafPatch::update_climate(double julian_time){
 	climate_stream.updateClimate(julian_time, forcing);
 }
 
-void BigLeafPatch::simulate(double t0, double tf){
+void BigLeafPatch::simulate(){
 
 	ofstream fout(outfile.c_str());
 	printHeader(fout);

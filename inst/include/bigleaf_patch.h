@@ -34,6 +34,7 @@ class BigLeafPatch{
 	phydro::PHydroResult phydro_out;
 
 	double timestep;
+	double t0, tf;
 
 	std::string outfile;
 
@@ -47,7 +48,7 @@ class BigLeafPatch{
 	void init_co2(double _co2);
 	void set_fapar(double _fapar);
 
-	void init();
+	void init(double _t0, double _tf);
 
 	void update_climate(double julian_time);
 
@@ -59,7 +60,7 @@ class BigLeafPatch{
 
 	void printMeta();
 
-	void simulate(double t0, double tf);
+	void simulate();
 };
 
 } // namespace pfate
