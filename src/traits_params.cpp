@@ -181,6 +181,7 @@ void PlantParameters::init(io::Initializer& I){
 	rd                 = I.get<double>("rd");
 	rr                 = I.get<double>("rr");
 	rs                 = I.get<double>("rs");
+	p50x_cost          = I.get<double>("p50x_cost");
 
 	cbio               = I.get<double>("cbio");
 	y                  = I.get<double>("y");
@@ -242,6 +243,7 @@ void PlantParameters::print(){
 		<< "   rd = " << rd << '\n'
 		<< "   rr = " << rr << '\n'
 		<< "   rs = " << rs << '\n'
+		<< "   p50x_cost = " << p50x_cost << '\n'
 		<< "   cbio = " << cbio << '\n'
 		<< "   y = " << y << '\n'
 		<< "   k_light = " << k_light << '\n'
@@ -269,8 +271,9 @@ void PlantParameters::print(){
 // v2: m,n,a,c - move to traits from parameters
 // v3: add m_hydraulic
 // v4: add days_per_t_unit etc
+// v5: add p50x_cost
 void PlantParameters::save(std::ostream& fout){
-	fout << "Params::v4   ";
+	fout << "Params::v5   ";
 	fout << std::make_tuple(
 		kphio
 		, alpha
@@ -293,6 +296,7 @@ void PlantParameters::save(std::ostream& fout){
 		, rd
 		, rr
 		, rs
+		, p50x_cost
 		, cbio
 		, y
 		, k_light
@@ -321,7 +325,7 @@ void PlantParameters::save(std::ostream& fout){
 
 void PlantParameters::restore(std::istream& fin){
 	std::string s; fin >> s; // discard version number
-	assert(s == "Params::v4");
+	assert(s == "Params::v5");
 
 	fin >> kphio
 		>> alpha
@@ -344,6 +348,7 @@ void PlantParameters::restore(std::istream& fin){
 		>> rd
 		>> rr
 		>> rs
+		>> p50x_cost
 		>> cbio
 		>> y
 		>> k_light

@@ -5,11 +5,12 @@ rm(list=ls())
 input_dir = "~/codes/Plant-FATE/tests/data/"
 output_dir = "~/codes/Plant-FATE/pspm_output_test"
 # output_dir = "~/output_data/test_3spp_100yr"
+expt_dir = "test_2spp_evol_p50" #_old_params"
 expt_dir = "test_3spp_100yr" #_old_params"
+
 # expt_dir = "test_1spp_evol_p50" #_old_params"
-# expt_dir = "test_2spp_evol_p50" #_old_params"
 # expt_dir = "test_4spp_evol_wd_hmat" #_old_params"
-expt_dir = "cont_test_main" #_old_params"
+# expt_dir = "cont_test_main" #_old_params"
 solver = "IEBT"
 
 setwd(paste0(output_dir,"/",expt_dir))

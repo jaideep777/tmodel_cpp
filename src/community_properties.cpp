@@ -212,7 +212,7 @@ void CommunityProperties::writeOut(double t, Patch& P){
 			<< species.canopy_area_vec[k] << ","
 			<< species.basal_area_vec[k] << ","
 			<< species.biomass_vec[k] << ","
-			<< spp->seeds_hist.get()
+			<< spp->seeds_hist1.get()
 			<< std::endl;
 	}
 

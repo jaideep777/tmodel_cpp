@@ -41,7 +41,8 @@ class AdaptiveSpecies : public Species<Model>{
 	std::vector<double> trait_variance;
 	std::vector<double> trait_scalars;     // these scalars will be applied to fg_dx
 
-	MovingAverager seeds_hist;
+	MovingAverager seeds_hist1;
+	MovingAverager seeds_hist2;
 	MovingAverager r0_hist;
 
 

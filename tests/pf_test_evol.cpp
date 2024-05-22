@@ -30,8 +30,14 @@ int main(int argc, char ** argv){
 		pfate::Patch sim(pfile);
 		// sim.expt_dir = sim.expt_dir + "_414ppm";
 		sim.E.init_co2(414);
-		sim.init(0, 2000);
+		sim.init(2000, 2200);
 		sim.simulate();
+
+		vector<double> ba = sim.props.species.basal_area_vec;
+		for (auto& b : ba) b*=1e4;
+		cout << setprecision(10) << "Basal areas [m2/Ha]: " << ba << '\n';
+
+		err = is_equal(ba, {13.90109726, 0, 15.36616065, 0});
 
 		sim.close();
 	}

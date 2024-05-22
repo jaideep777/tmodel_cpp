@@ -100,7 +100,10 @@ $(OBJECTS): build/%.o : src/%.cpp $(HEADERS)
 
 libclean:
 	rm -f $(TARGET) build/*.o lib/*.a src/*.o bin/* log.txt gmon.out
-	
+
+extclean:
+	(cd $(EXTERNAL_DIR)/libpspm && $(MAKE) clean)
+
 re: clean all
 
 clean: libclean testclean
@@ -129,7 +132,7 @@ TEST_TARGETS = $(patsubst tests/%.cpp, tests/%.test, $(TEST_FILES))
 TEST_RUNS = $(patsubst tests/%.cpp, tests/%.run, $(TEST_FILES))
 ADD_OBJECTS =
 
-check: dir $(TARGET) compile_tests clean_log run_tests
+check: dir external_libs $(TARGET) compile_tests clean_log run_tests
 
 compile_tests: $(TEST_TARGETS)
 	

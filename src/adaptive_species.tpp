@@ -18,6 +18,7 @@ template <class Model>
 void AdaptiveSpecies<Model>::set_traits(std::vector<double> tvec){
 	this->boundaryCohort.set_evolvableTraits(evolvable_traits, tvec);
 	for (auto& c : this->cohorts) c.set_evolvableTraits(evolvable_traits, tvec);
+	this->triggerPreCompute(); // rate calcs need to be redone if traits are updated
 }
 
 
@@ -95,9 +96,10 @@ void AdaptiveSpecies<Model>::print_extra(){
 
 // Changelog:
 // v2: Save plant parameters also from boundary cohort, so that ini file is not needed during restore (for plant parameters)
+// v3: add seeds_hist2, rename seeds_hist to seeds_hist1
 template <class Model>
 void AdaptiveSpecies<Model>::save(std::ostream& fout){
-	fout << "AdaptiveSpecies<T>::v2\n";
+	fout << "AdaptiveSpecies<T>::v3\n";
 
 	// save species-level data
 	fout << std::make_tuple(
@@ -115,7 +117,8 @@ void AdaptiveSpecies<Model>::save(std::ostream& fout){
 		<< evolvable_traits << '\n';  // trait names dont contain whitespaces, so safe to write this way without std::quoted()
 
 	// MovingAveragers
-	seeds_hist.save(fout);
+	seeds_hist1.save(fout);
+	seeds_hist2.save(fout);
 	r0_hist.save(fout);
 
 	// save both par and traits from boundary cohort
@@ -131,7 +134,7 @@ template <class Model>
 void AdaptiveSpecies<Model>::restore(std::istream& fin){
 	std::cout << "Restoring AdaptiveSpecies<Model>...\n";
 	std::string s; fin >> s; // discard version number
-	assert(s == "AdaptiveSpecies<T>::v2");
+	assert(s == "AdaptiveSpecies<T>::v3");
 
 	// restore species-level data
 	fin >> fg_dx
@@ -147,7 +150,8 @@ void AdaptiveSpecies<Model>::restore(std::istream& fin){
 		>> evolvable_traits;
 
 	// moving averagers go here
-	seeds_hist.restore(fin);
+	seeds_hist1.restore(fin);
+	seeds_hist2.restore(fin);
 	r0_hist.restore(fin);
 
 	// Create a Model object and restore all individual properties to this object

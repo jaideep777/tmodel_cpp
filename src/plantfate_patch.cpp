@@ -263,7 +263,8 @@ void Patch::addSpeciesAndProbes(double t, const plant::PlantTraits& traits){
 	spp->r0_hist.set_interval(config.T_r0_avg);
 	spp->t_introduction = t;
 
-	spp->seeds_hist.set_interval(config.T_seed_rain_avg);
+	spp->seeds_hist1.set_interval(config.T_seed_rain_avg);
+	spp->seeds_hist2.set_interval(config.T_seed_rain_avg);
 
 	if (config.evolve_traits) spp->createVariants(p1);
 
@@ -342,39 +343,41 @@ void Patch::disturbPatch(double t){
 /// @ingroup   trait_evolution
 /// @details   Species growth rate is defined from the seed perspective, i.e., 
 ///            \f[r = \frac{1}{\Delta t}log\left(\frac{S_\text{out}}{S_\text{in}}\right),\f] where \f$S\f$ is the seed rain (rate of seed production summed over all individuals of the species) 
-void Patch::calc_seedrain_r0(double t){
-
-	// calculate output seed rain at time t, S(t)
-	vector<double> seeds = S.newborns_out(t);
+void Patch::validate_seedrain(vector<double>& seeds){
 	for (int k=0; k < seeds.size(); ++k){
 		if (seeds[k] < 0){
 			cout << "seeds[" << k << "] = " << seeds[k] << endl;
 			S.print();
-			static_cast<AdaptiveSpecies<PSPM_Plant>*>(S.species_vec[k])->seeds_hist.print_summary();
+			static_cast<AdaptiveSpecies<PSPM_Plant>*>(S.species_vec[k])->seeds_hist1.print_summary();
+			static_cast<AdaptiveSpecies<PSPM_Plant>*>(S.species_vec[k])->seeds_hist2.print_summary();
 			cout.flush();
 		}
 	}
+}
 
+
+void Patch::calc_r0(double t){
 	// calculate r0 and update input seed rain
 	for (int k=0; k < S.species_vec.size(); ++k){
 		auto spp = static_cast<AdaptiveSpecies<PSPM_Plant>*>(S.species_vec[k]);
 
-		double dt = t - spp->seeds_hist.get_last_t(); // Note: Due to this line, first value of r0 will be garbage, unless initialized!
+		assert(fabs(t - spp->seeds_hist2.get_last_t()) < 1e-6); // seeds_hist2 just had a push @t before call to this function
+		double dt = spp->seeds_hist2.get_last_t() - spp->seeds_hist1.get_last_t(); // Note: at first step, seeds_hist1 might be empty so it will return t=-1e20, making dt very large and therefore r0 --> 0
 		if (dt < config.timestep / 2){
 			cout << "dt = " << dt << '\n';
 			spp->r0_hist.print();
-			spp->seeds_hist.print();
+			spp->seeds_hist1.print_summary();
+			spp->seeds_hist2.print_summary();
 			throw std::runtime_error("r0 dt is less than the timestep!");
 		}
 
-		spp->seeds_hist.push(t, seeds[k]);        // Push S(t) into averager so that S_avg(t) can be computed
+		if (spp->seeds_hist1.size()>0) assert(fabs(spp->birth_flux_in - spp->seeds_hist1.get()) < 1e-6); // unless seeds_hist1 is empty, it's avg should equal input seed rain
 
-		double seeds_in = spp->birth_flux_in;     // This was S_avg(t-dt)
-		double seeds_out = spp->seeds_hist.get(); // This is  S_avg(t),    i.e. average over seed-rain-avg interval, either a year or successional time window 
+		double seeds_in = spp->birth_flux_in;     // This was S1[t-dt, x(t-dt)]
+		double seeds_out = spp->seeds_hist2.get(); // This is  S2[t, x(t-dt)],    i.e. average over seed-rain-avg interval, either a year or successional time window 
 		double eps = 1e-20;
 		double r0 = log((seeds_out + eps) / (seeds_in + eps)) / dt;   // t0 = (log(S_avg(t)/S_avg(t-dt))/dt
 
-		spp->set_inputBirthFlux(seeds_out);       // S_avg(t) will be input for next step
 		spp->r0_hist.push(t, r0);                 // r0 is averaged again for better evolutoinary convergence 
 		// spp->r0_hist.print_summary();
 	}
@@ -384,6 +387,8 @@ void Patch::calc_seedrain_r0(double t){
 /// @brief This function simulates patch to time t
 /// @param t Final time up to which patch should be simulated
 void Patch::simulate_to(double t){
+	// starting state: t-dt, x(t-dt), u(t-dt), E(t-dt, u(t-dt), x(t-dt)), S1[a(t-dt, x(t-dt))], S2[a(t-dt, x(t-2*dt))]
+
 	if (int(t * 12) % 12 == 0){
 		double t_years_ce = flare::julian_to_yearsCE(ts.to_julian(S.current_time));
 		double tplus_years_ce = flare::julian_to_yearsCE(ts.to_julian(t));
@@ -393,7 +398,7 @@ void Patch::simulate_to(double t){
 	}
 	// Step size to be used for evolutionary dynamics, 
 	// since trait evolution is done after completing step_to call
-	double dt_evol = t - S.current_time;
+	double dt_evol = t - S.current_time; // S.current_time is t-dt
 
 	// perform step
 	auto after_step = [this](double _t){
@@ -401,16 +406,43 @@ void Patch::simulate_to(double t){
 		// calc_seedrain_r0(_t);
 		};
 
-	S.step_to(t, after_step);
-
-	// update r0 and seed rain after step
-	// this implies that seed tain and r0 are not updated during internal steps - I think thats okay.
-	calc_seedrain_r0(t);
+	// Take dynamics step
+	S.step_to(t, after_step); // this takes 1 step, since internal step size is set to larhe value
+	// state now: t, x(t-dt), u(t), E(t-dt_solver, u(t-dt_solver)), S1[a(t-dt, x(t-dt))], S2[a(t-dt, x(t-2*dt))]
+	//                              ^ env update happens before dynamics update, so env is at the last solver step
 
 	// evolve traits
-	if (config.evolve_traits && t > config.ye){
-		evolveTraits(t, dt_evol);
+	if (config.evolve_traits){
+		// update r0 and seed rain after dynamics update
+		// this implies that seed tain and r0 are not updated during internal steps - I think thats okay.
+		// ---------------
+		// calculate interim seed rain 
+		vector<double> seeds_interim = S.newborns_out(t); // E(t, u(t), x(t-dt)) ---> a(t, x(t-dt))
+		validate_seedrain(seeds_interim); // check that no species has negative seed rain
+		// push interim seed rain into averager S2
+		for (int k=0; k < S.species_vec.size(); ++k){
+			auto spp = static_cast<AdaptiveSpecies<PSPM_Plant>*>(S.species_vec[k]);
+			spp->seeds_hist2.push(t, seeds_interim[k]); // S2[a(t, x(t-dt))]
+		}
+		// state now: t, x(t-dt), u(t), E(t, u(t), x(t-dt)), S1[a(t-dt, x(t-dt))], S2[a(t, x(t-dt))]
+
+		// calculate r0
+		calc_r0(t);
+
+		if (t > config.ye) evolveTraits(t, dt_evol);
 	}
+	// state now: t, x(t), u(t), E(t, u(t), x(t-dt)), S1[a(t-dt, x(t-dt))], S2[a(t, x(t-dt))]
+
+	// update input seed rain
+	vector<double> seeds = S.newborns_out(t); // E(t, u(t), x(t)) ---> a(t, x(t))
+	validate_seedrain(seeds); // check that no species has negative seed rain
+	// push interim seed rain into averager S1
+	for (int k=0; k < S.species_vec.size(); ++k){
+		auto spp = static_cast<AdaptiveSpecies<PSPM_Plant>*>(S.species_vec[k]);
+		spp->seeds_hist1.push(t, seeds[k]); // S1[a(t, x(t))]
+		spp->set_inputBirthFlux(spp->seeds_hist1.get()); // S1[a(t, x(t))] will be input for next step
+	}
+	// state now: t, x(t), u(t), E(t, u(t), x(t)), S1[a(t, x(t))], S2[a(t, x(t-dt))]
 
 	// update output metrics - needed before removeDeadSpecies()
 	props.update(t, *this);

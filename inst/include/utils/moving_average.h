@@ -61,6 +61,10 @@ class MovingAverager{
 		}
 	}
 
+	inline std::size_t size(){
+		return t_hist.size();
+	}
+
 	inline double get(){
 		if (t_hist.size() == 0) return 0;
 		else if (t_hist.size() == 1) return f_hist.front();

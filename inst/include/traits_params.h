@@ -90,9 +90,10 @@ class PlantParameters{
 	double les_molar_R;     ///< Universal gas constant [J mol-1 K-1]
 
 	// Respiration and turnover 
-	double rd;              ///< leaf dark respiration rate per unit photosynthetic capacity (r_leaf = rl*vcmax*leaf_area) [kg yr-1]
-	double rr;              ///< fine-root respiration rate [kg yr-1]
-	double rs;              ///< sapwood respiration rate [kg yr-1]
+	double rd;              ///< leaf dark respiration rate per unit photosynthetic capacity (r_leaf = rl*vcmax*canopy_area) [yr-1]
+	double rr;              ///< fine-root respiration rate [m2 kg-1]
+	double rs;              ///< sapwood respiration rate [yr-1]
+	double p50x_cost;       ///< Extra respiratory cost of maintining high P50x [yr-1 MPa-2]
 
 	double cbio;            ///< Biomass expansion factor: kg biomass per mol CO2 
 	double y;               ///< Growth respiration factor [-]
