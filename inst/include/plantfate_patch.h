@@ -56,7 +56,7 @@ class Patch{
 
 	void update_climate(double julian_time, env::ClimateStream& c_stream);
 
-	void update_climate(double co2, double tc, double vpd, double ppfd, double swp);
+	void update_climate(double co2, double tc, double vpd, double ppfd, double swp, double rn);
 	void update_climate_acclim(double t_julian, double co2, double tc, double vpd, double ppfd, double swp);
 
 	void simulate();

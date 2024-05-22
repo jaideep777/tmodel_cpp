@@ -490,7 +490,7 @@ void Patch::update_climate(double julian_time, env::ClimateStream& c_stream){
 }
 
 
-void Patch::update_climate(double _co2, double _tc, double _vpd, double _ppfd, double _swp){
+void Patch::update_climate(double _co2, double _tc, double _vpd, double _ppfd, double _swp, double _rn){
 	E.clim_inst.tc   = _tc;
 	E.clim_inst.ppfd = _ppfd;
 	E.clim_inst.rn   = _ppfd / 2;  // Tentative, placeholder

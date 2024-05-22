@@ -18,7 +18,7 @@ class CommunityProperties{
 	
 	public: 
 	// CO2 and water fluxes
-	struct{
+	struct Fluxes{
 		double gpp = 0;      ///< Gross primary productivity [kgC m-2 day-1]
 		double npp = 0;      ///< Net primary productivity [kgC m-2 day-1]
 		double trans = 0;    ///< Transpiration [kg m-2 day-1 ~= mm day-1]
@@ -29,10 +29,10 @@ class CommunityProperties{
 		double rroot = 0;    ///< Fine root respiration rate [kgC m-2 day-1]
 		double rstem = 0;    ///< Stem + Coarse-root respiration rate [kgC m-2 day-1]
 		double mort = 0;     ///< Biomass loss rate by mortality [kgC m-2 day-1]
-	} fluxes;
+	};
 
 	// Structural properties of the community
-	struct{
+	struct Structure{
 		double leaf_mass = 0;       ///< Leaf biomass [kgC m-2]
 		double stem_mass = 0;       ///< Stem biomass [kgC m-2]
 		double croot_mass = 0;      ///< Coarse root biomass [kgC m-2]
@@ -61,15 +61,15 @@ class CommunityProperties{
 	};
 
 	// Miscellaneous properties
-	struct{
+	struct Misc{
 		double cc_est = 0; ///< Estimated carbon cost of leaves averaged over the leaf lifespan
-	} misc;
+	};
 
 	// Acclimated traits
-	struct{
+	struct Acc_traits{
 		double vcmax = 0; ///< Average Vcmax in leaves of the upper canopy [umol m-2 s-1]
 		double dpsi = 0;  ///< Average dpsi in leaves of the upper canopy [MPa]
-	} acc_traits;
+	};
 
 
 	public:
