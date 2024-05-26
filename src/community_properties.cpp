@@ -1,6 +1,7 @@
 #include "community_properties.h"
 #include "light_environment.h"
 #include "plantfate_patch.h"
+#include <phydro.h>
 
 using namespace std;
 
@@ -81,6 +82,15 @@ void CommunityProperties::update(double t, Patch& P){
 	for (int iz=0; iz < 25; ++iz){
 		structure.lai_vert[iz] = integrate_prop(t, S, [iz](PSPM_Plant* p){return p->geometry.crown_area_above(iz, p->traits) * p->geometry.lai;});
 	}
+
+	// soil evaporation 
+	// TODO: Might be possible to avoid duplication by splitting phydro::env computations
+	auto cc = static_cast<PSPM_Environment*>(S.env)->clim_inst;
+	double gamma = phydro::calc_psychro(cc.tc, cc.pa);
+	double epsilon = phydro::calc_sat_slope(cc.tc) / gamma;
+	double lv = phydro::calc_enthalpy_vap(cc.tc);
+	double fapar = 1-exp(-0.5*structure.lai);
+	fluxes.pe_soil = (1-fapar)*cc.rn*(epsilon/(1+epsilon)) / lv * 86400; // J m-2 s-1 / (J kg-1) * (s/day) = kg m-2 s-1 * s day-1 = kg m-2 day-1
 }
 
 
@@ -110,7 +120,7 @@ void CommunityProperties::openStreams(std::string dir){
 	ftraits.open(std::string(dir + "/" + traits_file).c_str());
 	// fclim.open(std::string(dir + "/climate_co2.csv").c_str());
 
-	foutd << "YEAR,GPP,NPP,RAU,MORT,GS,ET,VCMAX,DPSI,CCEST,CO2\n";
+	foutd << "YEAR,GPP,NPP,RAU,MORT,GS,ET,PESOIL,VCMAX,DPSI,CCEST,CO2\n";
 	fouty << "YEAR,DE,CL,CW,CCR,CFR,CR,CA,BA,TB,LAI\n";
 	fouty_spp << "YEAR,PID,DE,PH,CA,BA,TB,SEEDS\n";
 	ftraits << "YEAR,SPP,RES,LMA,WD,HMAT,P50X,ZETA,r0_last,r0_avg,r0_exp,r0_cesaro\n";
@@ -182,6 +192,7 @@ void CommunityProperties::writeOut(double t, Patch& P){
 		<< fluxes.mort << ","
 		<< fluxes.gs << ","
 		<< fluxes.trans << ","
+		<< fluxes.pe_soil << ","
 		<< acc_traits.vcmax << ","
 		<< acc_traits.dpsi << ","
 		<< misc.cc_est << ","

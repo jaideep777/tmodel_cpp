@@ -29,6 +29,7 @@ class CommunityProperties{
 		double rroot = 0;    ///< Fine root respiration rate [kgC m-2 day-1]
 		double rstem = 0;    ///< Stem + Coarse-root respiration rate [kgC m-2 day-1]
 		double mort = 0;     ///< Biomass loss rate by mortality [kgC m-2 day-1]
+		double pe_soil = 0;  ///< Potential soil evaporation [kg-h2o m-2 day-1]
 	};
 
 	// Structural properties of the community

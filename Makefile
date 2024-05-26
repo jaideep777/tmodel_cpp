@@ -126,7 +126,7 @@ $(APP_TARGETS): bin/% : apps/%.cpp $(HEADERS)
 
 ## TESTING SUITE ##
 
-TEST_FILES = tests/lho.cpp tests/pf_test.cpp #$(wildcard tests/*.cpp)
+TEST_FILES = tests/lho.cpp tests/pf_test.cpp tests/pf_test_evol.cpp #$(wildcard tests/*.cpp)
 TEST_OBJECTS = $(patsubst tests/%.cpp, tests/%.o, $(TEST_FILES))
 TEST_TARGETS = $(patsubst tests/%.cpp, tests/%.test, $(TEST_FILES))
 TEST_RUNS = $(patsubst tests/%.cpp, tests/%.run, $(TEST_FILES))
