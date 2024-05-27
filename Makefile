@@ -73,11 +73,6 @@ LIBS = 	 -lpspm	# additional libs
 # files
 OBJECTS = $(patsubst src/%.cpp, build/%.o, $(SRCFILES))
 
-
-# add_subdirectory(pybinds)
-# pybind11_add_module(simulator simulator_pybind.cpp)
-
-
 all: dir external_libs $(TARGET) apps
 
 # $(PYBINDFILES): build/%.o : src/%.cpp
@@ -131,7 +126,7 @@ $(APP_TARGETS): bin/% : apps/%.cpp $(HEADERS)
 
 ## TESTING SUITE ##
 
-TEST_FILES = tests/lho.cpp tests/pf_test.cpp #$(wildcard tests/*.cpp)
+TEST_FILES = tests/lho.cpp tests/pf_test.cpp tests/pf_test_evol.cpp #$(wildcard tests/*.cpp)
 TEST_OBJECTS = $(patsubst tests/%.cpp, tests/%.o, $(TEST_FILES))
 TEST_TARGETS = $(patsubst tests/%.cpp, tests/%.test, $(TEST_FILES))
 TEST_RUNS = $(patsubst tests/%.cpp, tests/%.run, $(TEST_FILES))
