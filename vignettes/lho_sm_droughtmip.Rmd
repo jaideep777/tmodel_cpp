@@ -1,0 +1,276 @@
+---
+title: "TreeLife demo"
+author: "Jaideep Joshi"
+date: "2023-01-21"
+output:
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+```{r}
+library(PlantFATE)
+library(tidyverse)
+
+print(getwd())
+```
+
+## Introduction
+
+This vignette demonstrates the functionalities of the `PlantFATE` package for simulating plant growth and calculating fitness based on specified traits. We will walk through the code, explaining each step and providing visualizations of the simulated plant's growth trajectory.
+
+
+## A plotting utility
+
+The plot_plant_trajectory function is defined to visualize various aspects of plant growth over time. It generates multiple plots showing different parameters such as height, diameter, biomass pools, fitness, GPP (Gross Primary Productivity), NPP (Net Primary Productivity), respiration, turnover, transpiration, water potential, Vcmax (maximum carboxylation velocity), LAI (Leaf Area Index), mortality rates, sapwood/heartwood fractions, leaf/fine root lifespans, etc.
+
+```{r echo=F}
+plot_plant_trajectory = function(dat){
+  dat$leaf_area = dat$crown_area * dat$lai
+  dat$heartwood_fraction = 1-dat$sapwood_fraction
+  
+  # par(mfrow=c(4,2), mar=c(4,4,1,1), oma=c(1,1,1,1))
+  
+  # plot(dat$height~dat$diameter, type="l", ylab="Height", xlab="Diameter")
+  # plot(dat$crown_area~I(dat$height*dat$diameter), type="l", ylab="Crown area", xlab="DH")
+  # plot(I(dat$total_rep/dat$total_prod)~dat$height, type="l", ylab="Frac alloc to\nreproduction", xlab="Height")
+  # plot(I(dat$total_rep/dat$total_prod)~dat$diameter, type="l", ylab="Frac alloc to\nreproduction", xlab="Diameter")
+  
+  par(mfrow=c(4,4), mar=c(4,8,1,1), oma=c(1,1,1,1), mgp=c(4,1,0), cex.lab=1.2)
+  
+  plot(dat$height~dat$i, ylab="Height", xlab="Year", type="l", lwd=2)
+  plot(dat$diameter~dat$i, ylab="Diameter", xlab="Year", col="brown", type="l", lwd=2)
+  
+  matplot(y=cbind(dat$total_mass,
+                  dat$total_rep,
+                  dat$litter_mass,
+                  dat$total_mass+dat$total_rep+dat$litter_mass,
+                  dat$total_prod), 
+          x=dat$i, col=c("green4", "purple", "yellow4", "black", "red"), log="", lty=c(1,1,1,1,2), lwd=c(1,1,1,2,1), type="l",
+          ylab="Biomass pools", xlab="Year")
+  abline(h=0, col="grey")
+  
+  matplot(y=cbind(dat$total_mass,
+                  dat$leaf_mass,
+                  dat$root_mass,
+                  dat$coarse_root_mass,
+                  dat$stem_mass),
+          x=dat$i, col=c("black", "green3", "purple", "purple3", "brown"), log="", lty=c(1,1,1,1,1), lwd=c(1,1,1,1,1), type="l",
+          ylab="Biomass pools", xlab="Year")
+  abline(h=0, col="grey")
+  
+  
+  matplot(y=cbind(dat$fitness), 
+          x=dat$i, col=c("purple2", "magenta", "pink"), log="", lty=c(1,1,1), lwd=c(1,1,2), type="l",
+          ylab="Fitness", xlab="Year")
+  abline(h=0, col="grey")
+  
+  # plot(dat$total_mass~dat$i, ylab="Total biomass", xlab="Year")
+  # plot(dat$total_mass~dat$i, ylab="Total biomass", xlab="Year")
+  # 
+  # points(y=dat$total_prod-dat$litter_mass, x=dat$i, type="l", col="red")
+  
+  # plot(y=1 - (dat$total_prod-dat$litter_mass)/dat$total_mass, x=dat$i, ylab="Total biomass", xlab="Year")
+  
+  # plot(dat$ppfd[01:1000]~dat$i[01:1000], type="l")
+  # plot(dat$assim_gross[901:1000]~dat$ppfd[901:1000], type="l")
+  
+  
+  matplot(y=cbind(dat$assim_gross/dat$crown_area,
+                  dat$assim_net/dat$crown_area,
+                  dat$assim_net/dat$assim_gross * max(dat$assim_gross/dat$crown_area)), 
+                  x=dat$i, col=c("green3", "green4", scales::alpha("yellow3", 0.5)), log="", lty=1, type="l", lwd=c(1,1,3),
+                  ylab=expression(atop("GPP, NPP", "(kg m"^"-2"*"Yr"^"-1"*")")), xlab="Year")
+  abline(h=0, col="grey")
+  
+  matplot(y=cbind(dat$rr/dat$crown_area,
+                  dat$rs/dat$crown_area,
+                  dat$rl/dat$crown_area), 
+                  x=dat$i, col=c("pink2", "pink3", "pink4"), log="", lty=1, type="l",
+                  ylab="Respiration", xlab="Year")
+  
+  matplot(y=cbind(dat$tr/dat$crown_area,
+                  dat$tl/dat$crown_area), 
+                  x=dat$i, col=c("orange3", "orange4"), log="", lty=1, type="l",
+                  ylab="Turnover", xlab="Year",
+                  add=F)
+  
+  plot(I(dat$transpiration/dat$crown_area/1000*1000)~dat$i, type="l", col="blue", ylab="Transpitation\n(mm/yr)")
+  
+  plot(dat$dpsi~dat$i, type="l", col="cyan", ylab=expression(atop(Delta*psi, "(MPa)")), xlab="Year")
+  
+  plot(dat$vcmax~dat$i, type="l", col="limegreen", ylab=expression(atop(V[cmax], "("*mu*"mol m"^"-2"*"s"^"-1"*")")), xlab="Year")
+  
+  plot(I(dat$leaf_area/dat$crown_area)~dat$i, ylab="LAI", xlab="Year", type="l")
+  
+  plot(I(dat$mortality)~dat$i, ylab="Cumulative\nMortality", xlab="Year", type="l")
+  
+  # Instantaneous mortality
+  dat %>% filter(diameter<0.5) %>% 
+    select(i, mortrate_0, mortrate_growth, mortrate_d, mortrate_hyd, mortality_inst) %>% 
+    with(matplot(y=.[,-1], x=.[,1], ylab="Instantaneous\nmortality rate", xlab="Diameter", type="l", lty=1, col=c("yellow3", "green3", "brown", "blue", "black")))
+  
+  matplot(y=cbind(dat$sapwood_fraction, 
+                dat$heartwood_fraction),
+          x=dat$i, 
+          ylab="Sap/Heart wood\nfraction", xlab="Year", type="l", col=c("yellowgreen", "brown4"), lty=1, lwd=1)
+  
+  # plot(I(dat$ppfd)~dat$i, ylab="PPFD", xlab="Year", type="l", col="yellowgreen")
+  
+  matplot(y=(cbind(dat$leaf_lifespan, 
+                  dat$fineroot_lifespan)),
+          x=dat$height, 
+          ylab="Leaf/fine root\nlifespan", xlab="Height", type="l", col=c("yellowgreen", "brown4"), lty=1, lwd=1)
+  abline(h=1, col="grey")
+}
+
+```
+
+## Simulate a plant and plot its growth trajectory
+
+```{r}
+zp_dmip =  c(19.595908, 13.626164, 3.435429, 0.000000)
+
+co_dmip = c(1.000000e+00, 4.711884e-01, 2.054593e-01, 6.933031e-02)
+```
+
+The code first initializes parameters and environmental conditions for simulating plant growth using the LifeHistoryOptimizer class from the PlantFATE package.
+
+- It reads in environmental data and initializes CO2 levels.
+- Then, it iterates over time steps, simulating plant growth and storing the state of the plant at each time step.
+- Finally, it plots the trajectory of the simulated plant's growth using the previously defined plot_plant_trajectory function.
+
+```{r}
+params_file = "tests/params/p_test_v2_droughtmip.ini"
+
+lho = new(LifeHistoryOptimizer, params_file)
+lho$set_i_metFile("tests/data/PF-CWM_GYF_DY_combined_PlantFATE_r.csv")
+lho$set_a_metFile("tests/data/PF-CWM_GYF_DY_combined_PlantFATE_r.csv")
+lho$set_co2File("")
+lho$init_co2(414)
+lho$par0$m_hydraulic = 1
+print(c(lho$env$clim_inst$co2,
+        lho$env$clim_acclim$co2))
+lho$init()
+lho$printMeta()
+
+dt = 0.1
+df = read.csv(text="", col.names = lho$get_header())
+for (t in seq(2000,2500,dt)){
+  lho$grow_for_dt(t,0.1)
+  df[nrow(df)+1,] = lho$get_state(t+dt)
+}
+
+plot_plant_trajectory(df)
+```
+
+## Calculate fitness of specified traits
+
+Two sections are dedicated to calculating the fitness of a tree with specified traits. The first section calculates fitness without modifying any traits, while the second section overrides the wood density trait to a specified value and recalculates fitness. The process involves initializing the optimizer, setting traits, and then calculating fitness based on those traits.
+
+To calculate the fitness of a tree with given traits, follow these steps:
+
+1. Create an optimizer
+2. set the parameters file
+3. Initialize the optimizer - this will read the params file and initialize everything from it
+4. set traits  - this will overwrite the specified traits and redo any trait-coordination calculations
+5. Calculate fitness
+
+```{r}
+lho = new(LifeHistoryOptimizer, params_file)
+lho$init()
+lho$printMeta()
+lho$calcFitness()
+```
+
+<!-- ## Calculate fitness as a function of LMA -->
+
+<!-- ```{r} -->
+<!-- fitness_lma = function(lma){ -->
+<!--   lho = new(LifeHistoryOptimizer) -->
+<!--   lho$params_file = "tests/params/p.ini" -->
+<!--   lho$init() -->
+<!--   lho$set_traits(c(lma, 750)) -->
+<!--   # lho$printPlant() -->
+<!--   lho$calcFitness() -->
+<!-- } -->
+
+<!-- lma = seq(0.05, 0.3, 0.01) -->
+<!-- dat = lma %>% purrr::map_dbl(fitness_lma) -->
+
+<!-- plot(dat~lma) -->
+<!-- ``` -->
+
+## Calculate fitness as a function of wood density
+
+This section calculates fitness as a function of wood density under different environmental conditions.
+- It defines a function fitness_wd to calculate fitness based on wood density, environmental parameters, and CO2 levels.
+- It iterates over a range of wood densities and calculates fitness for each density under ambient and elevated CO2 conditions.
+- Finally, it plots the results, showing how fitness varies with wood density under different environmental scenarios.
+    
+```{r}
+fitness = function(p50, sm, m_hyd, pfile="tests/params/p_test_v2_droughtmip.ini"){
+  cat("p50/sm/m_hyd = ", p50, " ", sm, " ", m_hyd, "\n")
+  lho = new(LifeHistoryOptimizer, pfile)
+  lho$set_i_metFile("tests/data/PF-CWM_GYF_DY_combined_PlantFATE_r.csv")
+  lho$set_a_metFile("tests/data/PF-CWM_GYF_DY_combined_PlantFATE_r.csv")
+  lho$set_co2File("")
+  lho$init_co2(414)
+  lho$env$z_star = zp_dmip
+  lho$env$canopy_openness = co_dmip
+  lho$traits0$sm_xylem = sm
+  lho$traits0$p50_xylem = p50
+  lho$par0$m_hydraulic = m_hyd
+  lho$init()
+  # lho$printPlant()
+  lho$calcFitness()
+}
+
+driv2 = list(
+    p50 = seq(-5,-0.5, length.out=5), 
+    p88 = seq(-8,-0.05, length.out=10),
+    m_hyd = c(0.01, 0.1, 1)) %>% 
+  cross_df() %>% 
+  mutate(sm = p88 - p50) %>% 
+  filter(p88 < -0.1) %>% 
+  select(-p88) 
+
+# df = driv %>% 
+#   mutate(fitness = purrr::pmap_dbl(.l=., .f = fitness)) 
+
+df2 = driv2 %>% 
+  mutate(fitness = purrr::pmap_dbl(.l=., .f = fitness)) 
+
+# df2 %>% 
+#   mutate(pg88 = sm + p50) %>% 
+#   ggplot() + 
+#   geom_raster(aes(x=p50, y=pg88, fill=fitness))+
+#   geom_abline(slope=1, intercept=0, col="red")+
+#   facet_wrap(~m_hyd)
+# 
+# df2 %>% 
+#   mutate(pg88 = sm + p50) %>% 
+#   filter(m_hyd ==1) %>% 
+#   ggplot() + 
+#   geom_raster(aes(x=p50, y=pg88, fill=fitness))+
+#   geom_abline(slope=1, intercept=0, col="red")+
+#   facet_wrap(~m_hyd)
+
+df2 %>% 
+  mutate(pg88 = sm + p50) %>% 
+  ggplot() + 
+  geom_line(aes(x=pg88, y=fitness, col=p50, group=p50))+
+  facet_wrap(~m_hyd)
+
+# 
+# df %>% 
+#   mutate(pg88 = sm + p50) %>% 
+#   ggplot() + 
+#   geom_raster(aes(x=p50, y=sm, fill=fitness))
+# 
+
+
+```

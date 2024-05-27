@@ -101,13 +101,13 @@ double Plant::mortality_rate(Env& env, double t){
 // 	mu += 1/(1+exp(-(r)));
 // 	//fmuh << mu << "\n";
 
-	double fcrit = 0.05;
+	double fcrit = 0.12;
 	double pcrit_by_p50 = pow(log(fcrit) / log(0.5), 1 / traits.b_xylem);
 	double pcrit_xylem = traits.p50_xylem * pcrit_by_p50;
 	double psi_xylem = env.clim_inst.swp - res.dpsi_avg / 2;
 
 	double mu_hyd_norm = (psi_xylem <= pcrit_xylem) ? 1e6 : std::fmin(1e6, atanh(pow(psi_xylem / pcrit_xylem, traits.b_xylem)));
-	// std::cout << "Hyd mortality rate (" << traits.species_name << ", h=" << geometry.height << "): " <<  res.dpsi_avg << " --> " << psi_xylem << " / " << pcrit_xylem << " --> " << mu_hyd << '\n';
+	// std::cout << "Hyd mortality rate (" << traits.species_name << ", h=" << geometry.height << "): " <<  res.dpsi_avg << " --> " << psi_xylem << " / " << pcrit_xylem << " --> " << mu_hyd_norm << '\n';
 
 	double rgr_annual_avg = rates.rgr / par.years_per_tunit_avg;
 	mort.mu_0      = par.m_gamma * pow(traits.wood_density / par.cWD0, par.eWD_gamma);   //*pow(traits.wood_density/600, -1.8392) + 
