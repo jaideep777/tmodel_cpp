@@ -93,29 +93,28 @@ std::vector<plant::PlantTraits> Patch::readTraitsFromFile(std::string fname){
 	flare::CSVRow row;
 	fin >> row;
 
-	plant::PlantTraits traits;
-	// read time column for all rows
+	plant::PlantTraits traits = traits0;
+	// this now uses the new file format. Use the generate_traitfile.R script to generate a template
 	while (fin >> row){
 		std::string cell;
 
-		cell = row[1];
+		cell = row[0];
 		traits.species_name = cell;
 
-		cell = row[4];
-		if (cell != "" && cell != "NA")	traits.wood_density = std::stod(cell) * 1000; // g/cc to kg/m3
-		else traits.wood_density = 686.638;
-
-		cell = row[5];
-		if (cell != "" && cell != "NA")	traits.hmat = std::stod(cell);
-		else traits.hmat = 23.99;
-
-		cell = row[6];
-		if (cell != "" && cell != "NA")	traits.lma = std::stod(cell) * 1e-3;  // convert g/m2 to kg/m2
-		else traits.lma = 0.119378;
-
 		cell = row[7];
+		if (cell != "" && cell != "NA")	traits.wood_density = std::stod(cell); // kg/m3
+
+		cell = row[4];
+		if (cell != "" && cell != "NA")	traits.hmat = std::stod(cell);
+
+		cell = row[1];
+		if (cell != "" && cell != "NA")	traits.lma = std::stod(cell);  // kg/m2
+
+		cell = row[8];
 		if (cell != "" && cell != "NA")	traits.p50_xylem = std::stod(cell);
-		else traits.p50_xylem = -2.29;
+
+		cell = row[13];
+		if (cell != "" && cell != "NA")	traits.sm_xylem = std::stod(cell);
 
 		// ignore further data (for now)	
 
@@ -187,19 +186,13 @@ void Patch::init(double tstart, double tend){
 		// ~~~~~~~~~~ Read initial trait values ~~~~~~~~~~~~~~~~~~~~~~~~~
 		std::vector<plant::PlantTraits> file_species = readTraitsFromFile(config.traits_file);
 		for (auto& s : file_species){
-			std::cout << s.species_name << ":  " << s.lma << "\t" << s.wood_density << "\t" << s.hmat << "\t" << s.p50_xylem << "\n";
+			s.print();
+			// std::cout << s.species_name << ":  " << s.lma << "\t" << s.wood_density << "\t" << s.hmat << "\t" << s.p50_xylem << "\n";
 		}
 
 		// ~~~ Create initial resident species pool from traits file ~~~~
 		for (int i=0; i < config.n_species; ++i){
-			plant::PlantTraits traits = traits0;
-			traits.species_name = file_species[i].species_name;
-			traits.lma          = file_species[i].lma;
-			traits.wood_density = file_species[i].wood_density;
-			traits.hmat         = file_species[i].hmat;
-			traits.p50_xylem    = file_species[i].p50_xylem; // runif(-3.5,-0.5);
-
-			addSpeciesAndProbes(config.y0, traits);
+			addSpeciesAndProbes(config.y0, file_species[i]);
 		}
 
 		// S.resetState(y0);

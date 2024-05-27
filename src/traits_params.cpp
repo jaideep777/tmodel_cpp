@@ -51,7 +51,7 @@ void PlantTraits::initFromFile(std::string fname){
 
 void PlantTraits::coordinate(){
 	// traits.ll = 1/(0.0286*pow(traits.lma, -1.71));  // Leaf Economics Spectrum (Relationship from Wright et al. 2004)
-	double p88_leaf = p50_xylem - sm_xylem;
+	double p88_leaf = p50_xylem + sm_xylem; // sm = p88 - p50
 	double p88_by_p50 = pow(log(0.12) / log(0.5), 1 / b_leaf);
 	p50_leaf = p88_leaf / p88_by_p50;        // P50 = Pg88/3 = P50X/3
 
@@ -147,6 +147,7 @@ void PlantTraits::restore(std::istream& fin){
 
 void PlantTraits::print(){
 	std::cout << "Traits:\n";
+	std::cout << "   species_name = " << species_name << '\n';
 	std::cout << "   lma          = " << lma << '\n';
 	std::cout << "   zeta         = " << zeta << '\n';
 	std::cout << "   fcr          = " << fcr << '\n';

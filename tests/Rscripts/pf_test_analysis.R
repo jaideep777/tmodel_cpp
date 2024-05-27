@@ -11,6 +11,11 @@ expt_dir = "test_3spp_100yr" #_old_params"
 # expt_dir = "test_1spp_evol_p50" #_old_params"
 # expt_dir = "test_4spp_evol_wd_hmat" #_old_params"
 # expt_dir = "cont_test_main" #_old_params"
+
+# droughtmip tests
+expt_dir = "test_droughtmip" #_old_params"
+
+
 solver = "IEBT"
 
 setwd(paste0(output_dir,"/",expt_dir))
