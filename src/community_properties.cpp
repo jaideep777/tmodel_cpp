@@ -123,7 +123,7 @@ void CommunityProperties::openStreams(std::string dir){
 	foutd << "YEAR,GPP,NPP,RAU,MORT,GS,ET,PESOIL,VCMAX,DPSI,CCEST,CO2\n";
 	fouty << "YEAR,DE,CL,CW,CCR,CFR,CR,CA,BA,TB,LAI\n";
 	fouty_spp << "YEAR,PID,DE,PH,CA,BA,TB,SEEDS\n";
-	ftraits << "YEAR,SPP,RES,LMA,WD,HMAT,P50X,ZETA,r0_last,r0_avg,r0_exp,r0_cesaro\n";
+	ftraits << "YEAR,SPP,RES,LMA,WD,HMAT,P50X,SMX,ZETA,r0_last,r0_avg,r0_exp,r0_cesaro\n";
 	// fclim << "t,tc,ppfd_max,ppfd,vpd,co2,elv,swp\n";
 
 }
@@ -240,6 +240,7 @@ void CommunityProperties::writeOut(double t, Patch& P){
 			<< spp->getCohort(-1).traits.wood_density << ","
 			<< spp->getCohort(-1).traits.hmat << ","
 			<< spp->getCohort(-1).traits.p50_xylem << ","
+			<< spp->getCohort(-1).traits.sm_xylem << ","
 			<< spp->getCohort(-1).traits.zeta << ","
 			<< spp->r0_hist.get_last() << ","
 			<< spp->r0_hist.get() << ","

@@ -265,10 +265,14 @@ cwm_wd_pred = dat2 %>% select(YEAR, PID, BA) %>%
 
 hmat = traits %>% filter(!grepl("probe", .$SPP)) %>% select(YEAR, SPP, HMAT) %>% pivot_wider(names_from = "SPP", values_from = "HMAT") 
 wd = traits %>% filter(!grepl("probe", .$SPP)) %>% select(YEAR, SPP, WD) %>% pivot_wider(names_from = "SPP", values_from = "WD") 
-matplot(y=hmat[,-1], x=wd[,-1], lty=1, type="o", pch=20, cex=0.5, col=col_species, xlab="Wood density", ylab="Max height")
+p50x = traits %>% filter(!grepl("probe", .$SPP)) %>% select(YEAR, SPP, P50X) %>% pivot_wider(names_from = "SPP", values_from = "P50X") 
+smx = traits %>% filter(!grepl("probe", .$SPP)) %>% select(YEAR, SPP, SMX) %>% pivot_wider(names_from = "SPP", values_from = "SMX") 
 
-matplot(x=wd[,1], y=wd[,-1], col=col_species, lty=1, type="l", ylab="Wood density", xlab="Year")
-matplot(x=hmat[,1], y=hmat[,-1], col=col_species, lty=1, type="l", ylab="Max. height", xlab="Year")
+matplot(y=hmat[,-1], x=wd[,-1], lty=1, type="o", pch=20, cex=0.5, col=col_species, xlab="Wood density", ylab="Max height")
+matplot(y=p50x[,-1], x=smx[,-1], lty=1, type="o", pch=20, cex=0.5, col=col_species, xlab="SMx", ylab="P50x")
+
+# matplot(x=wd[,1], y=wd[,-1], col=col_species, lty=1, type="l", ylab="Wood density", xlab="Year")
+# matplot(x=hmat[,1], y=hmat[,-1], col=col_species, lty=1, type="l", ylab="Max. height", xlab="Year")
 
 zz = traits %>% 
   select(YEAR, SPP, r0_avg) %>% 
