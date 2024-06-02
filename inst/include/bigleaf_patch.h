@@ -60,6 +60,7 @@ class BigLeafPatch{
 
 	void printMeta();
 
+	void spinup();
 	void simulate();
 };
 

@@ -34,6 +34,13 @@ BigLeafPatch::BigLeafPatch(std::string params_file){
 
 	traits0.print();
 	par0.print();
+
+	// init soil params and site info for splash
+	soil_env.par_spl.soil_info = I.get_vector<double>("soil_info");
+	soil_env.par_spl.slope = I.get<double>("slope");
+	soil_env.par_spl.asp = 180-I.get<double>("aspect");
+	soil_env.par_spl.lat = I.get<double>("latitude");
+	soil_env.par_spl.elev = I.get<double>("elevation");
 }
 
 void BigLeafPatch::set_i_metFile(std::string file){
@@ -65,6 +72,7 @@ void BigLeafPatch::init(double _t0, double _tf){
 	forcing.set_elevation(0);
 	forcing.set_acclim_timescale(7);
 	climate_stream.init();
+	soil_env.swc = 50;
 }
 
 vector<std::string> BigLeafPatch::get_header(){
@@ -179,6 +187,43 @@ void BigLeafPatch::simulate(){
 		printState(t, fout);
 	}
 	fout.close();
+}
+
+
+void BigLeafPatch::spinup(){
+
+	ofstream fout(outfile.c_str());
+	printHeader(fout);
+	vector<double> sw_in, tair, precip, snowfall;
+
+	// 1. Collect daily 24-hr mean forcing variables for 1 year for soil moisture spinup
+	double dt_spin = 1/par0.days_per_tunit; // 1 day timstep for spinup
+	double tend = t0 + 1/par0.years_per_tunit_avg; // 1 year of data for spinup run
+	cout << "Spinup: " << t0 << " --> " << tend << " (dt = " << dt_spin << ")\n";
+	auto tp = flare::julian_to_date(ts.to_julian(t0+dt_spin));
+	int y = tp.tm_year+1900;
+	int m = tp.tm_mon+1;
+	int d = tp.tm_mday;
+	if (m > 1 && d > 1) throw std::runtime_error("Spin up should start on the first day of the year");
+	cout << "Spinup: start date = " << y << "-" << m << "-" << d << "\n";
+	for (double t=t0+dt_spin; t <= tend + 1e-6; t=t + dt_spin) {  // 1e-6 ensures that last timestep to reach yf is actually executed
+		// read forcing inputs
+		update_climate(ts.to_julian(t) + 1e-6); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
+		// forcing.print_line(t);
+
+		sw_in.push_back(forcing.clim_inst.ppfd/2.04);
+		tair.push_back(forcing.clim_inst.tc);
+		precip.push_back(forcing.clim_inst.precip);
+		snowfall.push_back(0);
+
+		cout << flare::julian_to_datestring(ts.to_julian(t)) << "\t" 
+		     << sw_in.back() << "\t" 
+		     << tair.back() << "\t" 
+		     << precip.back() << "\t" 
+		     << snowfall.back() << "\n"; 
+	}
+
+	soil_env.spinup(y, sw_in, tair, precip, snowfall);
 }
 
 

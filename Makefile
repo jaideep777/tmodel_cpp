@@ -26,9 +26,14 @@ INC_PATH += -I$(EXTERNAL_DIR)/phydro/inst/include \
 LIB_PATH := -L$(EXTERNAL_DIR)/libpspm/lib -L./lib
 PTH_PATH := $(shell python3 -m pybind11 --includes)
 
+# splash
+SPLASH_DIR = ../rsplash
+INC_PATH += -I$(SPLASH_DIR)/src
+LIB_PATH += -L$(SPLASH_DIR)/lib
+
 # flags
 PROFILING_FLAGS = -g -pg
-CPPFLAGS = -O3 -std=c++17 -Wall -Wextra -DPHYDRO_ANALYTICAL_ONLY $(PROFILING_FLAGS)
+CPPFLAGS = -O3 -std=c++17 -Wall -Wextra -DPHYDRO_ANALYTICAL_ONLY -DNATIVE_CPP $(PROFILING_FLAGS)
 LDFLAGS =  $(PROFILING_FLAGS)
 
 CPPFLAGS +=    \
@@ -67,7 +72,7 @@ CPPFLAGS += -Wno-sign-compare -Wno-unused-variable \
 
 # libs
 AR = ar
-LIBS = 	 -lpspm	# additional libs
+LIBS = 	 -lpspm -lsplash	# additional libs
 #LIBS = -lcudart 			# cuda libs
 
 # files
@@ -92,7 +97,7 @@ hi:
 	echo $(SRCFILES)
 
 $(TARGET): $(OBJECTS)
-	$(AR) rcs lib/$(TARGET).a $(OBJECTS) $(LIBS)	
+	$(AR) rcs lib/$(TARGET).a $(OBJECTS) 
 # g++ $(LDFLAGS) -o $(TARGET) $(LIB_PATH) $(OBJECTS) $(LIBS)
 
 $(OBJECTS): build/%.o : src/%.cpp $(HEADERS)

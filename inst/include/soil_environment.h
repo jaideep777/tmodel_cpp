@@ -17,9 +17,19 @@ class SoilEnvironment {
 		double sstar = 100;  /// global minimum rzwsc [mm]
 	} par; /// Soil parameters (may be eventually merged with simulation parameters)
 
+	struct SplashPars{
+		double slope;
+		double asp;
+		double lat;
+		double elev;
+		std::vector<double> soil_info;
+	} par_spl;
+
 	double swc = 300;    /// soil water content [mm]
 
 	public:
+	void spinup(int y, std::vector<double>& sw_in, std::vector<double>& tair, std::vector<double>& pn, std::vector<double>& snow);
+
 	/// @brief Updates soil water content from water fluxes over interval dt
 	/// 
 	/// @param dt     time interval [days] 

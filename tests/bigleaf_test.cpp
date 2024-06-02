@@ -31,7 +31,8 @@ int main(int argc, char ** argv){
 	sim.init_co2(414);
 	sim.set_fapar(0.92);
 	sim.init(1995, 2010.999);
-	sim.simulate();
+	sim.spinup();
+	// sim.simulate();
 
 	return err;
 

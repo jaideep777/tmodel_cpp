@@ -43,7 +43,7 @@ matplot(y=cbind(dat$vcmax), x=dat$date, type="l", lty=1, col=c("green3"), ylab="
 matplot(y=cbind(dat$jmax), x=dat$date, type="l", lty=1, col=c("green3"), ylab="Jmax\n(umol/m2/s)", xlab="Time (years)")
 matplot(y=cbind(dat$transpiration), x=dat$date, type="l", lty=1, col=c("blue"), ylab="T\n(mm/day)", xlab="Time (years)")
 matplot(y=cbind(dat$swc), x=dat$date, type="l", lty=1, col=c("mediumspringgreen"), ylab="Soil WC\n(mm)", xlab="Time (years)")
-matplot(y=cbind(dat$le/86400), x=dat$date, type="l", lty=1, col=c("yellow3"), ylab="LE\n(J m-2 s-1)", xlab="Time (years)")
+matplot(y=cbind(dat$latent_energy/86400, dat$le_wet_soil/86400), x=dat$date, type="l", lty=1, col=c("green4","yellow3"), ylab="LE\n(J m-2 s-1)", xlab="Time (years)")
 
 
 if (plot_to_file) dev.off()
