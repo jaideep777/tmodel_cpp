@@ -162,11 +162,15 @@ void BigLeafPatch::simulate(){
 
 	ofstream fout(outfile.c_str());
 	printHeader(fout);
-	for (double t=t0; t <= tf + 1e-6; t=t + timestep) {  // 1e-6 ensures that last timestep to reach yf is actually executed
+	cout << "Main run: " << t0 << " --> " << tf << " (dt = " << timestep << ")\n";
+	for (double t=t0+timestep*0.5; t <= tf + 1e-6; t=t + timestep) {  // 1e-6 ensures that last timestep to reach yf is actually executed
 		// read forcing inputs
 		// std::cout << "update Env (explicit)... t = " << S.current_time << ":\n";
 		update_climate(ts.to_julian(t) + 1e-6); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
-		forcing.print_line(t);
+		// forcing.print_line(t);
+
+		forcing.clim_inst.swp = soil_env.get_swp();
+		forcing.clim_acclim.swp = soil_env.get_swp();
 
 		// photosynthesis
 		phydro_out = bigleaf_assimilator.leaf_assimilation_rate(1, fapar, forcing, par0, traits0);
@@ -181,8 +185,12 @@ void BigLeafPatch::simulate(){
 		double m = par0.days_per_tunit; // multiplier to convert from day-1 to t_unit-1
 		soil_env.water_balance(timestep, forcing.clim_inst.precip*m, phydro_out.e*m);
 
-		forcing.clim_inst.swp = soil_env.get_swp();
-		forcing.clim_acclim.swp = soil_env.get_swp();
+		auto time_pt = flare::julian_to_date(ts.to_julian(t));
+		int year = time_pt.tm_year+1900;
+		int doy = time_pt.tm_yday+1;
+		cout << flare::julian_to_datestring(ts.to_julian(t)) << " (" << year << "." << doy << "): "; 
+		soil_env.water_balance_splash(doy, year, forcing.clim_inst.ppfd/2.04, forcing.clim_inst.tc, forcing.clim_inst.precip, 0);
+		cout << soil_env.state.wn << " " << soil_env.state.nd << "\n";
 
 		printState(t, fout);
 	}
@@ -205,8 +213,9 @@ void BigLeafPatch::spinup(){
 	int m = tp.tm_mon+1;
 	int d = tp.tm_mday;
 	if (m > 1 && d > 1) throw std::runtime_error("Spin up should start on the first day of the year");
+
 	cout << "Spinup: start date = " << y << "-" << m << "-" << d << "\n";
-	for (double t=t0+dt_spin; t <= tend + 1e-6; t=t + dt_spin) {  // 1e-6 ensures that last timestep to reach yf is actually executed
+	for (double t=t0+dt_spin*0.5; t <= tend + 1e-6; t=t + dt_spin) {  // 1e-6 ensures that last timestep to reach yf is actually executed
 		// read forcing inputs
 		update_climate(ts.to_julian(t) + 1e-6); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
 		// forcing.print_line(t);
@@ -223,7 +232,11 @@ void BigLeafPatch::spinup(){
 		     << snowfall.back() << "\n"; 
 	}
 
+	// 2. Run spinup
 	soil_env.spinup(y, sw_in, tair, precip, snowfall);
+
+	// 3. Since main run will start from back in time, we need to reset the moving averager for acclim forcing
+	forcing.reset_forcing_acclim();
 }
 
 

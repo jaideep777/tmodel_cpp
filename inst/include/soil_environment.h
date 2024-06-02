@@ -5,6 +5,7 @@
 #include <vector>
 
 #include <phydro.h>
+#include <SPLASH.h>
 
 namespace pfate{
 namespace env{
@@ -25,10 +26,25 @@ class SoilEnvironment {
 		std::vector<double> soil_info;
 	} par_spl;
 
+	struct SoilState{
+		double wn;    // soil moisture [mm]
+		double swe;   // snow water equivalent [mm]
+		double qin;   // drainage
+		double td;    // days left to drain the area upslope
+		double nd;    // snow age [days]
+	} state;
+
+	smr dsoil;
 	double swc = 300;    /// soil water content [mm]
 
+	SPLASH splash;
+
 	public:
+	SoilEnvironment();
+
 	void spinup(int y, std::vector<double>& sw_in, std::vector<double>& tair, std::vector<double>& pn, std::vector<double>& snow);
+
+	void water_balance_splash(int doy, int y, double sw_in, double tair, double pn, double snow);
 
 	/// @brief Updates soil water content from water fluxes over interval dt
 	/// 

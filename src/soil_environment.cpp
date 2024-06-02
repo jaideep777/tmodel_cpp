@@ -1,5 +1,4 @@
 #include "soil_environment.h"
-#include <SPLASH.h>
 
 #include <numeric>
 namespace pfate{
@@ -16,8 +15,11 @@ inline void print_vv(vector<vector<double>>& result){
 	}	
 }
 
+SoilEnvironment::SoilEnvironment() : splash(0,0) {
+}
+
 void SoilEnvironment::spinup(int y, std::vector<double>& sw_in, std::vector<double>& tair, std::vector<double>& pn, std::vector<double>& snow){
-	SPLASH splash(par_spl.lat, par_spl.elev);
+	splash = SPLASH(par_spl.lat, par_spl.elev);
 	
 	double precip_total = std::accumulate(pn.begin(), pn.end(), 0.0);
 	double snow_total   = std::accumulate(snow.begin(), snow.end(), 0.0);
@@ -41,8 +43,24 @@ void SoilEnvironment::spinup(int y, std::vector<double>& sw_in, std::vector<doub
 
 	cout << "Final spinup output:\n";
 	print_vv(result);
+
+	// Save last state from spinup so that we can continue for main run
+	state.wn = result[0].back();
+	state.swe = result[1].back();
+	state.qin = result[2].back();
+	state.td = result[3].back();
+	state.nd = result[5].back();
 }
 
+void SoilEnvironment::water_balance_splash(int doy, int y, double sw_in, double tair, double pn, double snow){
+	splash.run_one_day(doy, y, state.wn, sw_in, tair, pn, dsoil, par_spl.slope, par_spl.asp, state.swe, snow, par_spl.soil_info, state.qin, state.td, state.nd);
+
+	state.wn = dsoil.sm;
+	state.swe = dsoil.swe;
+	state.qin = dsoil.sqout;
+	state.td = dsoil.tdr;
+	state.nd = dsoil.nd;
+}
 
 void SoilEnvironment::water_balance(double dt, double precip, double pe_soil){
 	double runoff = 0;

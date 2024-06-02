@@ -84,6 +84,10 @@ void Climate::init_forcing_acclim(double t0, const Clim& c0){
 	clim_acclim = c0;
 }
 
+void Climate::reset_forcing_acclim(){
+	t_last = -1e20;
+}
+
 void Climate::set_acclim_timescale(double tau){
 	tau_acclim = tau;
 }

@@ -94,6 +94,8 @@ class Climate{
 	/// @param c0  initial forcing value
 	void init_forcing_acclim(double t0, const Clim& c0);
 
+	void reset_forcing_acclim();
+
 	/// @brief Set acclimation timescale
 	/// @param tau timescale [days]
 	void set_acclim_timescale(double tau);
