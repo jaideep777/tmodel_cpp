@@ -30,8 +30,8 @@ int main(int argc, char ** argv){
 	sim.climate_stream.use_precip_data = true;
 	sim.init_co2(414);
 	sim.set_fapar(0.92);
-	// sim.init(1995, 1995.3);
-	sim.init(1995, 2010.999);
+	sim.init(1995, 1995.3);
+	// sim.init(1995, 2010.999);
 
 	sim.spinup();
 	// cout << setprecision(12) << sim.soil_env.state.wn << "\n";

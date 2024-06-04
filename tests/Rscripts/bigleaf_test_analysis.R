@@ -41,10 +41,10 @@ matplot(y=cbind(dat$assim_gross), x=dat$date, type="l", lty=1, col=c("green4", "
 matplot(y=cbind(dat$gs), x=dat$date, type="l", lty=1, col=c("cyan3"), ylab="Stomatal conductance\n(mol/m2/s)", xlab="Time (years)")
 matplot(y=cbind(dat$vcmax), x=dat$date, type="l", lty=1, col=c("green3"), ylab="Vcmax\n(umol/m2/s)", xlab="Time (years)")
 matplot(y=cbind(dat$jmax), x=dat$date, type="l", lty=1, col=c("green3"), ylab="Jmax\n(umol/m2/s)", xlab="Time (years)")
-matplot(y=cbind(dat$transpiration), x=dat$date, type="l", lty=1, col=c("blue"), ylab="T\n(mm/day)", xlab="Time (years)")
-matplot(y=cbind(dat$swc), x=dat$date, type="l", lty=1, col=c("mediumspringgreen"), ylab="Soil WC\n(mm)", xlab="Time (years)")
+matplot(y=cbind(dat$transpiration), x=dat$date, type="l", lty=1, col=c("blue", "cyan"), ylab="T\n(mm/day)", xlab="Time (years)")
 matplot(y=cbind(dat$latent_energy/86400, dat$le_wet_soil/86400), x=dat$date, type="l", lty=1, col=c("green4","yellow3"), ylab="LE\n(J m-2 s-1)", xlab="Time (years)")
-
+plot(dat$transpiration~dat$aet_splash)
+abline(0,1, col="red")
 
 if (plot_to_file) dev.off()
 
@@ -77,5 +77,53 @@ if (plot_to_file) dev.off()
 #   ) %>%
 #   write.csv(file = outfile, row.names = F)
 
+### Compare with R impl ###
+
+library(rsplash)
+library(xts)
+# load some data
+data(Bourne)
+
+source("~/codes/rsplash/tests/splash_point1.R")
+
+
+gfguy = read.csv("~/codes/Drought_MIP/drivers_data/PF-CWM_GYF_HB_inst_forcing_24hr_means.csv")
+
+# GYF
+sand = 65.25
+clay = 21.50
+silt = 13.25
+om = 2.37
+bulk_density = 1.04 # gm cc-1
+depth = 2.50
+
+gfguy_soil = c(sand, clay, om, 0, bulk_density, depth)
+
+# run splash
+run1<-splash.point1(
+  sw_in=gfguy$sw24hrmean,	# shortwave radiation W/m2
+  tc=gfguy$temp.C.,		# air temperature C
+  pn= gfguy$precip.mm.,		# precipitation mm
+  lat=5.283333,		# latitude deg
+  elev=0,		# elevation masl
+  slop=0,	# slope deg
+  asp=0,		# aspect deg
+  soil_data=gfguy_soil, 		# soil data: sand,clay,som in w/w %. Gravel v/v %, bulk density g/cm3, and depth to the bedrock (m)**
+  Au=0,		# upslope area m2
+  resolution=250.0,  			# resolution pixel dem used to get Au
+  time_index=as.Date(gfguy$date)
+)
+#*NOTE: if slop=0.0 (flat surface) the lateral flow is assumed negligible, so: asp,Au and resolution can be ommitted, it won't affect the calculations since all the fluxes are assumed vertical.
+#**Soil column thickness
+
+par(mfrow=c(1,1))
+
+swc<-unSWC(soil_data = gfguy_soil, uns_depth = depth, wn = run1$wn)
+matplot(x= as.Date(gfguy$date), y=cbind(run1$wn, gfguy$precip.mm., swc[[1]]), type="l", lty=1, col=c("blue", "cyan", "green3"), xlim=c(as.Date("1995-1-1"), as.Date("2012-12-31")), ylim=c(-200, 1500))
+# abline(h=100)
+
+swccpp<-unSWC(soil_data = gfguy_soil, uns_depth = depth, wn = dat$soil_mois)
+matlines(x= as.Date(dat$date), y=cbind(dat$soil_mois, swccpp[[1]]), type="l", lty=1, col=c("red", "orange"), xlim=c(as.Date("1995-1-1"), as.Date("2012-12-31")))
+points(x= as.Date(dat$date), y=cbind(dat$swp)*1000, type="l", lty=1, col=c("green4"), xlim=c(as.Date("1995-1-1"), as.Date("2012-12-31")))
 
 

@@ -15,11 +15,12 @@ inline void print_vv(vector<vector<double>>& result){
 	}	
 }
 
-SoilEnvironment::SoilEnvironment() : splash(0,0) {
+SoilEnvironment::SoilEnvironment() : splash(0,0), solar(0,0) {
 }
 
 void SoilEnvironment::spinup(int y, std::vector<double>& sw_in, std::vector<double>& tair, std::vector<double>& pn, std::vector<double>& snow){
 	splash = SPLASH(par_spl.lat, par_spl.elev);
+	solar = SOLAR(par_spl.lat, par_spl.elev);
 	
 	double precip_total = std::accumulate(pn.begin(), pn.end(), 0.0);
 	double snow_total   = std::accumulate(snow.begin(), snow.end(), 0.0);
@@ -52,8 +53,13 @@ void SoilEnvironment::spinup(int y, std::vector<double>& sw_in, std::vector<doub
 	state.nd = result[5].back();
 }
 
-void SoilEnvironment::water_balance_splash(int doy, int y, double sw_in, double tair, double pn, double snow){
-	splash.run_one_day(doy, y, state.wn, sw_in, tair, pn, dsoil, par_spl.slope, par_spl.asp, state.swe, snow, par_spl.soil_info, state.qin, state.td, state.nd);
+void SoilEnvironment::update_radiation(int doy, int y, double sw_in, double tair, double pn, double snow){
+	solar.calculate_daily_fluxes(doy, y, sw_in, tair, par_spl.slope, par_spl.asp, snow, state.nd+1, dsoil.stress_factor);
+	//                                                                                           ^ FIXME: This is just a hacky fix to temporarily ensure that nd seen by solar calc in SPLASH is the same as that seen by it at start of step. But this should be fixed INSIDE SPLASH, see Q for david              
+}
+
+void SoilEnvironment::water_balance_splash(int doy, int y, double sw_in, double tair, double pn, double snow, double plant_uptake){
+	dvap = splash.run_one_day(doy, y, state.wn, sw_in, tair, pn, dsoil, par_spl.slope, par_spl.asp, state.swe, snow, par_spl.soil_info, state.qin, state.td, state.nd, plant_uptake);
 
 	state.wn = dsoil.sm;
 	state.swe = dsoil.swe;

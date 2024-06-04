@@ -34,17 +34,21 @@ class SoilEnvironment {
 		double nd;    // snow age [days]
 	} state;
 
-	smr dsoil;
 	double swc = 300;    /// soil water content [mm]
 
 	SPLASH splash;
+	SOLAR solar;
+	smr dsoil;
+	etr dvap;
 
 	public:
 	SoilEnvironment();
 
 	void spinup(int y, std::vector<double>& sw_in, std::vector<double>& tair, std::vector<double>& pn, std::vector<double>& snow);
 
-	void water_balance_splash(int doy, int y, double sw_in, double tair, double pn, double snow);
+	void update_radiation(int doy, int y, double sw_in, double tair, double pn, double snow);
+
+	void water_balance_splash(int doy, int y, double sw_in, double tair, double pn, double snow, double plant_uptake);
 
 	/// @brief Updates soil water content from water fluxes over interval dt
 	/// 

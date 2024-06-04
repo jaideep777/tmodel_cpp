@@ -1,5 +1,6 @@
 #include "bigleaf_patch.h"
 #include <io_utils.h>
+#include <SOLAR.h>
 using namespace std;
 
 namespace pfate{
@@ -103,6 +104,9 @@ vector<std::string> BigLeafPatch::get_header(){
 		, "transpiration"
 		, "latent_energy"
 		, "le_wet_soil"
+		, "soil_mois"
+		, "swp"
+		, "aet_splash"
 	};
 }
 
@@ -138,7 +142,10 @@ vector<double> BigLeafPatch::get_state(double t){
 		, phydro_out.gs
 		, phydro_out.e
 		, phydro_out.le
-		, phydro_out.le_s_wet
+		, soil_env.dvap.aet*(phydro_out.le/phydro_out.e) // phydro_out.le_s_wet
+		, soil_env.state.wn
+		, soil_env.dsoil.psi_m
+		, soil_env.dvap.aet/(1-fapar)
 	};
 }
 
@@ -164,13 +171,29 @@ void BigLeafPatch::simulate(){
 	printHeader(fout);
 	cout << "Main run: " << t0 << " --> " << tf << " (dt = " << timestep << ")\n";
 	for (double t=t0+timestep*0.5; t <= tf + 1e-6; t=t + timestep) {  // 1e-6 ensures that last timestep to reach yf is actually executed
+		auto time_pt = flare::julian_to_date(ts.to_julian(t));
+		int year = time_pt.tm_year+1900;
+		int doy = time_pt.tm_yday+1;
+		cout << flare::julian_to_datestring(ts.to_julian(t)) << " (" << year << "." << doy << "): "; 
+
 		// read forcing inputs
 		// std::cout << "update Env (explicit)... t = " << S.current_time << ":\n";
 		update_climate(ts.to_julian(t) + 1e-6); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
 		// forcing.print_line(t);
 
-		forcing.clim_inst.swp = soil_env.get_swp();
-		forcing.clim_acclim.swp = soil_env.get_swp();
+		// start of step stress factor
+		cout << "start of step stress factor = " << soil_env.dsoil.stress_factor << '\n';
+
+		// calc radiation components
+		soil_env.update_radiation(doy, year, forcing.clim_inst.ppfd/2.04, forcing.clim_inst.tc, forcing.clim_inst.precip, 0);
+		srad sol = soil_env.solar.get_vals();
+	    cout << "Rnl in before func: " << sol.rnl << "W/m^2\n";
+	    cout << "ppfd_in/ppfd_net = " << forcing.clim_inst.ppfd << " / " << sol.ppfd_d*1e6/86400 << '\n';
+
+		// forcing.clim_inst.swp = soil_env.get_swp();
+		// forcing.clim_acclim.swp = soil_env.get_swp();
+		forcing.clim_inst.swp = soil_env.dsoil.psi_m;
+		forcing.clim_acclim.swp = soil_env.dsoil.psi_m;
 
 		// photosynthesis
 		phydro_out = bigleaf_assimilator.leaf_assimilation_rate(1, fapar, forcing, par0, traits0);
@@ -185,12 +208,9 @@ void BigLeafPatch::simulate(){
 		double m = par0.days_per_tunit; // multiplier to convert from day-1 to t_unit-1
 		soil_env.water_balance(timestep, forcing.clim_inst.precip*m, phydro_out.e*m);
 
-		auto time_pt = flare::julian_to_date(ts.to_julian(t));
-		int year = time_pt.tm_year+1900;
-		int doy = time_pt.tm_yday+1;
-		cout << flare::julian_to_datestring(ts.to_julian(t)) << " (" << year << "." << doy << "): "; 
-		soil_env.water_balance_splash(doy, year, forcing.clim_inst.ppfd/2.04, forcing.clim_inst.tc, forcing.clim_inst.precip, 0);
-		cout << soil_env.state.wn << " " << soil_env.state.nd << "\n";
+		soil_env.water_balance_splash(doy, year, forcing.clim_inst.ppfd/2.04*(1-fapar), forcing.clim_inst.tc, forcing.clim_inst.precip, 0, phydro_out.e);
+		
+		cout << soil_env.state.wn << " " << soil_env.dsoil.ro << " " << soil_env.dsoil.ro << " " << soil_env.state.nd << " " << soil_env.dsoil.stress_factor << " " << soil_env.dsoil.psi_m << "\n";
 
 		printState(t, fout);
 	}
