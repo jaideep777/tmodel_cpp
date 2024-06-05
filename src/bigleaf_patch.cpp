@@ -191,12 +191,16 @@ void BigLeafPatch::simulate(){
 	    cout << "Rnl in before func: " << sol.rnl << "W/m^2\n";
 	    cout << "ppfd_in/ppfd_net = " << forcing.clim_inst.ppfd << " / " << sol.ppfd_d*1e6/86400 << '\n';
 
-		forcing.set_forcing_acclim(ts.to_julian(t) + 1e-6, forcing.clim_midday);
+		// Set radiation and swp from SPLASH 
+		double rn_max_by_24hr = forcing.clim_midday.ppfd/forcing.clim_inst.ppfd;
+		forcing.clim_inst.ppfd = sol.ppfd_d*1e6/86400;
+		forcing.clim_midday.ppfd = forcing.clim_inst.ppfd*rn_max_by_24hr;
 
-		// forcing.clim_inst.swp = soil_env.get_swp();
-		// forcing.clim_acclim.swp = soil_env.get_swp();
 		forcing.clim_inst.swp = soil_env.dsoil.psi_m;
-		forcing.clim_acclim.swp = soil_env.dsoil.psi_m;
+		forcing.clim_midday.swp = soil_env.dsoil.psi_m;
+
+		// push acclimation forcing into moving averager
+		forcing.set_forcing_acclim(ts.to_julian(t) + 1e-6, forcing.clim_midday);
 
 		// photosynthesis
 		phydro_out = bigleaf_assimilator.leaf_assimilation_rate(1, fapar, forcing, par0, traits0);

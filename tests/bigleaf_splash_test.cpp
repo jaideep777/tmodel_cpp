@@ -40,7 +40,8 @@ int main(int argc, char ** argv){
 	sim.simulate();
 	cout << setprecision(12) << sim.soil_env.state.wn << "\n";
 	// if (fabs(sim.soil_env.state.wn - 740.283568986) > 1e-6) return 1; // uncoupled run
-	if (fabs(sim.soil_env.state.wn - 740.032327052) > 1e-6) return 1; // coupled run exchanging psi_m and trans, but still using file ppfd
+	// if (fabs(sim.soil_env.state.wn - 740.032327052) > 1e-6) return 1; // coupled run exchanging psi_m and trans, but still using file ppfd
+	if (fabs(sim.soil_env.state.wn - 740.40970978) > 1e-6) return 1; // coupled run exchanging psi_m and trans, ppfd set from splash
 
 	return err;
 
