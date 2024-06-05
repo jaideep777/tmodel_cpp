@@ -191,6 +191,8 @@ void BigLeafPatch::simulate(){
 	    cout << "Rnl in before func: " << sol.rnl << "W/m^2\n";
 	    cout << "ppfd_in/ppfd_net = " << forcing.clim_inst.ppfd << " / " << sol.ppfd_d*1e6/86400 << '\n';
 
+		forcing.set_forcing_acclim(ts.to_julian(t) + 1e-6, forcing.clim_midday);
+
 		// forcing.clim_inst.swp = soil_env.get_swp();
 		// forcing.clim_acclim.swp = soil_env.get_swp();
 		forcing.clim_inst.swp = soil_env.dsoil.psi_m;

@@ -84,7 +84,8 @@ class Climate{
 	virtual ~Climate(){};  // need virtual destructor since print() is virtual
 
 	Clim clim_inst;    ///< Mean climate over the timestep
-	Clim clim_acclim;  ///< Daily climate measured as mean over 3 hrs around max radiation
+	Clim clim_acclim;  ///< Daily climate measured as mean over 3 hrs around max radiation, exp-averaged over acclimation timescale
+	Clim clim_midday;  ///< Daily climate measured as mean over 3 hrs around max radiation
 
 	void set_elevation(double _elv);
 	void init_co2(double _co2);

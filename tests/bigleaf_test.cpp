@@ -34,7 +34,7 @@ int main(int argc, char ** argv){
 	sim.init(1995, 2010.999);
 
 	sim.spinup();
-	// cout << setprecision(12) << sim.soil_env.state.wn << "\n";
+	cout << setprecision(12) << sim.soil_env.state.wn << "\n";
 	if (fabs(sim.soil_env.state.wn - 773.199185007) > 1e-6) return 1;
 
 	sim.simulate();

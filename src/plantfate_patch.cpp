@@ -677,6 +677,7 @@ void Patch::simulate(){
 		// read forcing inputs
 		// std::cout << "update Env (explicit)... t = " << S.current_time << ":\n";
 		update_climate(ts.to_julian(S.current_time) + 1e-6, climate_stream); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
+		E.set_forcing_acclim(ts.to_julian(t) + 1e-6, E.clim_midday);
 		// ((env::Climate&)E).print(t);
 
 		// simulate patch
@@ -714,6 +715,7 @@ void Patch::simulateClimate(){
 		// std::cout << "update Env (explicit)... t = " << S.current_time << ":\n";
 		update_climate(ts.to_julian(S.current_time) + 1e-6, climate_stream); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
 		// ((env::Climate&)E).print(t);
+		E.set_forcing_acclim(ts.to_julian(t) + 1e-6, E.clim_midday);
 
 		fout << S.current_time << ", ";
 		fout << E.clim_acclim.tc << ", "

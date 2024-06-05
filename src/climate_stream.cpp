@@ -52,7 +52,8 @@ void ClimateStream::updateClimate(double julian_time, Climate& C){
 		cnew.swp  = as<double>(a_met_stream.current_row[7]) * (-1); // convert -MPa to MPa
 		cnew.rn   = cnew.ppfd/2; // set to half of ppfd for now, eventually use solar model to calculate
 		cnew.precip = 0; // precipitation is never used in acclim data
-		C.set_forcing_acclim(julian_time, cnew);
+		C.clim_midday = cnew;
+		// C.set_forcing_acclim(julian_time, cnew);
 	}
 	else {
 		// TODO. Replace with a proper function that computes acclim forcing from inst
@@ -60,7 +61,8 @@ void ClimateStream::updateClimate(double julian_time, Climate& C){
 		cnew = C.clim_inst;
 		cnew.ppfd = C.clim_inst.ppfd * 4;
 		cnew.rn   = cnew.ppfd/2; // set to half of ppfd for now, eventually use solar model to calculate
-		C.set_forcing_acclim(julian_time, cnew);
+		C.clim_midday = cnew;
+		// C.set_forcing_acclim(julian_time, cnew);
 	}
 
 }
