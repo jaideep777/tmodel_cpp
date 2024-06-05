@@ -13,7 +13,7 @@ expt_dir = "test_3spp_100yr" #_old_params"
 # expt_dir = "cont_test_main" #_old_params"
 
 # droughtmip tests
-expt_dir = "test_droughtmip" #_old_params"
+# expt_dir = "test_droughtmip" #_old_params"
 
 
 solver = "IEBT"

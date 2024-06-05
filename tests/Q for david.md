@@ -11,4 +11,9 @@ Changes:
 2) used this stress_factor to do solar Rad calcs in beginning of next timestep
 3) saved ppfd to srad struct (for use in T calcs)
 4) modified splash.calc_daily_fluxes to return etr, so that aet can be returned without breaking current code
-4) modified evap.calc_daily_fluxes to input T, and fed it sw_in*(1-fapar) instead of sw_in
+4) modified evap.calc_daily_fluxes to input T, and fed it sw_in*(1-fapar) instead of sw_in - 
+Option 1:
+Rs = rn * (1-fapar)
+Option 2:
+Rs = sw_net * (1-fapar) + rnl
+

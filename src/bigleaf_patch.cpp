@@ -185,6 +185,7 @@ void BigLeafPatch::simulate(){
 		cout << "start of step stress factor = " << soil_env.dsoil.stress_factor << '\n';
 
 		// calc radiation components
+		// FIXME: update nd here
 		soil_env.update_radiation(doy, year, forcing.clim_inst.ppfd/2.04, forcing.clim_inst.tc, forcing.clim_inst.precip, 0);
 		srad sol = soil_env.solar.get_vals();
 	    cout << "Rnl in before func: " << sol.rnl << "W/m^2\n";
