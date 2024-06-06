@@ -48,6 +48,9 @@ class SoilEnvironment {
 
 	void update_radiation(int doy, int y, double sw_in, double tair, double pn, double snow);
 
+	template <class ForcingInput>
+	void update_forcings(int doy, int year, ForcingInput& forcing);
+
 	void water_balance_splash(int doy, int y, double sw_in, double tair, double pn, double snow, double plant_uptake);
 
 	/// @brief Updates soil water content from water fluxes over interval dt
@@ -61,11 +64,13 @@ class SoilEnvironment {
 	/// @return soil water potential [MPa]
 	double get_swp();
 
+	// FIXME: add save-restore
 };
 
 } // env
 } // namespace pfate
 
+#include <soil_environment.tpp>
 
 #endif
 

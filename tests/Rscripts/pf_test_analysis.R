@@ -14,7 +14,7 @@ expt_dir = "test_3spp_100yr" #_old_params"
 
 # droughtmip tests
 # expt_dir = "test_droughtmip" #_old_params"
-# expt_dir = "test_bigleaf_gfguy"
+expt_dir = "test_bigleaf_gfguy"
 
 solver = "IEBT"
 
@@ -300,6 +300,8 @@ abline(h=0, col="black", lwd=0.2)
 # matplot(x=p50[,1], y=p50[,-1], col=col_species, lty=1, type="l", ylab="P50", xlab="Year")
 # 
 # p50 %>% tail() %>% print()
+
+plot(dat$SWP~dat$YEAR, type="l", col="blue")
 
 if (plot_to_file) dev.off()
 

@@ -149,6 +149,7 @@ void CommunityProperties::writeOut_inst(double t, Patch& P){
 	Solver* S = &P.S;
 
 	foutd
+		<< setprecision(12)
 		<< date << ","
 		<< fluxes.gpp << ","
 		<< fluxes.npp << ","
@@ -275,6 +276,7 @@ void CommunityProperties::writeOut(double t, Patch& P){
 }
 
 // FIXME: These operators are not tested
+// FIXME: add pe_soil and other new variables.
 CommunityProperties& CommunityProperties::operator /= (double s){
 
 	fluxes.gpp            /= s;

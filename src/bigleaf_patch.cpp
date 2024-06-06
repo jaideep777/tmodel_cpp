@@ -181,23 +181,8 @@ void BigLeafPatch::simulate(){
 		update_climate(ts.to_julian(t) + 1e-6); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
 		// forcing.print_line(t);
 
-		// start of step stress factor
-		cout << "start of step stress factor = " << soil_env.dsoil.stress_factor << '\n';
-
-		// calc radiation components
-		// FIXME: update nd here
-		soil_env.update_radiation(doy, year, forcing.clim_inst.ppfd/2.04, forcing.clim_inst.tc, forcing.clim_inst.precip, 0);
-		srad sol = soil_env.solar.get_vals();
-	    cout << "Rnl in before func: " << sol.rnl << "W/m^2\n";
-	    cout << "ppfd_in/ppfd_net = " << forcing.clim_inst.ppfd << " / " << sol.ppfd_d*1e6/86400 << '\n';
-
-		// Set radiation and swp from SPLASH 
-		double rn_max_by_24hr = forcing.clim_midday.ppfd/forcing.clim_inst.ppfd;
-		forcing.clim_inst.ppfd = sol.ppfd_d*1e6/86400;
-		forcing.clim_midday.ppfd = forcing.clim_inst.ppfd*rn_max_by_24hr;
-
-		forcing.clim_inst.swp = soil_env.dsoil.psi_m;
-		forcing.clim_midday.swp = soil_env.dsoil.psi_m;
+		// update forcing vars based on splash calculated radiation, snow, and swp
+		soil_env.update_forcings(doy, year, forcing);
 
 		// push acclimation forcing into moving averager
 		forcing.set_forcing_acclim(ts.to_julian(t) + 1e-6, forcing.clim_midday);
@@ -205,7 +190,7 @@ void BigLeafPatch::simulate(){
 		// photosynthesis
 		phydro_out = bigleaf_assimilator.leaf_assimilation_rate(1, fapar, forcing, par0, traits0);
 		
-		// Convert units 
+		// calculate variables to be given to splash, convert units
 		phydro_out.a     *= (86400 * 1e-6 * 12);  // umol co2/m2/s ----> umol co2/m2/day --> mol co2/m2/day --->  gC /m2/day
 		phydro_out.e     *= (86400 * 0.018015 * 1e-3 * 1000);   // mol h2o/m2/s ---> mol h2o/m2/day ---> kg h2o/m2/day ---> m3 /m2/day ---> mm/day   
 		phydro_out.le    *= 86400;  // W m-2 = J m-2 s-1 ---> J m-2 day-1

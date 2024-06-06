@@ -740,60 +740,47 @@ void Patch::spinup(){
 
 
 void Patch::simulate_coupled(){
+	double t_next_veg_update = config.y0;
+	double t_start_of_step = config.y0; // We separately keep track of the start-of-step time (t_now, as opposed to end-of-step time t) because S.current_time does not get updated at every soil timestep
+	for (double t=config.y0; t <= config.yf + 1e-6; t=t + config.timestep) {  // 1e-6 ensures that last timestep to reach yf is actually executed
+		if (fabs(t - t_start_of_step) < 1e-6) continue;
 
-	// for (double t=config.y0; t <= config.yf + 1e-6; t=t + config.timestep) {  // 1e-6 ensures that last timestep to reach yf is actually executed
-	// 	if (fabs(t - S.current_time) < 1e-6) continue;
+		auto time_pt = flare::julian_to_date(ts.to_julian(t_start_of_step)+1e-6);
+		int year = time_pt.tm_year+1900;
+		int doy = time_pt.tm_yday+1;
+		cout << flare::julian_to_datestring(ts.to_julian(t_start_of_step)+1e-6) << " (" << year << "." << doy << ")\n"; 
 
-	// 	auto time_pt = flare::julian_to_date(ts.to_julian(S.current_time)+1e-6);
-	// 	int year = time_pt.tm_year+1900;
-	// 	int doy = time_pt.tm_yday+1;
-	// 	cout << flare::julian_to_datestring(ts.to_julian(S.current_time)+1e-6) << " (" << year << "." << doy << "): "; 
+		// read forcing inputs
+		// std::cout << "update Env (explicit)... t = " << t_start_of_step << ":\n";
+		update_climate(ts.to_julian(t_start_of_step) + 1e-6, climate_stream); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
 
-	// 	// read forcing inputs
-	// 	// std::cout << "update Env (explicit)... t = " << S.current_time << ":\n";
-	// 	update_climate(ts.to_julian(S.current_time) + 1e-6, climate_stream); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
+		// update forcing vars based on splash calculated radiation, snow, and swp
+		soil_env.update_forcings(doy, year, E);
 
-	// 	// start of step stress factor
-	// 	cout << "start of step stress factor = " << soil_env.dsoil.stress_factor << '\n';
+		// push acclimation forcing into moving averager
+		E.set_forcing_acclim(ts.to_julian(t_start_of_step) + 1e-6, E.clim_midday);
 
-	// 	// calc radiation components
-	// 	// FIXME: update nd here
-	// 	soil_env.update_radiation(doy, year, E.clim_inst.ppfd/2.04, E.clim_inst.tc, E.clim_inst.precip, 0);
-	// 	srad sol = soil_env.solar.get_vals();
-	//     cout << "Rnl in before func: " << sol.rnl << "W/m^2\n";
-	//     cout << "ppfd_in/ppfd_net = " << E.clim_inst.ppfd << " / " << sol.ppfd_d*1e6/86400 << '\n';
+		// simulate patch
+		if (t >= t_next_veg_update){
+			simulate_to(t);
+			t_next_veg_update += 7/par0.days_per_tunit; // Do veg update only once every 7 days
+		}
+		else{
+			// if no veg update is done, just write daily fluxes
+			props.writeOut_inst(t, *this);
+		}
 
-	// 	// Set radiation and swp from SPLASH 
-	// 	double rn_max_by_24hr = E.clim_midday.ppfd/E.clim_inst.ppfd;
-	// 	E.clim_inst.ppfd = sol.ppfd_d*1e6/86400;
-	// 	E.clim_midday.ppfd = E.clim_inst.ppfd*rn_max_by_24hr;
+		// calculate variables to be given to splash 
+		double plant_uptake = props.fluxes.trans;
+		double fapar = 1-exp(-par0.k_light*props.structure.lai);
+		double sw_surface = E.clim_inst.ppfd/2.04*(1-fapar);
 
-	// 	E.clim_inst.swp = soil_env.dsoil.psi_m;
-	// 	E.clim_midday.swp = soil_env.dsoil.psi_m;
-	//     cout << "swp = " << soil_env.dsoil.psi_m << '\n';
-
-	// 	// push acclimation forcing into moving averager
-	// 	E.set_forcing_acclim(ts.to_julian(t) + 1e-6, E.clim_midday);
-
-	// 	// simulate patch
-	// 	simulate_to(t);
-
-	// 	// // Convert units 
-	// 	// phydro_out.a     *= (86400 * 1e-6 * 12);  // umol co2/m2/s ----> umol co2/m2/day --> mol co2/m2/day --->  gC /m2/day
-	// 	// phydro_out.e     *= (86400 * 0.018015 * 1e-3 * 1000);   // mol h2o/m2/s ---> mol h2o/m2/day ---> kg h2o/m2/day ---> m3 /m2/day ---> mm/day   
-	// 	// phydro_out.le    *= 86400;  // W m-2 = J m-2 s-1 ---> J m-2 day-1
-	// 	// phydro_out.le_s_wet  *= 86400;  // W m-2 = J m-2 s-1 ---> J m-2 day-1
-
-	// 	// // water balance
-	// 	// double m = par0.days_per_tunit; // multiplier to convert from day-1 to t_unit-1
-	// 	// soil_env.water_balance(timestep, forcing.clim_inst.precip*m, phydro_out.e*m);
-
-	// 	// soil_env.water_balance_splash(doy, year, forcing.clim_inst.ppfd/2.04*(1-fapar), forcing.clim_inst.tc, forcing.clim_inst.precip, 0, phydro_out.e);
+		soil_env.water_balance_splash(doy, year, sw_surface, E.clim_inst.tc, E.clim_inst.precip, 0, plant_uptake);
 		
-	// 	// cout << soil_env.state.wn << " " << soil_env.dsoil.ro << " " << soil_env.dsoil.ro << " " << soil_env.state.nd << " " << soil_env.dsoil.stress_factor << " " << soil_env.dsoil.psi_m << "\n";
+		t_start_of_step = t;
+		// cout << soil_env.state.wn << " " << soil_env.dsoil.ro << " " << soil_env.state.nd << " " << soil_env.dsoil.stress_factor << " " << soil_env.dsoil.psi_m << "\n";
 
-
-	// }
+	}
 }
 
 

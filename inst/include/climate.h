@@ -15,7 +15,7 @@ namespace env{
 class Clim{
 	public:
 	double tc = 25.5;         ///< Temperature [C]
-	double ppfd = 500;        ///< PAR (daily 24-hr mean) [umol m-2 s-1]
+	double ppfd = 500;        ///< PAR [umol m-2 s-1]
 	double rn = 250;          ///< Net radiation at surface [W m-2]
 	double vpd = 540;         ///< Vapour pressure deficit [Pa]
 	double co2 = 368.9;       ///< Atmospheric CO2 [ppm]
@@ -24,6 +24,7 @@ class Clim{
 	double vwind = 3;         ///< Wind speed [m s-1]
 	double pa;                ///< Surface pressure [Pa]
 	double precip = 0;        ///< Precipitation [mm day-1]
+	double snow = 0;          ///< Snowfall [mm day-1]
 
 	Clim();
 
@@ -49,6 +50,7 @@ class Clim{
 		f(vwind, rhs.vwind);
 		f(pa, rhs.pa);
 		f(precip, rhs.precip);
+		f(snow, rhs.snow);
 	}
 
 	template <class Functor>
@@ -63,6 +65,7 @@ class Clim{
 		f(vwind, rhs);
 		f(pa, rhs);
 		f(precip, rhs);
+		f(snow, rhs);
 	}
 
 };
@@ -95,6 +98,7 @@ class Climate{
 	/// @param c0  initial forcing value
 	void init_forcing_acclim(double t0, const Clim& c0);
 
+	/// @brief Resets current time of acclim forcing to -Inf, so that it takes the specified value at the next update
 	void reset_forcing_acclim();
 
 	/// @brief Set acclimation timescale
