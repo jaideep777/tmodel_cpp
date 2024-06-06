@@ -5,11 +5,12 @@ namespace pfate{
 namespace env{
 
 inline void print_vv(vector<vector<double>>& result){
+	cout << setprecision(6);
 	for (int d=0; d<6; ++d){
 		for (auto& var : result) cout << var[d] << "\t";
 		cout << '\n';
 	}
-	for (int d=359; d<365; ++d){
+	for (int d=359; d<result[0].size(); ++d){
 		for (auto& var : result) cout << var[d] << "\t";
 		cout << '\n';
 	}	

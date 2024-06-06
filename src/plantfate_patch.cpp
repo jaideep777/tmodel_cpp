@@ -59,6 +59,14 @@ Patch::Patch(std::string params_file) : S("IEBT", "rk45ck"){
 
 	traits0.init(I);
 	par0.init(I);
+
+	// init soil params and site info for splash
+	soil_env.par_spl.soil_info = I.get_vector<double>("soil_info");
+	soil_env.par_spl.slope = I.get<double>("slope");
+	soil_env.par_spl.asp = 180-I.get<double>("aspect");
+	soil_env.par_spl.lat = I.get<double>("latitude");
+	soil_env.par_spl.elev = I.get<double>("elevation");
+
 }
 
 
@@ -678,8 +686,6 @@ void Patch::simulate(){
 		// std::cout << "update Env (explicit)... t = " << S.current_time << ":\n";
 		update_climate(ts.to_julian(S.current_time) + 1e-6, climate_stream); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
 
-
-
 		E.set_forcing_acclim(ts.to_julian(t) + 1e-6, E.clim_midday);
 		// ((env::Climate&)E).print(t);
 
@@ -688,6 +694,107 @@ void Patch::simulate(){
 
 	}
 }
+
+
+void Patch::spinup(){
+
+	vector<double> sw_in, tair, precip, snowfall;
+	double t0 = config.y0;
+
+	// 1. Collect daily 24-hr mean forcing variables for 1 year for soil moisture spinup
+	double dt_spin = 1/par0.days_per_tunit; // 1 day timstep for spinup
+	double tend = t0 + 1/par0.years_per_tunit_avg; // 1 year of data for spinup run
+	cout << "Spinup: " << t0 << " --> " << tend << " (dt = " << dt_spin << ")\n";
+	auto tp = flare::julian_to_date(ts.to_julian(t0+dt_spin));
+	int y = tp.tm_year+1900;
+	int m = tp.tm_mon+1;
+	int d = tp.tm_mday;
+	if (m > 1 && d > 1) throw std::runtime_error("Spin up should start on the first day of the year");
+
+	cout << "Spinup: start date = " << y << "-" << m << "-" << d << "\n";
+	for (double t=t0; t <= tend - dt_spin/2 + 1e-6; t=t + dt_spin) {  // 1e-6 ensures that last timestep to reach yf is actually executed
+		// read forcing inputs
+		// std::cout << "update Env (explicit)... t = " << S.current_time << ":\n";
+		update_climate(ts.to_julian(t) + 1e-6, climate_stream); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
+		// forcing.print_line(t);
+
+		sw_in.push_back(E.clim_inst.ppfd/2.04);
+		tair.push_back(E.clim_inst.tc);
+		precip.push_back(E.clim_inst.precip);
+		snowfall.push_back(0);
+
+		cout << flare::julian_to_datestring(ts.to_julian(t)) << "\t" 
+		     << sw_in.back() << "\t" 
+		     << tair.back() << "\t" 
+		     << precip.back() << "\t" 
+		     << snowfall.back() << "\n"; 
+	}
+
+	// 2. Run spinup
+	soil_env.spinup(y, sw_in, tair, precip, snowfall);
+
+	// 3. Since main run will start from back in time, we need to reset the moving averager for acclim forcing
+	E.reset_forcing_acclim();
+}
+
+
+void Patch::simulate_coupled(){
+
+	// for (double t=config.y0; t <= config.yf + 1e-6; t=t + config.timestep) {  // 1e-6 ensures that last timestep to reach yf is actually executed
+	// 	if (fabs(t - S.current_time) < 1e-6) continue;
+
+	// 	auto time_pt = flare::julian_to_date(ts.to_julian(S.current_time)+1e-6);
+	// 	int year = time_pt.tm_year+1900;
+	// 	int doy = time_pt.tm_yday+1;
+	// 	cout << flare::julian_to_datestring(ts.to_julian(S.current_time)+1e-6) << " (" << year << "." << doy << "): "; 
+
+	// 	// read forcing inputs
+	// 	// std::cout << "update Env (explicit)... t = " << S.current_time << ":\n";
+	// 	update_climate(ts.to_julian(S.current_time) + 1e-6, climate_stream); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
+
+	// 	// start of step stress factor
+	// 	cout << "start of step stress factor = " << soil_env.dsoil.stress_factor << '\n';
+
+	// 	// calc radiation components
+	// 	// FIXME: update nd here
+	// 	soil_env.update_radiation(doy, year, E.clim_inst.ppfd/2.04, E.clim_inst.tc, E.clim_inst.precip, 0);
+	// 	srad sol = soil_env.solar.get_vals();
+	//     cout << "Rnl in before func: " << sol.rnl << "W/m^2\n";
+	//     cout << "ppfd_in/ppfd_net = " << E.clim_inst.ppfd << " / " << sol.ppfd_d*1e6/86400 << '\n';
+
+	// 	// Set radiation and swp from SPLASH 
+	// 	double rn_max_by_24hr = E.clim_midday.ppfd/E.clim_inst.ppfd;
+	// 	E.clim_inst.ppfd = sol.ppfd_d*1e6/86400;
+	// 	E.clim_midday.ppfd = E.clim_inst.ppfd*rn_max_by_24hr;
+
+	// 	E.clim_inst.swp = soil_env.dsoil.psi_m;
+	// 	E.clim_midday.swp = soil_env.dsoil.psi_m;
+	//     cout << "swp = " << soil_env.dsoil.psi_m << '\n';
+
+	// 	// push acclimation forcing into moving averager
+	// 	E.set_forcing_acclim(ts.to_julian(t) + 1e-6, E.clim_midday);
+
+	// 	// simulate patch
+	// 	simulate_to(t);
+
+	// 	// // Convert units 
+	// 	// phydro_out.a     *= (86400 * 1e-6 * 12);  // umol co2/m2/s ----> umol co2/m2/day --> mol co2/m2/day --->  gC /m2/day
+	// 	// phydro_out.e     *= (86400 * 0.018015 * 1e-3 * 1000);   // mol h2o/m2/s ---> mol h2o/m2/day ---> kg h2o/m2/day ---> m3 /m2/day ---> mm/day   
+	// 	// phydro_out.le    *= 86400;  // W m-2 = J m-2 s-1 ---> J m-2 day-1
+	// 	// phydro_out.le_s_wet  *= 86400;  // W m-2 = J m-2 s-1 ---> J m-2 day-1
+
+	// 	// // water balance
+	// 	// double m = par0.days_per_tunit; // multiplier to convert from day-1 to t_unit-1
+	// 	// soil_env.water_balance(timestep, forcing.clim_inst.precip*m, phydro_out.e*m);
+
+	// 	// soil_env.water_balance_splash(doy, year, forcing.clim_inst.ppfd/2.04*(1-fapar), forcing.clim_inst.tc, forcing.clim_inst.precip, 0, phydro_out.e);
+		
+	// 	// cout << soil_env.state.wn << " " << soil_env.dsoil.ro << " " << soil_env.dsoil.ro << " " << soil_env.state.nd << " " << soil_env.dsoil.stress_factor << " " << soil_env.dsoil.psi_m << "\n";
+
+
+	// }
+}
+
 
 /// @brief Simulate the climate input and write to file, without actually simulating the patch
 void Patch::simulateClimate(){

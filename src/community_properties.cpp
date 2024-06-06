@@ -120,7 +120,7 @@ void CommunityProperties::openStreams(std::string dir){
 	ftraits.open(std::string(dir + "/" + traits_file).c_str());
 	// fclim.open(std::string(dir + "/climate_co2.csv").c_str());
 
-	foutd << "YEAR,GPP,NPP,RAU,MORT,GS,ET,PESOIL,VCMAX,DPSI,CCEST,CO2\n";
+	foutd << "YEAR,GPP,NPP,RAU,MORT,GS,ET,PESOIL,VCMAX,DPSI,CCEST,CO2,SWP\n";
 	fouty << "YEAR,DE,CL,CW,CCR,CFR,CR,CA,BA,TB,LAI\n";
 	fouty_spp << "YEAR,PID,DE,PH,CA,BA,TB,SEEDS\n";
 	ftraits << "YEAR,SPP,RES,LMA,WD,HMAT,P50X,SMX,ZETA,r0_last,r0_avg,r0_exp,r0_cesaro\n";
@@ -199,7 +199,8 @@ void CommunityProperties::writeOut(double t, Patch& P){
 		<< acc_traits.vcmax << ","
 		<< acc_traits.dpsi << ","
 		<< misc.cc_est << ","
-		<< static_cast<PSPM_Environment*>(S->env)->clim_inst.co2
+		<< static_cast<PSPM_Environment*>(S->env)->clim_inst.co2 << ","
+		<< static_cast<PSPM_Environment*>(S->env)->clim_inst.swp
 		<< std::endl;
 
 	fouty

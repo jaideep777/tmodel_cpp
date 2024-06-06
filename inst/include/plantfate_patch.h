@@ -16,6 +16,7 @@
 #include "state_restore.h"
 #include "climate_stream.h"
 #include "plantfate_config.h"
+#include "soil_environment.h"
 
 namespace pfate{
 
@@ -38,6 +39,7 @@ class Patch{
 	// io::Initializer     I;
 	Solver              S;
 	PSPM_Environment    E;
+	env::SoilEnvironment soil_env;
 
 	// SolverIO      sio;
 	// SpeciesProps  cwm;
@@ -59,7 +61,9 @@ class Patch{
 	void update_climate(double co2, double tc, double vpd, double ppfd, double swp);
 	void update_climate_acclim(double t_julian, double co2, double tc, double vpd, double ppfd, double swp);
 
+	void spinup();
 	void simulate();
+	void simulate_coupled();
 	void simulateClimate();
 
 	void close();
