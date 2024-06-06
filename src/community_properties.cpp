@@ -142,6 +142,29 @@ void CommunityProperties::closeStreams(){
 	// fclim.close();
 }
 
+void CommunityProperties::writeOut_inst(double t, Patch& P){
+	// consistently output date in decimal years across all files
+	double date = flare::julian_to_yearsCE(P.ts.to_julian(t));
+
+	Solver* S = &P.S;
+
+	foutd
+		<< date << ","
+		<< fluxes.gpp << ","
+		<< fluxes.npp << ","
+		<< (fluxes.rleaf + fluxes.rroot + fluxes.rstem) << ","  // kgC/m2/d
+		<< fluxes.mort << ","
+		<< fluxes.gs << ","
+		<< fluxes.trans << ","
+		<< fluxes.pe_soil << ","
+		<< acc_traits.vcmax << ","
+		<< acc_traits.dpsi << ","
+		<< misc.cc_est << ","
+		<< static_cast<PSPM_Environment*>(S->env)->clim_inst.co2 << ","
+		<< static_cast<PSPM_Environment*>(S->env)->clim_inst.swp
+		<< std::endl;
+}
+
 void CommunityProperties::writeOut(double t, Patch& P){
 	Solver* S = &P.S;
 
@@ -186,22 +209,6 @@ void CommunityProperties::writeOut(double t, Patch& P){
 			}
 		}
 	}
-
-	foutd
-		<< date << ","
-		<< fluxes.gpp << ","
-		<< fluxes.npp << ","
-		<< (fluxes.rleaf + fluxes.rroot + fluxes.rstem) << ","  // kgC/m2/d
-		<< fluxes.mort << ","
-		<< fluxes.gs << ","
-		<< fluxes.trans << ","
-		<< fluxes.pe_soil << ","
-		<< acc_traits.vcmax << ","
-		<< acc_traits.dpsi << ","
-		<< misc.cc_est << ","
-		<< static_cast<PSPM_Environment*>(S->env)->clim_inst.co2 << ","
-		<< static_cast<PSPM_Environment*>(S->env)->clim_inst.swp
-		<< std::endl;
 
 	fouty
 		<< date << ","

@@ -90,6 +90,7 @@ class CommunityProperties{
 
 	void openStreams(std::string dir);
 	void closeStreams();
+	void writeOut_inst(double t, Patch& P);
 	void writeOut(double t, Patch& P);
 
 	void resize(int n);

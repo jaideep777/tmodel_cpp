@@ -14,7 +14,7 @@ expt_dir = "test_3spp_100yr" #_old_params"
 
 # droughtmip tests
 # expt_dir = "test_droughtmip" #_old_params"
-expt_dir = "test_bigleaf_gfguy"
+# expt_dir = "test_bigleaf_gfguy"
 
 solver = "IEBT"
 

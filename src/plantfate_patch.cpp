@@ -456,6 +456,7 @@ void Patch::simulate_to(double t){
 
 	// update output metrics - needed before removeDeadSpecies()
 	props.update(t, *this);
+	props.writeOut_inst(t, *this);
 
 	// write outputs - must be done before species list is altered
 	if (t > t_next_writestate || fabs(t - t_next_writestate) < 1e-6){
