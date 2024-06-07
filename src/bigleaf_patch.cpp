@@ -210,6 +210,8 @@ void BigLeafPatch::simulate(){
 }
 
 
+/// @brief Spinup soil moisture 
+/// This function initializes the soil environment object from specified params, so running it is important even if no actual spinup is necessary
 void BigLeafPatch::spinup(){
 
 	ofstream fout(outfile.c_str());

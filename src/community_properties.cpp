@@ -276,7 +276,6 @@ void CommunityProperties::writeOut(double t, Patch& P){
 }
 
 // FIXME: These operators are not tested
-// FIXME: add pe_soil and other new variables.
 CommunityProperties& CommunityProperties::operator /= (double s){
 
 	fluxes.gpp            /= s;
@@ -288,6 +287,7 @@ CommunityProperties& CommunityProperties::operator /= (double s){
 	fluxes.rleaf          /= s;
 	fluxes.rroot          /= s;
 	fluxes.rstem          /= s;
+	fluxes.pe_soil        /= s;
 
 	structure.leaf_mass   /= s;
 	structure.stem_mass   /= s;
@@ -326,6 +326,7 @@ CommunityProperties& CommunityProperties::operator += (const CommunityProperties
 	fluxes.rleaf          += rhs.fluxes.rleaf;
 	fluxes.rroot          += rhs.fluxes.rroot;
 	fluxes.rstem          += rhs.fluxes.rstem;
+	fluxes.pe_soil        += rhs.fluxes.pe_soil;
 
 	structure.leaf_mass   += rhs.structure.leaf_mass;
 	structure.stem_mass   += rhs.structure.stem_mass;

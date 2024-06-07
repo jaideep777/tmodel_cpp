@@ -241,7 +241,7 @@ void LifeHistoryOptimizer::grow_for_dt(double t, double dt){
 		// P.rates.dseeds_dt_germ =   P.state.seed_pool/P.par.ll_seed;   // seeds that leave seed pool proceed for germincation
 
 		get_rates(dSdt.begin());
-		};
+	};
 
 	std::vector<double> S = {P.geometry.lai, P.geometry.get_size(), prod, litter_pool, rep, seeds, P.state.mortality};
 	RK4(t, dt, S, derivs);

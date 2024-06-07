@@ -406,8 +406,9 @@ void Patch::simulate_to(double t){
 		for (auto spp : S.species_vec) cout << spp->xsize() << ", ";
 		cout << ")" << endl;
 	}
+
 	// Step size to be used for evolutionary dynamics, 
-	// since trait evolution is done after completing step_to call
+	// since trait evolution is done after completing step_to() call
 	double dt_evol = t - S.current_time; // S.current_time is t-dt
 
 	// perform step
@@ -700,7 +701,8 @@ void Patch::simulate(){
 	}
 }
 
-
+/// @brief Spinup soil moisture 
+/// This function initializes the soil environment object from specified params, so running it is important even if no actual spinup is necessary
 void Patch::spinup(){
 
 	vector<double> sw_in, tair, precip, snowfall;
@@ -745,7 +747,7 @@ void Patch::spinup(){
 
 void Patch::simulate_coupled(){
 	double t_next_veg_update = config.y0;
-	double t_start_of_step = config.y0; // We separately keep track of the start-of-step time (t_now, as opposed to end-of-step time t) because S.current_time does not get updated at every soil timestep
+	double t_start_of_step = config.y0; // We separately keep track of the start-of-step time (t_start_of_step), as opposed to end-of-step time (t) because S.current_time does not get updated at every soil timestep
 	for (double t=config.y0; t <= config.yf + 1e-6; t=t + config.timestep) {  // 1e-6 ensures that last timestep to reach yf is actually executed
 		if (fabs(t - t_start_of_step) < 1e-6) continue;
 
@@ -769,7 +771,7 @@ void Patch::simulate_coupled(){
 		// push acclimation forcing into moving averager
 		E.set_forcing_acclim(j_clim, E.clim_midday);
 
-		// simulate patch
+		// update vegetation (Plant-FATE step)
 		if (t >= t_next_veg_update){
 			simulate_to(t);
 			t_next_veg_update += 7/par0.days_per_tunit; // Do veg update only once every 7 days
@@ -785,9 +787,10 @@ void Patch::simulate_coupled(){
 		double fapar = 1-exp(-par0.k_light*props.structure.lai);
 		double sw_surface = E.clim_inst.ppfd/2.04*(1-fapar);
 
+		// update soil (SPLASH step)
 		soil_env.water_balance_splash(doy, year, sw_surface, E.clim_inst.tc, E.clim_inst.precip, 0, plant_uptake);
 		
-		t_start_of_step = t;
+		t_start_of_step = t; // set next start of step to t, before t gets incremented
 		// cout << soil_env.state.wn << " " << soil_env.dsoil.ro << " " << soil_env.state.nd << " " << soil_env.dsoil.stress_factor << " " << soil_env.dsoil.psi_m << "\n";
 
 	}
@@ -806,13 +809,17 @@ void Patch::simulateClimate(){
 		"co2_acclim, " <<
 		"elv_acclim, " <<
 		"swp_acclim, " <<
+		"precip_acclim, " <<
+		"snow_acclim, " <<
 		"tc_inst, " <<
 		"ppfd_inst, " <<
 		"rn_inst, " <<
 		"vpd_inst, " <<
 		"co2_inst, " <<
 		"elv_inst, " <<
-		"swp_inst\n";
+		"swp_inst, " << 
+		"precip_inst, " <<
+		"snow_inst\n";
 
 	for (double t=config.y0; t <= config.yf + 1e-6; t=t + config.timestep) {  // 1e-6 ensures that last timestep to reach yf is actually executed
 		cout << "stepping = " << setprecision(6) << S.current_time << " --> " << t << "\n";
@@ -832,19 +839,23 @@ void Patch::simulateClimate(){
 
 		fout << S.current_time << ", ";
 		fout << E.clim_acclim.tc << ", "
-			<< E.clim_acclim.ppfd << ", "
-		     << E.clim_acclim.rn << ", "
-			<< E.clim_acclim.vpd << ", "
-			<< E.clim_acclim.co2 << ", "
-			<< E.clim_acclim.elv << ", "
-			<< E.clim_acclim.swp << ", ";
+			 << E.clim_acclim.ppfd << ", "
+			 << E.clim_acclim.rn << ", "
+			 << E.clim_acclim.vpd << ", "
+			 << E.clim_acclim.co2 << ", "
+			 << E.clim_acclim.elv << ", "
+			 << E.clim_acclim.swp << ", "
+			 << E.clim_acclim.precip << ", "
+			 << E.clim_acclim.snow << ", ";
 		fout << E.clim_inst.tc << ", "
-			<< E.clim_inst.ppfd << ", "
-		     << E.clim_inst.rn << ", "
-			<< E.clim_inst.vpd << ", "
-			<< E.clim_inst.co2 << ", "
-			<< E.clim_inst.elv << ", "
-			<< E.clim_inst.swp << "\n";
+			 << E.clim_inst.ppfd << ", "
+			 << E.clim_inst.rn << ", "
+			 << E.clim_inst.vpd << ", "
+			 << E.clim_inst.co2 << ", "
+			 << E.clim_inst.elv << ", "
+			 << E.clim_inst.swp << ", "
+			 << E.clim_inst.precip << ", "
+			 << E.clim_inst.snow << "\n";
 
 		S.current_time = t;
 	}
