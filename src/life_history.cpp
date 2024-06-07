@@ -226,7 +226,10 @@ void LifeHistoryOptimizer::grow_for_dt(double t, double dt){
 
 	auto derivs = [this](double t, std::vector<double>& S, std::vector<double>& dSdt){
 		//if (fabs(t - 2050) < 1e-5) 
-		update_climate(ts.to_julian(t));
+		double j_clim = ts.to_julian(t);
+		update_climate(j_clim);
+		C.set_forcing_acclim(j_clim, C.clim_midday);
+
 		// C.Climate::print(t);
 		set_state(S.begin());
 		P.calc_demographic_rates(C, t);

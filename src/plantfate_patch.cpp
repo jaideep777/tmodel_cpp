@@ -683,11 +683,15 @@ void Patch::simulate(){
 	for (double t=config.y0; t <= config.yf + 1e-6; t=t + config.timestep) {  // 1e-6 ensures that last timestep to reach yf is actually executed
 		if (fabs(t - S.current_time) < 1e-6) continue;
 
+		// compute julian time at which climate forcing is read 
+		// = start of timestep + small a increment to ensure update in case the timesteps exactly coincide with times in input data
+		double j_clim = ts.to_julian(S.current_time) + 1e-6;
+
 		// read forcing inputs
 		// std::cout << "update Env (explicit)... t = " << S.current_time << ":\n";
-		update_climate(ts.to_julian(S.current_time) + 1e-6, climate_stream); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
+		update_climate(j_clim, climate_stream); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
 
-		E.set_forcing_acclim(ts.to_julian(t) + 1e-6, E.clim_midday);
+		E.set_forcing_acclim(j_clim, E.clim_midday);
 		// ((env::Climate&)E).print(t);
 
 		// simulate patch
@@ -706,7 +710,7 @@ void Patch::spinup(){
 	double dt_spin = 1/par0.days_per_tunit; // 1 day timstep for spinup
 	double tend = t0 + 1/par0.years_per_tunit_avg; // 1 year of data for spinup run
 	cout << "Spinup: " << t0 << " --> " << tend << " (dt = " << dt_spin << ")\n";
-	auto tp = flare::julian_to_date(ts.to_julian(t0+dt_spin));
+	auto tp = flare::julian_to_date(ts.to_julian(t0));
 	int y = tp.tm_year+1900;
 	int m = tp.tm_mon+1;
 	int d = tp.tm_mday;
@@ -745,20 +749,25 @@ void Patch::simulate_coupled(){
 	for (double t=config.y0; t <= config.yf + 1e-6; t=t + config.timestep) {  // 1e-6 ensures that last timestep to reach yf is actually executed
 		if (fabs(t - t_start_of_step) < 1e-6) continue;
 
-		auto time_pt = flare::julian_to_date(ts.to_julian(t_start_of_step)+1e-6);
+		// compute julian time at which climate forcing is read 
+		// = start of timestep + small a increment to ensure update in case the timesteps exactly coincide with times in input data
+		double j_clim = ts.to_julian(t_start_of_step) + 1e-6;
+
+		auto time_pt = flare::julian_to_date(j_clim);
 		int year = time_pt.tm_year+1900;
 		int doy = time_pt.tm_yday+1;
-		cout << flare::julian_to_datestring(ts.to_julian(t_start_of_step)+1e-6) << " (" << year << "." << doy << ")\n"; 
+		cout << flare::julian_to_datestring(j_clim) << " (" << year << "." << doy << ")\n"; 
 
 		// read forcing inputs
 		// std::cout << "update Env (explicit)... t = " << t_start_of_step << ":\n";
-		update_climate(ts.to_julian(t_start_of_step) + 1e-6, climate_stream); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
+		update_climate(j_clim, climate_stream); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
 
-		// update forcing vars based on splash calculated radiation, snow, and swp
+		// data exchange: SPLASH --> PlantFATE
+		// variables from splash: top-canopy PPFD, snow, swp
 		soil_env.update_forcings(doy, year, E);
 
 		// push acclimation forcing into moving averager
-		E.set_forcing_acclim(ts.to_julian(t_start_of_step) + 1e-6, E.clim_midday);
+		E.set_forcing_acclim(j_clim, E.clim_midday);
 
 		// simulate patch
 		if (t >= t_next_veg_update){
@@ -770,7 +779,8 @@ void Patch::simulate_coupled(){
 			props.writeOut_inst(t, *this);
 		}
 
-		// calculate variables to be given to splash 
+		// data exchange: PlantFATE --> SPLASH
+		// variables to splash: SW radiation at surface, plant water uptake
 		double plant_uptake = props.fluxes.trans;
 		double fapar = 1-exp(-par0.k_light*props.structure.lai);
 		double sw_surface = E.clim_inst.ppfd/2.04*(1-fapar);
@@ -809,11 +819,16 @@ void Patch::simulateClimate(){
 
 		if (fabs(t - S.current_time) < 1e-6) continue;
 
+		// compute julian time at which climate forcing is read 
+		// = start of timestep + small a increment to ensure update in case the timesteps exactly coincide with times in input data
+		double j_clim = ts.to_julian(S.current_time) + 1e-6;
+
 		// read forcing inputs
 		// std::cout << "update Env (explicit)... t = " << S.current_time << ":\n";
-		update_climate(ts.to_julian(S.current_time) + 1e-6, climate_stream); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
+		update_climate(j_clim, climate_stream); // The 1e-6 is to ensure that when t coincides exactly with time in climate file, we ensure that the value in climate file is read by asking for a slightly higher t
+
+		E.set_forcing_acclim(j_clim, E.clim_midday);
 		// ((env::Climate&)E).print(t);
-		E.set_forcing_acclim(ts.to_julian(t) + 1e-6, E.clim_midday);
 
 		fout << S.current_time << ", ";
 		fout << E.clim_acclim.tc << ", "
