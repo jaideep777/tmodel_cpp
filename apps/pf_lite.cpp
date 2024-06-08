@@ -19,6 +19,7 @@ int is_equal(const vector<double>& v1, const vector<double>& v2, double tol=1e-6
 	return b? 0:1;
 }
 
+// FIXME: This needs fixing and testing 
 int main(int argc, char ** argv){
 
 	if (argc < 4){
@@ -37,7 +38,8 @@ int main(int argc, char ** argv){
 	sim.climate_stream.use_precip_data = true;
 	sim.init_co2(414);
 	sim.set_fapar(0.92);
-	sim.init(2000, 2010.999);
+	sim.init(y0, yf);
+	sim.spinup();
 	sim.simulate();
 
 	return 0;

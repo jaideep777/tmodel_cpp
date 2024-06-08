@@ -40,6 +40,8 @@ int main(int argc, char ** argv){
 
 	if (fabs(sim.soil_env.state.wn - 739.975303616) > 1e-6) return 1; // coupled run exchanging psi_m and trans, ppfd set from splash, 7 day veg update
 
+	sim.close();
+
 	return err;
 
 }

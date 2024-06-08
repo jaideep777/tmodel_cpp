@@ -29,6 +29,7 @@ int main(int argc, char ** argv){
 	sim.init(y0, yf);
 	sim.spinup();
 	sim.simulate_coupled();
+	cout << setprecision(12) << sim.soil_env.state.wn << " " << sim.soil_env.dsoil.psi_m << "\n";
 	sim.close();
 
 	return 0;
