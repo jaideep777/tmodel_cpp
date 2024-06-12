@@ -174,6 +174,7 @@ void Patch::init(double tstart, double tend){
 	E.set_elevation(0);
 	E.set_acclim_timescale(7);
 	climate_stream.init();
+	soil_env.init();
 
 	// ~~~~~~~~~~ Create solver ~~~~~~~~~~~~~~~~~~~~~~~~~
 	S = Solver(config.solver_method, "rk45ck");
@@ -191,6 +192,7 @@ void Patch::init(double tstart, double tend){
 	if (config.continuePrevious){
 		restoreState(*this, config.continueFrom_stateFile, config.continueFrom_configFile);
 		config.y0 = S.current_time; // replace y0
+		soil_env.need_spinup = false; // When restoring, the soil state is restored, so dont run spinup
 	}
 	else {
 		// ~~~~~~~~~~ Read initial trait values ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -536,6 +538,8 @@ void Patch::save(std::ostream& fout){
 		, t_next_writestate)
 		<< '\n';
 
+	soil_env.save(fout);
+
    // write species names vector
 	fout << S.species_vec.size() << " | ";
 	for (auto s : S.species_vec){
@@ -562,10 +566,13 @@ void Patch::restore(std::istream& fin){
 	std::string s; fin >> s; // discard version number
 	assert(s == "Patch::v1");
 
+	// restore patch-specific state
 	fin >> t_next_disturbance
 		>> t_next_invasion
 		>> t_next_savestate
 		>> t_next_writestate;
+
+	soil_env.restore(fin);
 
 	// Read species associations (probes)
 	vector<string> spp_names;
@@ -706,6 +713,8 @@ void Patch::simulate(){
 /// @brief Spinup soil moisture 
 /// This function initializes the soil environment object from specified params, so running it is important even if no actual spinup is necessary
 void Patch::spinup(){
+
+	if (!soil_env.need_spinup) return;
 
 	vector<double> sw_in, tair, precip, snowfall;
 	double t0 = config.y0;

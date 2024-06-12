@@ -1,4 +1,5 @@
 #include "soil_environment.h"
+#include <io_utils.h>
 
 #include <numeric>
 namespace pfate{
@@ -19,9 +20,12 @@ inline void print_vv(vector<vector<double>>& result){
 SoilEnvironment::SoilEnvironment() : splash(0,0), solar(0,0) {
 }
 
-void SoilEnvironment::spinup(int y, std::vector<double>& sw_in, std::vector<double>& tair, std::vector<double>& pn, std::vector<double>& snow){
+void SoilEnvironment::init(){
 	splash = SPLASH(par_spl.lat, par_spl.elev);
 	solar = SOLAR(par_spl.lat, par_spl.elev);
+}
+
+void SoilEnvironment::spinup(int y, std::vector<double>& sw_in, std::vector<double>& tair, std::vector<double>& pn, std::vector<double>& snow){
 	
 	double precip_total = std::accumulate(pn.begin(), pn.end(), 0.0);
 	double snow_total   = std::accumulate(snow.begin(), snow.end(), 0.0);
@@ -62,6 +66,10 @@ void SoilEnvironment::update_radiation(int doy, int y, double sw_in, double tair
 void SoilEnvironment::water_balance_splash(int doy, int y, double sw_in, double tair, double pn, double snow, double plant_uptake){
 	dvap = splash.run_one_day(doy, y, state.wn, sw_in, tair, pn, dsoil, par_spl.slope, par_spl.asp, state.swe, snow, par_spl.soil_info, state.qin, state.td, state.nd, plant_uptake);
 
+	// cout << "td = " << dsoil.tdr << "\n";
+	// FIXME: A temporary hack, needs to be fixed in SPLASH
+	if (isnan(dsoil.tdr)) dsoil.tdr = 0;
+
 	state.wn = dsoil.sm;
 	state.swe = dsoil.swe;
 	state.qin = dsoil.sqout;
@@ -90,6 +98,67 @@ double SoilEnvironment::get_swp(){
 	return pow(par.rzwsc/par.sstar, -par.b) - pow(swc/par.sstar, -par.b);
 }
 
+
+void SoilEnvironment::save(std::ostream& fout){
+	fout << "SoilEnvironment::v1" << '\n';
+
+	// output SoilPar
+	fout << std::make_tuple(
+		  par.b
+		, par.rzwsc
+		, par.sstar)
+		<< '\n';
+
+	// output SplashPars
+	fout << std::make_tuple(
+		    par_spl.slope
+		  , par_spl.asp
+		  , par_spl.lat
+		  , par_spl.elev)
+		<< '\n';
+	
+	fout << par_spl.soil_info << '\n';
+
+	// output state
+	fout << std::make_tuple(
+		  state.wn
+		, state.swe
+		, state.qin
+		, state.td
+		, state.nd)
+		<< '\n';
+
+	fout << std::make_tuple(
+		swc)
+		<< '\n';
+
+}
+
+
+void SoilEnvironment::restore(std::istream& fin){
+	std::string s; fin >> s; // discard version number
+	assert(s == "SoilEnvironment::v1");
+
+	fin >> par.b
+		>> par.rzwsc
+		>> par.sstar;
+
+	fin >> par_spl.slope
+		>> par_spl.asp
+		>> par_spl.lat
+		>> par_spl.elev;
+
+	fin >> par_spl.soil_info;
+
+	fin >> state.wn
+		>> state.swe
+		>> state.qin
+		>> state.td
+		>> state.nd;
+
+	fin >> swc;
+
+}
 
 
 } // env

@@ -46,7 +46,7 @@ int main(int argc, char ** argv){
 	// if (fabs(sim.soil_env.state.wn - 740.40970978) > 1e-6) return 1; // coupled run exchanging psi_m and trans, ppfd set from splash
 	if (fabs(sim.soil_env.state.wn - 740.409737135) > 1e-6) return 1; // coupled run exchanging psi_m and trans, ppfd set from splash, using days as time unit, note this unit change leads to a change in output in 4th decimal... FIXME: this could be a result of using avg year length earlier, but investigate
 
-	sim.close();
+	// sim.close();
 	
 	return err;
 

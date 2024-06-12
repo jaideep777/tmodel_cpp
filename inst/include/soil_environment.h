@@ -36,6 +36,8 @@ class SoilEnvironment {
 
 	double swc = 300;    /// soil water content [mm]
 
+	bool need_spinup = true;
+
 	SPLASH splash;
 	SOLAR solar;
 	smr dsoil;
@@ -43,6 +45,8 @@ class SoilEnvironment {
 
 	public:
 	SoilEnvironment();
+
+	void init();
 
 	void spinup(int y, std::vector<double>& sw_in, std::vector<double>& tair, std::vector<double>& pn, std::vector<double>& snow);
 
@@ -64,7 +68,8 @@ class SoilEnvironment {
 	/// @return soil water potential [MPa]
 	double get_swp();
 
-	// FIXME: add save-restore
+	void save(std::ostream& fout);
+	void restore(std::istream& fin);
 };
 
 } // env

@@ -73,6 +73,7 @@ void BigLeafPatch::init(double _t0, double _tf){
 	forcing.set_elevation(0);
 	forcing.set_acclim_timescale(7);
 	climate_stream.init();
+	soil_env.init();
 	soil_env.swc = 50;
 }
 

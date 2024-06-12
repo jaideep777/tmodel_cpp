@@ -4,9 +4,11 @@ EXTERNAL_DIR = ../external
 PHYDRO_PATH = $(EXTERNAL_DIR)/phydro
 LIBPSPM_PATH = $(EXTERNAL_DIR)/libpspm
 FLARE_PATH = $(EXTERNAL_DIR)/flare
+SPLASH_PATH = ../../rsplash
 
 # include and lib dirs (esp for cuda)
 INC_PATH :=  -I../inst/include -I../src -I$(PHYDRO_PATH)/inst/include -I$(LIBPSPM_PATH)/include -I$(FLARE_PATH)/include #-isystem "$(PHYDRO_PATH)"/inst/LBFGSpp/include
+INC_PATH += -I$(SPLASH_PATH)/src
 
 # flags
 PKG_CXXFLAGS = -O3 -fPIC -std=c++17 -Wall -Wextra -DPHYDRO_ANALYTICAL_ONLY 
@@ -19,6 +21,7 @@ PKG_CPPFLAGS = $(INC_PATH)
 
 # Need libstdc++fs for using std::filesystem
 PKG_LIBS = -L"$(LIBPSPM_PATH)"/lib -lpspm -lstdc++fs
+PKG_LIBS += -L"$(SPLASH_PATH)"/lib -lsplash
 
 # SOURCES = $(wildcard src/*.cpp)
 
@@ -34,6 +37,8 @@ SOURCES = traits_params.cpp \
           state_restore.cpp \
           life_history.cpp \
           plantfate_patch.cpp \
+          bigleaf_patch.cpp \
+          soil_environment.cpp \
           r_interface.cpp
 
 # Obtain the object files
