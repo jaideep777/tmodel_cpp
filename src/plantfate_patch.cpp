@@ -192,6 +192,7 @@ void Patch::init(double tstart, double tend){
 	if (config.continuePrevious){
 		restoreState(*this, config.continueFrom_stateFile, config.continueFrom_configFile);
 		config.y0 = S.current_time; // replace y0
+		// TODO: restore config.ye such that prev years of evolution are accounted for
 		soil_env.need_spinup = false; // When restoring, the soil state is restored, so dont run spinup
 	}
 	else {
@@ -216,6 +217,7 @@ void Patch::init(double tstart, double tend){
 	S.print();
 
 	// sio.S = &S;
+	props.b_output_cohort_props = true;
 	props.openStreams(config.out_dir);
 }
 
@@ -710,8 +712,7 @@ void Patch::simulate(){
 	}
 }
 
-/// @brief Spinup soil moisture 
-/// This function initializes the soil environment object from specified params, so running it is important even if no actual spinup is necessary
+/// @brief Spinup soil moisture (if need_spinup is true)
 void Patch::spinup(){
 
 	if (!soil_env.need_spinup) return;

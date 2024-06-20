@@ -83,14 +83,21 @@ void CommunityProperties::update(double t, Patch& P){
 		structure.lai_vert[iz] = integrate_prop(t, S, [iz](PSPM_Plant* p){return p->geometry.crown_area_above(iz, p->traits) * p->geometry.lai;});
 	}
 
-	// soil evaporation 
+	// Soil
 	// TODO: Might be possible to avoid duplication by splitting phydro::env computations
 	auto cc = static_cast<PSPM_Environment*>(S.env)->clim_inst;
 	double gamma = phydro::calc_psychro(cc.tc, cc.pa);
 	double epsilon = phydro::calc_sat_slope(cc.tc) / gamma;
 	double lv = phydro::calc_enthalpy_vap(cc.tc);
-	double fapar = 1-exp(-0.5*structure.lai);
-	fluxes.pe_soil = (1-fapar)*cc.rn*(epsilon/(1+epsilon)) / lv * 86400; // J m-2 s-1 / (J kg-1) * (s/day) = kg m-2 s-1 * s day-1 = kg m-2 day-1
+	double fapar = 1 - exp(-0.5 * structure.lai);
+	fluxes.pe_soil = (1 - fapar) * cc.rn * (epsilon / (1 + epsilon)) / lv * 86400; // J m-2 s-1 / (J kg-1) * (s/day) = kg m-2 s-1 * s day-1 = kg m-2 day-1
+
+	soil.pe_soil = P.soil_env.dvap.pet;
+	soil.ae_soil = P.soil_env.dvap.aet;
+	soil.sm = P.soil_env.dsoil.sm;
+	soil.sm_vv = P.soil_env.dsoil.sm_vv;
+	soil.swp = P.soil_env.dsoil.psi_m;
+
 }
 
 
@@ -104,7 +111,7 @@ void CommunityProperties::openStreams(std::string dir){
 
 	if (b_output_cohort_props){
 		cohort_props_out.open(dir + "/cohort_props.csv");
-		cohort_props_out << "t,speciesID,cohortID,";
+		cohort_props_out << "YEAR,speciesID,cohortID,density,";
 		for (auto vname : varnames) cohort_props_out << vname << ",";
 		cohort_props_out << std::endl;
 		cohort_props_out << std::setprecision(12);
@@ -120,7 +127,7 @@ void CommunityProperties::openStreams(std::string dir){
 	ftraits.open(std::string(dir + "/" + traits_file).c_str());
 	// fclim.open(std::string(dir + "/climate_co2.csv").c_str());
 
-	foutd << "YEAR,GPP,NPP,RAU,MORT,GS,ET,PESOIL,VCMAX,DPSI,CCEST,CO2,SWP\n";
+	foutd << "YEAR,IYEAR,MON,DAY,GPP,NPP,RAU,MORT,GS,TRANS,AESOIL,PESOIL,VCMAX,DPSI,CCEST,CO2,SWPA,SWP,SWCV\n";
 	fouty << "YEAR,DE,CL,CW,CCR,CFR,CR,CA,BA,TB,LAI\n";
 	fouty_spp << "YEAR,PID,DE,PH,CA,BA,TB,SEEDS\n";
 	ftraits << "YEAR,SPP,RES,LMA,WD,HMAT,P50X,SMX,ZETA,r0_last,r0_avg,r0_exp,r0_cesaro\n";
@@ -145,24 +152,34 @@ void CommunityProperties::closeStreams(){
 void CommunityProperties::writeOut_inst(double t, Patch& P){
 	// consistently output date in decimal years across all files
 	double date = flare::julian_to_yearsCE(P.ts.to_julian(t));
+	auto tp = flare::julian_to_date(P.ts.to_julian(t));
+	int y = tp.tm_year+1900;
+	int m = tp.tm_mon+1;
+	int d = tp.tm_mday;
 
 	Solver* S = &P.S;
 
 	foutd
 		<< setprecision(12)
 		<< date << ","
+		<< y << ","
+		<< m << ","
+		<< d << ","
 		<< fluxes.gpp << ","
 		<< fluxes.npp << ","
-		<< (fluxes.rleaf + fluxes.rroot + fluxes.rstem) << ","  // kgC/m2/d
+		<< (fluxes.rleaf + fluxes.rroot + fluxes.rstem) << ","
 		<< fluxes.mort << ","
 		<< fluxes.gs << ","
 		<< fluxes.trans << ","
-		<< fluxes.pe_soil << ","
+		<< soil.ae_soil << ","
+		<< soil.pe_soil << ","
 		<< acc_traits.vcmax << ","
 		<< acc_traits.dpsi << ","
 		<< misc.cc_est << ","
 		<< static_cast<PSPM_Environment*>(S->env)->clim_inst.co2 << ","
-		<< static_cast<PSPM_Environment*>(S->env)->clim_inst.swp
+		<< static_cast<PSPM_Environment*>(S->env)->clim_acclim.swp << ","
+		<< static_cast<PSPM_Environment*>(S->env)->clim_inst.swp << ","
+		<< soil.sm_vv
 		<< std::endl;
 }
 
@@ -171,6 +188,9 @@ void CommunityProperties::writeOut(double t, Patch& P){
 
 	// multiplier to convert unit_t-1 --> day-1
 	double m1 = 1 / P.par0.days_per_tunit;
+
+	// multiplier to convert kg biomass --> kg C
+	double m2 = 1 / 2.04;
 
 	// consistently output date in decimal years across all files
 	double date = flare::julian_to_yearsCE(P.ts.to_julian(t));
@@ -198,13 +218,17 @@ void CommunityProperties::writeOut(double t, Patch& P){
 						<< date << ","
 						<< spp->species_name << ","  // use name instead of index s becuase it is unique and order-insensitive
 						<< j << ","
-						<< C.geometry.diameter << ","
-						<< C.geometry.height << ","
-						<< C.geometry.lai << ","
-						<< C.rates.dmort_dt << ","
-						<< C.rates.dseeds_dt << ","
-						<< C.rates.rgr << ","
-						<< C.res.gpp / C.geometry.crown_area << ",";
+						<< C.u << ","        // [m-1 m-2]
+						<< C.geometry.diameter_at_height(1.5, C.traits) << ","  // [m]
+						<< C.geometry.diameter << ","   // [m]
+						<< C.geometry.height << ","     // [m]
+						<< m2 * C.get_biomass() << ","    // [kgC m-2]
+						<< m2 * (C.geometry.leaf_mass(C.traits) + C.geometry.stem_mass(C.traits)) << ","  // [kgC m-2]
+						<< C.geometry.lai << ","        // [m2 m-2]
+						<< m1 * C.rates.dmort_dt << ","      // [day-1]
+						<< m1 * C.rates.dseeds_dt << ","     // [day-1]
+						<< m1 * C.rates.rgr << ","           // [day-1]
+						<< m1 * m2 * C.res.gpp / C.geometry.crown_area << ","; // [kgC m-2 day-1]
 					cohort_props_out << "\n";
 				}
 			}

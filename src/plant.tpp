@@ -107,6 +107,7 @@ double Plant::mortality_rate(Env& env, double t){
 	double psi_xylem = env.clim_inst.swp - res.dpsi_avg / 2;
 
 	double mu_hyd_norm = (psi_xylem <= pcrit_xylem) ? 1e6 : std::fmin(1e6, atanh(pow(psi_xylem / pcrit_xylem, traits.b_xylem)));
+	if (std::isinf(mu_hyd_norm)) mu_hyd_norm = 1e6;
 	// std::cout << "Hyd mortality rate (" << traits.species_name << ", h=" << geometry.height << "): " <<  res.dpsi_avg << " --> " << psi_xylem << " / " << pcrit_xylem << " --> " << mu_hyd_norm << '\n';
 
 	double rgr_annual_avg = rates.rgr / par.years_per_tunit_avg;
@@ -149,6 +150,7 @@ double Plant::fecundity_rate(double _dmass_dt_rep, Env& env){
 	return _dmass_dt_rep / (4 * traits.seed_mass); // factor 4 accounts for ancillary costs of seed production, e.g. dispersal/protective structures
 }
 
+// TODO: Rename res to something more sensible
 template<class Env>
 void Plant::calc_demographic_rates(Env& env, double t){
 
