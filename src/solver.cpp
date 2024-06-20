@@ -805,14 +805,16 @@ vector<double> Solver::u0_out(double t){
 
 
 
-
+// Change log
+// v3: add t_next_cohort_insertion
 void Solver::save(std::ostream &fout){
-	fout << "Solver::v2\n";
+	fout << "Solver::v3\n";
 	int m = static_cast<int>(method);
 	fout << std::make_tuple(
 		  m
 		, n_statevars_system
 		, current_time
+		, t_next_cohort_insertion
 		, control.cm_use_log_densities
 		, N0);
 	fout << '\n';
@@ -829,11 +831,12 @@ void Solver::save(std::ostream &fout){
 
 void Solver::restore(std::istream &fin, vector<Species_Base*> spp_proto){
 	string s; fin >> s; // version number (discard)
-	assert(s == "Solver::v2");
+	assert(s == "Solver::v3");
 	int m;
 	fin >> m
 	    >> n_statevars_system
 		>> current_time
+		>> t_next_cohort_insertion
 		>> control.cm_use_log_densities
 		>> N0;
 	fin >> pi0;
