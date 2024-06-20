@@ -194,6 +194,7 @@ void Patch::init(double tstart, double tend){
 		config.y0 = S.current_time; // replace y0
 		// TODO: restore config.ye such that prev years of evolution are accounted for
 		soil_env.need_spinup = false; // When restoring, the soil state is restored, so dont run spinup
+		soil_env.init();
 	}
 	else {
 		// ~~~~~~~~~~ Read initial trait values ~~~~~~~~~~~~~~~~~~~~~~~~~

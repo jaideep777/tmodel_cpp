@@ -111,7 +111,7 @@ void CommunityProperties::openStreams(std::string dir){
 
 	if (b_output_cohort_props){
 		cohort_props_out.open(dir + "/cohort_props.csv");
-		cohort_props_out << "YEAR,speciesID,cohortID,density,";
+		cohort_props_out << "YEAR,speciesID,cohortNum,cohortID,density,";
 		for (auto vname : varnames) cohort_props_out << vname << ",";
 		cohort_props_out << std::endl;
 		cohort_props_out << std::setprecision(12);
@@ -218,6 +218,7 @@ void CommunityProperties::writeOut(double t, Patch& P){
 						<< date << ","
 						<< spp->species_name << ","  // use name instead of index s becuase it is unique and order-insensitive
 						<< j << ","
+						<< C.birth_time << ","
 						<< C.u << ","        // [m-1 m-2]
 						<< C.geometry.diameter_at_height(1.5, C.traits) << ","  // [m]
 						<< C.geometry.diameter << ","   // [m]

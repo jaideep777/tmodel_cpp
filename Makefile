@@ -125,7 +125,7 @@ apps: dir $(TARGET) compile_apps
 
 compile_apps: $(APP_TARGETS)
 
-$(APP_TARGETS): bin/% : apps/%.cpp $(HEADERS)
+$(APP_TARGETS): bin/% : apps/%.cpp $(HEADERS) $(OBJECTS)
 	g++ $(LDFLAGS) $(CPPFLAGS) $(INC_PATH) $(LIB_PATH) -o $@ $(OBJECTS) $< $(LIBS) -lpfate 
 
 

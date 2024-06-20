@@ -98,9 +98,10 @@ double SoilEnvironment::get_swp(){
 	return pow(par.rzwsc/par.sstar, -par.b) - pow(swc/par.sstar, -par.b);
 }
 
-
+// Change log:
+// v2: add dsoil
 void SoilEnvironment::save(std::ostream& fout){
-	fout << "SoilEnvironment::v1" << '\n';
+	fout << "SoilEnvironment::v2" << '\n';
 
 	// output SoilPar
 	fout << std::make_tuple(
@@ -128,6 +129,22 @@ void SoilEnvironment::save(std::ostream& fout){
 		, state.nd)
 		<< '\n';
 
+	// output dsoil (some of these are already in state, but thats ok)
+	fout << std::make_tuple(
+		  dsoil.sm
+		, dsoil.ro
+		, dsoil.swe
+		, dsoil.bflow
+		, dsoil.sqout
+		, dsoil.tdr
+		, dsoil.nd
+		, dsoil.pet
+		, dsoil.stress_factor
+		, dsoil.psi_m
+		, dsoil.sm_vv)
+		<< '\n';
+
+
 	fout << std::make_tuple(
 		swc)
 		<< '\n';
@@ -137,7 +154,7 @@ void SoilEnvironment::save(std::ostream& fout){
 
 void SoilEnvironment::restore(std::istream& fin){
 	std::string s; fin >> s; // discard version number
-	assert(s == "SoilEnvironment::v1");
+	assert(s == "SoilEnvironment::v2");
 
 	fin >> par.b
 		>> par.rzwsc
@@ -155,6 +172,18 @@ void SoilEnvironment::restore(std::istream& fin){
 		>> state.qin
 		>> state.td
 		>> state.nd;
+
+	fin >> dsoil.sm
+		>> dsoil.ro
+		>> dsoil.swe
+		>> dsoil.bflow
+		>> dsoil.sqout
+		>> dsoil.tdr
+		>> dsoil.nd
+		>> dsoil.pet
+		>> dsoil.stress_factor
+		>> dsoil.psi_m
+		>> dsoil.sm_vv;
 
 	fin >> swc;
 
