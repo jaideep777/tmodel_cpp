@@ -23,7 +23,7 @@ dat = dat %>% mutate(date = as.POSIXct(i, orders = "%Y-%m-%d %H:%M:%S"))
 
 if (plot_to_file) png("master_plot.png", width=2412*1.5, height = 1472*1.5, res=300)
 
-par(mfrow=c(4,4), mar=c(4,5,1,1), oma=c(1,1,1,1))
+par(mfrow=c(4,4), mar=c(4,6,1,1), oma=c(1,1,1,1))
 
 matplot(y=cbind(dat$ppfd_acclim, dat$ppfd_inst), x=dat$date, type="l", lty=1, col=c(scales::muted("seagreen"), "seagreen"), ylab="PPFD\n(umol m-2 s-1)", xlab="Time (years)")
 matplot(y=cbind(dat$tc_acclim, dat$tc_inst), x=dat$date, type="l", lty=1, col=c(scales::muted("orange"), "orange"), ylab="Temp\n(degC)", xlab="Time (years)")
