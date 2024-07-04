@@ -139,17 +139,9 @@ void Patch::init(double tstart, double tend){
 	// sysresult = system(command.c_str());
 	// sysresult = system(command2.c_str());
 
-	// ~~~~~~~ Set up time-points ~~~~~~~~~~~~~~~
-	config.y0 = tstart; //I.get<double>("year0");
-	config.yf = tend;   //I.get<double>("yearf");
-	config.ye = config.y0 + config.T_r0_avg + 20;  // year in which trait evolution starts (need to allow this period because r0 is averaged over previous time)
+	// ~~~~~~ Set up time units ~~~~~~~~~~~~~~~~~
 	ts.set_units(config.time_unit);
 	par0.set_tscale(ts.get_tscale());
-
-	t_next_disturbance = config.y0 + config.T_return;
-	t_next_invasion    = config.y0 + config.T_invasion;
-	t_next_savestate   = config.y0; // this will write state once at the beginning too, which is probably unnecessary
-	t_next_writestate  = config.y0; // this will write state once at the beginning too, which is probably unnecessary
 
 	// ~~~~~~~ Translate durations (specified in years) to simulation units ~~~~~~~~~~~~~~~
 	double tpy = 1 / par0.years_per_tunit_avg;  // time units per year
@@ -159,6 +151,16 @@ void Patch::init(double tstart, double tend){
 	config.T_return           *= tpy;
 	config.T_seed_rain_avg    *= tpy;
 	config.saveStateInterval  *= tpy;
+
+	// ~~~~~~~ Set up time-points ~~~~~~~~~~~~~~~
+	config.y0 = tstart; //I.get<double>("year0");
+	config.yf = tend;   //I.get<double>("yearf");
+	config.ye = config.y0 + config.T_r0_avg + 20*tpy;  // year in which trait evolution starts (need to allow this period because r0 is averaged over previous time)
+
+	t_next_disturbance = config.y0 + config.T_return;
+	t_next_invasion    = config.y0 + config.T_invasion;
+	t_next_savestate   = config.y0; // this will write state once at the beginning too, which is probably unnecessary
+	t_next_writestate  = config.y0; // this will write state once at the beginning too, which is probably unnecessary
 
 	// ~~~~~~~ Set up environment ~~~~~~~~~~~~~~~
 	E.use_ppa = true;
