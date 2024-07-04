@@ -83,6 +83,7 @@ void CommunityProperties::update(double t, Patch& P){
 		structure.lai_vert[iz] = integrate_prop(t, S, [iz](PSPM_Plant* p){return p->geometry.crown_area_above(iz, p->traits) * p->geometry.lai;});
 	}
 
+	// FIXME: Separate soil updates into a separate function that is called every step
 	// Soil
 	// TODO: Might be possible to avoid duplication by splitting phydro::env computations
 	auto cc = static_cast<PSPM_Environment*>(S.env)->clim_inst;
@@ -127,7 +128,7 @@ void CommunityProperties::openStreams(std::string dir){
 	ftraits.open(std::string(dir + "/" + traits_file).c_str());
 	// fclim.open(std::string(dir + "/climate_co2.csv").c_str());
 
-	foutd << "YEAR,IYEAR,MON,DAY,GPP,NPP,RAU,MORT,GS,TRANS,AESOIL,PESOIL,VCMAX,DPSI,CCEST,CO2,SWPA,SWP,SWCV\n";
+	foutd << "YEAR,IYEAR,MON,DAY,GPP,NPP,RAU,MORT,GS,TRANS,AESOIL,PESOIL,VCMAX,DPSI,CCEST,CO2,SWPA,SWP,SWCV\n"; // FIXME: Move LAI to daily output
 	fouty << "YEAR,DE,CL,CW,CCR,CFR,CR,CA,BA,TB,LAI\n";
 	fouty_spp << "YEAR,PID,DE,PH,CA,BA,TB,SEEDS\n";
 	ftraits << "YEAR,SPP,RES,LMA,WD,HMAT,P50X,SMX,ZETA,r0_last,r0_avg,r0_exp,r0_cesaro\n";
