@@ -132,6 +132,9 @@ matlines(y=cbind(fitted(loess(dat$VCMAX~dat$YEAR, span=60/n_year))), x=dat$YEAR,
 add_hband(c(20,50)) #, col=scales::muted("green4"))
 add_band()
 
+matplot(y=cbind(dat$ET, dat$PESOIL), x=dat$YEAR, type="l", lty=1, col=c("turquoise", "khaki3"), ylab="ET, PE_soil\n(mm/day)", xlab="Time (years)")
+add_band()
+
 plot_size_dist = function(){
   # matplot(y=cbind(as.numeric(colMeans(filter(dist, V1>1100 & V1<2000)[, -c(1,2)], na.rm = T)),
   #                 as.numeric(colMeans(filter(dist, V1>2100 & V1<3000)[, -c(1,2)], na.rm = T))
@@ -284,10 +287,10 @@ abline(h=0, col="black", lwd=0.2)
 # add_hband(c(cwm_wd,cwm_wd+5))
 
 
-p50 = traits %>% filter(!grepl("probe", .$SPP)) %>% select(YEAR, SPP, P50X) %>% pivot_wider(names_from = "SPP", values_from = "P50X") 
-matplot(x=p50[,1], y=p50[,-1], col=col_species, lty=1, type="l", ylab="P50", xlab="Year")
-
-p50 %>% tail() %>% print()
+# p50 = traits %>% filter(!grepl("probe", .$SPP)) %>% select(YEAR, SPP, P50X) %>% pivot_wider(names_from = "SPP", values_from = "P50X") 
+# matplot(x=p50[,1], y=p50[,-1], col=col_species, lty=1, type="l", ylab="P50", xlab="Year")
+# 
+# p50 %>% tail() %>% print()
 
 if (plot_to_file) dev.off()
 

@@ -15,10 +15,10 @@ class Patch;
 
 /// @brief This class calculates and stores community-level properties of interest
 class CommunityProperties{
-	public:
-
+	
+	public: 
 	// CO2 and water fluxes
-	struct{
+	struct Fluxes{
 		double gpp = 0;      ///< Gross primary productivity [kgC m-2 day-1]
 		double npp = 0;      ///< Net primary productivity [kgC m-2 day-1]
 		double trans = 0;    ///< Transpiration [kg m-2 day-1 ~= mm day-1]
@@ -29,10 +29,11 @@ class CommunityProperties{
 		double rroot = 0;    ///< Fine root respiration rate [kgC m-2 day-1]
 		double rstem = 0;    ///< Stem + Coarse-root respiration rate [kgC m-2 day-1]
 		double mort = 0;     ///< Biomass loss rate by mortality [kgC m-2 day-1]
-	} fluxes;
+		double pe_soil = 0;  ///< Potential soil evaporation [kg-h2o m-2 day-1]
+	};
 
 	// Structural properties of the community
-	struct{
+	struct Structure{
 		double leaf_mass = 0;       ///< Leaf biomass [kgC m-2]
 		double stem_mass = 0;       ///< Stem biomass [kgC m-2]
 		double croot_mass = 0;      ///< Coarse root biomass [kgC m-2]
@@ -45,10 +46,10 @@ class CommunityProperties{
 		double height = 0;          ///< Average height of all individuals [m]
 		double lai = 0;             ///< Community leaf area index [m2 m-2]
 		std::vector <double> lai_vert; ///< Vertical profile of LAI (cumulative LAI above height i metres, where i is index in this vector)
-	} structure;
+	};
 
 	// Species level totals of some properties in the same units as above
-	struct{
+	struct CommunitySpecies{
 		std::vector<double> n_ind_vec;
 		std::vector<double> biomass_vec;
 		std::vector<double> basal_area_vec;
@@ -58,27 +59,35 @@ class CommunityProperties{
 		// std::vector<double> mortality_vec_base;
 		// std::vector<double> mortality_vec_light;
 		// std::vector<double> mortality_vec_hyd;
-	} species;
+	};
 
 	// Miscellaneous properties
-	struct{
+	struct Misc{
 		double cc_est = 0; ///< Estimated carbon cost of leaves averaged over the leaf lifespan
-	} misc;
+	};
 
 	// Acclimated traits
-	struct{
+	struct Acc_traits{
 		double vcmax = 0; ///< Average Vcmax in leaves of the upper canopy [umol m-2 s-1]
 		double dpsi = 0;  ///< Average dpsi in leaves of the upper canopy [MPa]
-	} acc_traits;
+	};
 
 
+	public:
 	bool b_output_cohort_props = false;
 	std::string emgProps_file;
 	std::string cwmAvg_file;
 	std::string cwmperSpecies_file;
 	std::string traits_file;
 
-	public:
+	// public:
+
+	Structure structure;
+	Fluxes fluxes;
+	CommunitySpecies species;
+	Misc misc;
+	Acc_traits acc_traits;
+
 	void openStreams(std::string dir);
 	void closeStreams();
 	void writeOut(double t, Patch& P);

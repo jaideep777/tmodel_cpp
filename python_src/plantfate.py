@@ -3,13 +3,13 @@ from datetime import datetime
 import numpy as np
 import pandas as pd
 
-from plantFATE import Simulator as sim
-from plantFATE import Clim
+from pypfate import Patch as patch
+from pypfate import Clim
 
 
 class Model:
     def __init__(self, param_file):
-        self.plantFATE_model = sim(str(param_file))
+        self.plantFATE_model = patch(str(param_file))
         self.environment = pd.DataFrame(
             columns=[
                 "date",

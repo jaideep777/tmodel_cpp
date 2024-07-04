@@ -5,17 +5,15 @@ from setuptools import setup
 name = "py-plantFATE"
 __version__ = "0.0.1"
 
-root_dir = '/home/admini/my_work/plantFATE_root/'
 package_dir = {name: "pybinds"}
 depends = ["./inst/include/plantfate_patch.h",
            "./inst/include/pspm_interface.h",
-           "./src/plantfate.cpp",
-           "./src/plantfate.o",
-           "./src/plantFATE.so",
+           "./src/plantfate_patch.cpp",
+           "./build/plantfate_patch.o",
            "./src/pspm_interface.cpp",
-           "./src/pspm_interface.o"]
+           "./build/pspm_interface.o"]
 libraries = ["pspm", "stdc++fs"]
-library_dirs = [root_dir +  "libpspm/lib", "./lib"]
+library_dirs = ["./external/libpspm/lib", "./lib"]
 extra_compile_args = ["-O3",
                       "-pg", 
                       "-Wall", 
@@ -26,13 +24,15 @@ extra_compile_args = ["-O3",
                       "-Wno-unused-but-set-variable", 
                       "-Wno-float-conversion", 
                       "-Wno-unused-parameter", 
-                      "-L" + root_dir + "libpspm/lib",
-                      "-L./lib",
+                    #   "-L" + root_dir + "libpspm/lib",
+                    #   "-L./lib",
                       "-lpspm",
+                      "-libpfate"
                       ]
 include_dirs = ['./inst/include', 
-                root_dir + 'phydro/inst/include', 
-                root_dir + "libpspm/include", 
+                './external/phydro/inst/include', 
+                "./external/libpspm/include",
+                "./external/flare/include", 
                 "./src", "./build"]
 # The main interface is through Pybind11Extension.
 # * You can add cxx_std=11/14/17, and then build_ext can be removed.
@@ -44,8 +44,8 @@ include_dirs = ['./inst/include',
 #   reproducible builds (https://github.com/pybind/python_example/pull/53)
 
 ext_modules = [
-    Pybind11Extension("plantFATE",
-        ["pybinds/simulator.cpp"],
+    Pybind11Extension("pypfate",
+        ["pybinds/pypfate.cpp"],
         # Example: passing in the version to the compiled code
         define_macros = [('VERSION_INFO', __version__)],
         libraries = libraries, 

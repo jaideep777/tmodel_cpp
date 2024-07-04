@@ -37,7 +37,8 @@ int main(int argc, char ** argv){
 		for (auto& b : ba) b*=1e4;
 		cout << setprecision(10) << "Basal areas [m2/Ha]: " << ba << '\n';
 
-		err = is_equal(ba, {13.90109726, 0, 15.36616065, 0});
+		// err = is_equal(ba, {13.90109726, 0, 15.36616065, 0});
+		err = is_equal(ba, {14.05855586, 0, 15.19054511, 0}); // expected values after bugfix, commit 3c21690
 
 		sim.close();
 	}
