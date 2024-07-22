@@ -213,6 +213,7 @@ void Patch::init(double tstart, double tend){
 	S.print();
 
 	// sio.S = &S;
+	props.b_output_cohort_props = true;
 	props.openStreams(config.out_dir);
 }
 
