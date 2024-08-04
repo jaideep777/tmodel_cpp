@@ -106,7 +106,9 @@ class CommunityProperties{
 
 	void resize(int n);
 	bool isResident(Species_Base* spp);
+
 	void update(double t, Patch& P);
+	void update_soil(double t, Patch& P);
 
 	CommunityProperties& operator /= (double s);
 	CommunityProperties& operator += (const CommunityProperties& s);

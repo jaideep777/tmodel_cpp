@@ -802,7 +802,8 @@ void Patch::simulate_coupled(){
 
 		// update soil (SPLASH step)
 		soil_env.water_balance_splash(doy, year, sw_surface, E.clim_inst.tc, E.clim_inst.precip, 0, plant_uptake);
-		
+		props.update_soil(t, *this);
+
 		t_start_of_step = t; // set next start of step to t, before t gets incremented
 		// cout << soil_env.state.wn << " " << soil_env.dsoil.ro << " " << soil_env.state.nd << " " << soil_env.dsoil.stress_factor << " " << soil_env.dsoil.psi_m << "\n";
 

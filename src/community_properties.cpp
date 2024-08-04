@@ -83,7 +83,6 @@ void CommunityProperties::update(double t, Patch& P){
 		structure.lai_vert[iz] = integrate_prop(t, S, [iz](PSPM_Plant* p){return p->geometry.crown_area_above(iz, p->traits) * p->geometry.lai;});
 	}
 
-	// FIXME: Separate soil updates into a separate function that is called every step
 	// Soil
 	// TODO: Might be possible to avoid duplication by splitting phydro::env computations
 	auto cc = static_cast<PSPM_Environment*>(S.env)->clim_inst;
@@ -93,12 +92,15 @@ void CommunityProperties::update(double t, Patch& P){
 	double fapar = 1 - exp(-0.5 * structure.lai);
 	fluxes.pe_soil = (1 - fapar) * cc.rn * (epsilon / (1 + epsilon)) / lv * 86400; // J m-2 s-1 / (J kg-1) * (s/day) = kg m-2 s-1 * s day-1 = kg m-2 day-1
 
+}
+
+
+void CommunityProperties::update_soil(double t, Patch& P){
 	soil.pe_soil = P.soil_env.dvap.pet;
 	soil.ae_soil = P.soil_env.dvap.aet;
 	soil.sm = P.soil_env.dsoil.sm;
 	soil.sm_vv = P.soil_env.dsoil.sm_vv;
 	soil.swp = P.soil_env.dsoil.psi_m;
-
 }
 
 
