@@ -145,6 +145,9 @@ void CommunityProperties::closeStreams(){
 void CommunityProperties::writeOut(double t, Patch& P){
 	Solver* S = &P.S;
 
+	// multiplier to convert unit_t-1 --> day-1
+	double m1 = 1 / P.par0.days_per_tunit;
+
 	// consistently output date in decimal years across all files
 	double date = flare::julian_to_yearsCE(P.ts.to_julian(t));
 
@@ -223,7 +226,7 @@ void CommunityProperties::writeOut(double t, Patch& P){
 			<< species.canopy_area_vec[k] << ","
 			<< species.basal_area_vec[k] << ","
 			<< species.biomass_vec[k] << ","
-			<< spp->seeds_hist1.get()
+			<< spp->seeds_hist1.get() * m1
 			<< std::endl;
 	}
 
