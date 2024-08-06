@@ -125,7 +125,8 @@ PYBIND11_MODULE(pypfate, m)
 		.def_readwrite("rleaf", &pf::CommunityProperties::Fluxes::rleaf)
 		.def_readwrite("rroot", &pf::CommunityProperties::Fluxes::rroot)
 		.def_readwrite("rstem", &pf::CommunityProperties::Fluxes::rstem)
-		.def_readwrite("mort", &pf::CommunityProperties::Fluxes::mort);
+		.def_readwrite("mort", &pf::CommunityProperties::Fluxes::mort)
+		.def_readwrite("pe_soil", &pf::CommunityProperties::Fluxes::pe_soil);
 
 	py::class_<pf::CommunityProperties::Structure>(communityProperties, "Structure")
 		.def(py::init<>())
