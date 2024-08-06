@@ -29,7 +29,7 @@ class CommunityProperties{
 		double rroot = 0;    ///< Fine root respiration rate [kgC m-2 day-1]
 		double rstem = 0;    ///< Stem + Coarse-root respiration rate [kgC m-2 day-1]
 		double mort = 0;     ///< Biomass loss rate by mortality [kgC m-2 day-1]
-		double pe_soil = 0;  ///< Potential soil evaporation [kg-h2o m-2 day-1]
+		double pe_soil = 0;  ///< Potential soil evaporation [kg-h2o m-2 day-1] (currently based on phydro calculations)
 	};
 
 	// Structural properties of the community
@@ -90,6 +90,7 @@ class CommunityProperties{
 
 	void openStreams(std::string dir);
 	void closeStreams();
+	void writeOut_inst(double t, Patch& P);
 	void writeOut(double t, Patch& P);
 
 	void resize(int n);
@@ -100,7 +101,7 @@ class CommunityProperties{
 	CommunityProperties& operator += (const CommunityProperties& s);
 
 	private:
-	std::vector<std::string> varnames = { "diameter", "height", "lai", "mort", "fec", "rgr", "gpp" };
+	std::vector<std::string> varnames = { "dbh", "basal_diameter", "height", "total_biomass", "agb" ,"lai", "mort", "fec", "rgr", "gpp" };
 	std::ofstream cohort_props_out;
 	std::ofstream size_dists_out;
 	std::ofstream fzst;
