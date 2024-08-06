@@ -213,6 +213,7 @@ void Patch::init(double tstart, double tend){
 	S.print();
 
 	// sio.S = &S;
+	props.b_output_cohort_props = true;
 	props.openStreams(config.out_dir);
 }
 
@@ -457,6 +458,7 @@ void Patch::simulate_to(double t){
 
 	// update output metrics - needed before removeDeadSpecies()
 	props.update(t, *this);
+	props.writeOut_inst(t, *this);
 
 	// write outputs - must be done before species list is altered
 	if (t > t_next_writestate || fabs(t - t_next_writestate) < 1e-6){
