@@ -139,12 +139,23 @@ void Patch::init(double tstart, double tend){
 	// sysresult = system(command.c_str());
 	// sysresult = system(command2.c_str());
 
+	// ~~~~~~ Set up time units ~~~~~~~~~~~~~~~~~
+	ts.set_units(config.time_unit);
+	par0.set_tscale(ts.get_tscale());
+
+	// ~~~~~~~ Translate durations (specified in years) to simulation units ~~~~~~~~~~~~~~~
+	double tpy = 1 / par0.years_per_tunit_avg;  // time units per year
+	config.T_cohort_insertion *= tpy;
+	config.T_invasion         *= tpy;
+	config.T_r0_avg           *= tpy;
+	config.T_return           *= tpy;
+	config.T_seed_rain_avg    *= tpy;
+	config.saveStateInterval  *= tpy;
+
 	// ~~~~~~~ Set up time-points ~~~~~~~~~~~~~~~
 	config.y0 = tstart; //I.get<double>("year0");
 	config.yf = tend;   //I.get<double>("yearf");
-	config.ye = config.y0 + config.T_r0_avg + 20;  // year in which trait evolution starts (need to allow this period because r0 is averaged over previous time)
-	ts.set_units(config.time_unit);
-	par0.set_tscale(ts.get_tscale());
+	config.ye = config.y0 + config.T_r0_avg + 20*tpy;  // year in which trait evolution starts (need to allow this period because r0 is averaged over previous time)
 
 	t_next_disturbance = config.y0 + config.T_return;
 	t_next_invasion    = config.y0 + config.T_invasion;
@@ -202,6 +213,7 @@ void Patch::init(double tstart, double tend){
 	S.print();
 
 	// sio.S = &S;
+	props.b_output_cohort_props = true;
 	props.openStreams(config.out_dir);
 }
 
@@ -371,7 +383,7 @@ void Patch::calc_r0(double t){
 			throw std::runtime_error("r0 dt is less than the timestep!");
 		}
 
-		if (spp->seeds_hist1.size()>0) assert(fabs(spp->birth_flux_in - spp->seeds_hist1.get()) < 1e-6); // unless seeds_hist1 is empty, it's avg should equal input seed rain
+		if (spp->seeds_hist1.size() > 0) assert(fabs(spp->birth_flux_in - spp->seeds_hist1.get()) < 1e-6); // unless seeds_hist1 is empty, it's avg should equal input seed rain
 
 		double seeds_in = spp->birth_flux_in;     // This was S1[t-dt, x(t-dt)]
 		double seeds_out = spp->seeds_hist2.get(); // This is  S2[t, x(t-dt)],    i.e. average over seed-rain-avg interval, either a year or successional time window 
@@ -446,11 +458,12 @@ void Patch::simulate_to(double t){
 
 	// update output metrics - needed before removeDeadSpecies()
 	props.update(t, *this);
+	props.writeOut_inst(t, *this);
 
 	// write outputs - must be done before species list is altered
 	if (t > t_next_writestate || fabs(t - t_next_writestate) < 1e-6){
 		props.writeOut(t, *this);
-		t_next_writestate += 1;
+		t_next_writestate += 1 / par0.years_per_tunit_avg; // next write_state after one year
 	}
 
 	// remove species whose total abundance has fallen below threshold (its probes are also removed)
@@ -688,12 +701,12 @@ void Patch::simulateClimate(){
 
 	ofstream fout(std::string(config.out_dir + "/climate.csv").c_str());
 	fout << "t, " <<
-		"tc_acclim, " << 
-		"ppfd_acclim, " << 
-		"vpd_acclim, " << 
-		"co2_acclim, " << 
-		"elv_acclim, " << 
-		"swp_acclim, " << 
+		"tc_acclim, " <<
+		"ppfd_acclim, " <<
+		"vpd_acclim, " <<
+		"co2_acclim, " <<
+		"elv_acclim, " <<
+		"swp_acclim, " <<
 		"tc_inst, " <<
 		"ppfd_inst, " <<
 		"vpd_inst, " <<
@@ -713,17 +726,17 @@ void Patch::simulateClimate(){
 
 		fout << S.current_time << ", ";
 		fout << E.clim_acclim.tc << ", "
-		     << E.clim_acclim.ppfd << ", "
-		     << E.clim_acclim.vpd << ", "
-		     << E.clim_acclim.co2 << ", "
-		     << E.clim_acclim.elv << ", "
-		     << E.clim_acclim.swp << ", ";
+			<< E.clim_acclim.ppfd << ", "
+			<< E.clim_acclim.vpd << ", "
+			<< E.clim_acclim.co2 << ", "
+			<< E.clim_acclim.elv << ", "
+			<< E.clim_acclim.swp << ", ";
 		fout << E.clim_inst.tc << ", "
-		     << E.clim_inst.ppfd << ", "
-		     << E.clim_inst.vpd << ", "
-		     << E.clim_inst.co2 << ", "
-		     << E.clim_inst.elv << ", "
-		     << E.clim_inst.swp << "\n";
+			<< E.clim_inst.ppfd << ", "
+			<< E.clim_inst.vpd << ", "
+			<< E.clim_inst.co2 << ", "
+			<< E.clim_inst.elv << ", "
+			<< E.clim_inst.swp << "\n";
 
 		S.current_time = t;
 	}

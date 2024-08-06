@@ -39,12 +39,6 @@ int main(int argc, char ** argv){
 
 		// translate all time invervals to new units
 		sim.config.timestep = 0.04166666666666666666666*tpy;
-		sim.config.T_cohort_insertion *= tpy;
-		sim.config.T_invasion *= tpy;
-		sim.config.T_r0_avg *= tpy;
-		sim.config.T_return *= tpy;
-		sim.config.T_seed_rain_avg *= tpy;
-		sim.config.saveStateInterval *= tpy;
 
 		sim.E.init_co2(414);
 		sim.init(2000*tpy, 2100*tpy);
