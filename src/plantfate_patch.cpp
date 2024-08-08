@@ -195,6 +195,12 @@ void Patch::init(double tstart, double tend){
 		// TODO: restore config.ye such that prev years of evolution are accounted for
 		soil_env.need_spinup = false; // When restoring, the soil state is restored, so dont run spinup
 		soil_env.init();
+
+		// overwrite trait variances from config file
+		for (auto _spp : S.species_vec){
+			auto spp = static_cast<AdaptiveSpecies<PSPM_Plant>*>(_spp);
+			if (spp->isResident) spp->trait_variance = config.trait_variances;
+		}
 	}
 	else {
 		// ~~~~~~~~~~ Read initial trait values ~~~~~~~~~~~~~~~~~~~~~~~~~
