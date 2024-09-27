@@ -1,5 +1,6 @@
 #include "plantfate_patch.h"
 #include <filesystem>
+#include <algorithm>
 #include <csvrow.h>
 using namespace std;
 
