@@ -7,7 +7,9 @@ namespace pfate{
 
 Patch::Patch(std::string params_file) : S("IEBT", "rk45ck"){
 	config.paramsFile = params_file; // = "tests/params/p.ini";
+	// std::cout << "In Patch" << std::endl;
 	io::Initializer I;
+	// std::cout << "In Patch: initialiser opened" << std::endl;
 	I.parse(params_file);
 
 	config.parent_dir = I.get<string>("outDir");
@@ -210,7 +212,7 @@ void Patch::init(double tstart, double tend){
 
 //	std::random_shuffle(S.species_vec.begin(), S.species_vec.end());
 
-	S.print();
+	// S.print();
 
 	// sio.S = &S;
 	props.b_output_cohort_props = true;
@@ -221,11 +223,12 @@ void Patch::init(double tstart, double tend){
 void Patch::close(){
 	//S.print();
 	props.closeStreams();
-
-	saveState(*this,
+	if(config.save_state){
+		saveState(*this,
 		config.out_dir + "/" + config.state_outfile,
 		config.out_dir + "/" + config.config_outfile,
 		config.paramsFile);
+	}
 
 // free memory associated
 	for (auto s : S.species_vec) delete static_cast<AdaptiveSpecies<PSPM_Plant>*>(s);
@@ -485,18 +488,24 @@ void Patch::simulate_to(double t){
 
 	// Save simulation state at specified intervals
 	if (t > t_next_savestate || fabs(t - t_next_savestate) < 1e-6){
-		saveState(*this,
+		if(config.save_state){
+			saveState(*this,
 			config.out_dir + "/" + std::to_string(t) + "_" + config.state_outfile,
 			config.out_dir + "/" + std::to_string(t) + "_" + config.config_outfile,
 			config.paramsFile);
-
+		}
 		t_next_savestate += config.saveStateInterval;
+		
 	}
 
 	// Shuffle species - just for debugging. result shouldnt change
 	// if (fabs(t-int(t)) < 1e-6 && (int(t) % 10) == 0) shuffleSpecies(); 
 }
 
+void Patch::reset_time(double julian_time){
+	S.current_time = julian_time;
+	config.y0 = julian_time;
+}
 
 void Patch::update_climate(double julian_time, env::ClimateStream& c_stream){
 	c_stream.updateClimate(julian_time, E);
@@ -506,7 +515,7 @@ void Patch::update_climate(double julian_time, env::ClimateStream& c_stream){
 void Patch::update_climate(double _co2, double _tc, double _vpd, double _ppfd, double _swp, double _rn){
 	E.clim_inst.tc   = _tc;
 	E.clim_inst.ppfd = _ppfd;
-	E.clim_inst.rn   = _ppfd / 2;  // Tentative, placeholder
+	E.clim_inst.rn   = _rn;  // Tentative, placeholder
 	E.clim_inst.vpd  = _vpd;
 	E.clim_inst.co2  = _co2;
 	E.clim_inst.swp  = _swp;

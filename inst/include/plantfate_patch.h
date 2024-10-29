@@ -54,6 +54,8 @@ class Patch{
 
 	void simulate_to(double t);
 
+	void reset_time(double julian_time);
+
 	void update_climate(double julian_time, env::ClimateStream& c_stream);
 
 	void update_climate(double co2, double tc, double vpd, double ppfd, double swp, double rn);
