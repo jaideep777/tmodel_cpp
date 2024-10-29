@@ -18,7 +18,7 @@ inline void print_phydro(const phydro::PHydroResult& res, std::string s){
 template<class _Climate>
 phydro::PHydroResult Assimilator::leaf_assimilation_rate(double fipar, double fapar, _Climate& C, PlantParameters& par, PlantTraits& traits){
 
-	std::cout << "--- In LEAF ASIMILATION RATE ---" << std::endl;
+	// std::cout << "--- In LEAF ASIMILATION RATE ---" << std::endl;
 	phydro::ParCost par_cost(par.alpha, par.gamma);
 	phydro::ParPlant par_plant(traits.K_leaf, traits.p50_leaf, traits.b_leaf);
 	phydro::ParControl par_control;
